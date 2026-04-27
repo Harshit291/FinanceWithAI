@@ -10,11 +10,11 @@
 
 | # | Feature | Status | Session | Notes |
 |---|---|---|---|---|
-| 1 | `/docs` living documents + CLAUDE.md | **in progress** | 1 | Step A of session-1 plan. |
-| 2 | Monorepo scaffold (Next.js + Tailwind + shadcn/ui + FastAPI) | planned | 1 | Step C. |
-| 3 | TradingView Charting Library application submitted | **blocked** | 1 | Awaiting user-supplied entity, project URL, GitHub username. |
-| 4 | `/stocks/[symbol]` page — TradingView widget + mocked verdict card | planned | 1 | Step D. India + US symbol formatting. |
-| 5 | Symbol search (Finnhub primary + IndianAPI.in fallback) | planned | 1 | Pending Finnhub NSE smoke check (ADR-0002a). |
+| 1 | `/docs` living documents + CLAUDE.md | **done** | 1 | 3 commits, 2026-04-27. |
+| 2 | Monorepo scaffold (Next.js 16 + Tailwind v4 + shadcn/ui + FastAPI) | **done** | 1 | Next.js 16.2.4 / React 19 / TS strict. |
+| 3 | TradingView Charting Library application submitted | **blocked** | 1 | Awaiting legal entity, project URL, GitHub username from user. |
+| 4 | `/stocks/[symbol]` page — TradingView widget + mocked verdict card | **done** | 1 | HTTP 200, NSE + US, mobile-first, SEBI+SEC disclaimer. |
+| 5 | Symbol search (Finnhub primary + IndianAPI.in fallback) | **in progress** | 1/2 | Stub + 15-symbol fallback live. Pending ADR-0002a API key smoke check. |
 | 6 | Anthropic Claude integration in FastAPI synthesis pipeline | planned | 2 | Drops the mock verdict; full §5 pipeline behind a feature flag. |
 | 7 | News fetch + per-article classification (Haiku 4.5) | planned | 2 | Per §5.3–5.4. |
 | 8 | Fundamentals + peers + 4-quarter results | planned | 2 | Finnhub + IndianAPI.in. |
