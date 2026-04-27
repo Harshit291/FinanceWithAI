@@ -30,8 +30,15 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
-# env files (can opt-in for committing if needed)
+# env files — .env.example is committed intentionally (no secrets, all keys unset)
 .env*
+!.env.example
+
+# Python / FastAPI
+services/.venv/
+services/__pycache__/
+services/**/__pycache__/
+services/**/*.pyc
 
 # vercel
 .vercel
