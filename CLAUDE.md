@@ -1,52 +1,88 @@
 # CLAUDE.md — FinAI
 
-This file auto-loads in every Claude Code session in this repo. It is a slim orientation. The full rulebook lives at [docs/PROJECT_INSTRUCTIONS.md](docs/PROJECT_INSTRUCTIONS.md) — read it before doing non-trivial work.
+Auto-loaded every Claude Code session. Full rulebook: [docs/PROJECT_INSTRUCTIONS.md](docs/PROJECT_INSTRUCTIONS.md).
+
+---
+
+## When the user says "init" — run this every time
+
+1. **Read** [docs/PROJECT_STATUS.md](docs/PROJECT_STATUS.md) and [docs/TASKS.md](docs/TASKS.md).
+2. **Review the current build**: check the repo for anything broken, unfinished, or worth calling out (missing tests, TODO markers, open questions in docs).
+3. **Restate** in 2-3 sentences: what is done, what is blocked, what is the immediate next task.
+4. **Ask the user one question** before doing anything: "Should I proceed with [next task], or is there something else you'd like to focus on first?"
+5. **Only after the user confirms** — show a plan (for tasks touching > 1 file), get approval, then implement.
+
+Never skip steps 3-4. Never start implementing before the user says go.
+
+---
+
+## Currently focused tasks (Session 2)
+
+These are the next ~5 tasks in priority order. Full list: [docs/TASKS.md](docs/TASKS.md).
+
+- [ ] **ADR-0002a:** Finnhub free-tier NSE/BSE smoke check — needs `FINNHUB_API_KEY` in `.env.local`. Once done, update `docs/DECISIONS.md` ADR-0002a and possibly reroute India symbols in `lib/data/symbol-search.ts`.
+- [ ] **Real LLM:** install `@anthropic-ai/sdk`, wire `lib/ai/llm.ts` to `claude-opus-4-7` (via `LLM_SYNTHESIS_MODEL` env), add Zod validation on every response.
+- [ ] **FastAPI pipeline:** build `services/app/pipeline/` — resolve → fundamentals → news → classify (haiku-4-5) → peers → synthesize (opus-4-7). Full §5 order.
+- [ ] **Drop mock:** wire `POST /api/reports` to FastAPI; remove the "Sample report" banner from `VerdictCard.tsx`.
+- [ ] **Symbol search input:** add a search box to the `/stocks/[symbol]` page header backed by `GET /api/symbols`.
+
+Blocked (needs user input before we can start):
+- TradingView Charting Library application — need legal entity, project URL, GitHub username. Submit at https://www.tradingview.com/advanced-charts/
+
+---
 
 ## What this project is
 
-FinAI: a mobile-responsive web app combining TradingView's professional charting with an AI-powered fundamental research engine that issues a structured short / medium / long-term verdict for any listed stock, with a confidence score. Markets covered day-one: **NSE/BSE (India) + NYSE/NASDAQ (US)**.
+**FinAI** — mobile-responsive stock research. TradingView chart + AI fundamental verdict (short/medium/long-term stance + confidence score). Markets: **NSE/BSE (India) + NYSE/NASDAQ (US)**, day one.
 
-## Session-start protocol (do this every session)
+**Tech stack:** Next.js 16 / React 19 / Tailwind v4 / TypeScript strict | FastAPI (Python) | Postgres + Redis (session 3) | Anthropic Claude API | Finnhub + IndianAPI.in.
 
-1. Read [docs/PROJECT_STATUS.md](docs/PROJECT_STATUS.md) — single source of truth for "where are we now".
-2. Restate the *current sprint goal* and *next up* in one paragraph. Confirm with the user before coding.
-3. Flag any *open questions* in PROJECT_STATUS.md before proceeding.
-4. If a decision touches architecture, scope, or stack, check [docs/DECISIONS.md](docs/DECISIONS.md) first — don't relitigate settled ADRs.
-
-## Session-end protocol (do this without being asked)
-
-After any session that produced changes, update:
-- [docs/PROJECT_STATUS.md](docs/PROJECT_STATUS.md) — what shipped, what's untested, what's blocked, what's next.
-- [docs/CHANGELOG.md](docs/CHANGELOG.md) — human-readable entry by date.
-- [docs/DECISIONS.md](docs/DECISIONS.md) — any new ADR.
-- Any other living doc that the change touched (`API_CONTRACTS.md`, `PROMPTS.md`, `ENV_VARIABLES.md`, `ROADMAP.md`, `ARCHITECTURE.md`).
-
-## Non-negotiable rules (full list in PROJECT_INSTRUCTIONS.md §1, §7, §14)
-
-- **No fabricated numbers.** Prices, ratios, EPS, returns, news content — never invent. If a value isn't available, the UI shows "unavailable" and the AI verdict marks the field accordingly.
-- **Disclaimer everywhere.** Every page that shows a stance, return range, or AI commentary renders the §6 disclaimer (referencing **both** SEBI and SEC because we cover both markets) — visible, not collapsed.
-- **Mobile-first.** If it doesn't work cleanly at 375×667, it isn't done. Verify at 375 and 1440 before declaring complete.
-- **No hardcoded model names.** All Claude calls go through [lib/ai/llm.ts](lib/ai/llm.ts) and read model IDs from env (`LLM_SYNTHESIS_MODEL`, `LLM_CLASSIFIER_MODEL`).
-- **Schema-validate every LLM response** against the §6 verdict shape. One retry, then a graceful error — never let the model invent fields.
-- **Never design "log in with TradingView"** flows — that product doesn't exist publicly.
-- **Secrets in env only.** `.env.example` lists every key, all unset. Never commit `.env*`.
-
-## How Claude communicates here
-
-- Plans before code for any task touching more than one file.
-- One clarifying question at a time when ambiguous.
-- Cite reality. If a library version, API, or TradingView feature is uncertain, search the web — don't guess.
-- Honesty over agreement, especially on financial-recommendation safety.
-- Small reviewable diffs over giant rewrites.
-- File paths in code blocks (e.g., `app/(app)/stocks/[symbol]/page.tsx`).
-
-## Folder map (canonical — see PROJECT_INSTRUCTIONS.md §11 for full)
-
+**Repo layout:**
 ```
-/app           # Next.js App Router (frontend + BFF route handlers)
-/components    # ui (shadcn) / charts / ai-report
-/lib           # ai/ (llm adapter + prompts), data/ (provider clients), db/, auth/
-/services      # FastAPI research pipeline (Python)
-/docs          # the eight living documents — read first, update last
-/tests         # /e2e
+/app/(app)/stocks/[symbol]   ← main feature page
+/components/charts/           ← TradingView widget wrapper
+/components/ai-report/        ← verdict cards, confidence bar, disclaimer
+/lib/ai/                      ← LLM adapter (llm.ts), schema (schema.ts), mock
+/lib/data/                    ← Finnhub, IndianAPI.in, symbol-search dispatcher
+/services/app/                ← FastAPI pipeline
+/docs/                        ← living documents (read first, update last)
 ```
+
+---
+
+## Non-negotiable rules
+
+- **No fabricated numbers.** Prices, ratios, EPS — never invent. Show "unavailable" instead.
+- **Disclaimer always visible.** Every page with AI commentary shows the §6 disclaimer (SEBI + SEC). Never collapsed.
+- **Mobile-first.** Verify every screen at 375×667 (iPhone SE) before calling it done.
+- **No hardcoded model names.** All Claude calls read `LLM_SYNTHESIS_MODEL` / `LLM_CLASSIFIER_MODEL` from env. Everything goes through `lib/ai/llm.ts`.
+- **Secrets in env only.** Never commit `.env.local`. `.env.example` is committed (all keys unset).
+- **Plans before code** for tasks touching > 1 file. Show the plan, wait for approval, then implement.
+- **`// TODO(charting-library):`** marker on every chart component — grep token for the widget → Charting Library migration.
+
+---
+
+## Key files to know
+
+| File | Purpose |
+|---|---|
+| [docs/TASKS.md](docs/TASKS.md) | ✅ completed / 🔲 pending task tracker — updated every session |
+| [docs/PROJECT_STATUS.md](docs/PROJECT_STATUS.md) | Current sprint goal, blocked, open questions |
+| [docs/DECISIONS.md](docs/DECISIONS.md) | ADR log — settled decisions, don't relitigate |
+| [docs/API_CONTRACTS.md](docs/API_CONTRACTS.md) | §6 verdict schema (canonical) + internal API shapes |
+| [docs/PROMPTS.md](docs/PROMPTS.md) | Production prompt templates (SYNTH_SYSTEM_V1, CLASSIFY_SYSTEM_V1) |
+| [docs/ENV_VARIABLES.md](docs/ENV_VARIABLES.md) | Every env var, purpose, required environment |
+| [lib/ai/schema.ts](lib/ai/schema.ts) | TypeScript §6 VerdictReport types |
+| [lib/ai/mock-verdict.ts](lib/ai/mock-verdict.ts) | Static mock verdict (remove in session 2) |
+| [lib/data/symbol-search.ts](lib/data/symbol-search.ts) | Exchange-aware dispatcher; 15-symbol fallback |
+
+---
+
+## Session-end checklist (do this without being asked)
+
+After every session that produces changes:
+1. Update `docs/TASKS.md` — move completed items to ✅, add any newly discovered tasks.
+2. Update `docs/PROJECT_STATUS.md` — new sprint goal, blocked, open questions.
+3. Update `docs/CHANGELOG.md` — human-readable entry.
+4. Update any other living doc touched by the session (`DECISIONS.md`, `ARCHITECTURE.md`, `API_CONTRACTS.md`, `PROMPTS.md`, `ENV_VARIABLES.md`).
+5. Commit the doc updates as a separate `docs:` commit.
