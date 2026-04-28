@@ -104,11 +104,13 @@ Blocked (needs user input before we can start):
 
 ---
 
-## Session-end checklist (do this without being asked)
+## Session-end checklist (MANDATORY — do this without being asked, every single session)
 
-After every session that produces changes:
-1. Update `docs/TASKS.md` — move completed items to ✅, add any newly discovered tasks.
-2. Update `docs/PROJECT_STATUS.md` — new sprint goal, blocked, open questions.
-3. Update `docs/CHANGELOG.md` — human-readable entry.
-4. Update any other living doc touched by the session (`DECISIONS.md`, `ARCHITECTURE.md`, `API_CONTRACTS.md`, `PROMPTS.md`, `ENV_VARIABLES.md`).
-5. Commit the doc updates as a separate `docs:` commit.
+**This is non-negotiable. Never end a session without completing all five steps.**
+
+1. Update `CLAUDE.md` — "Currently focused tasks" section must reflect the next session's priorities, not the current one. Update repo layout and key files table if anything changed.
+2. Update `docs/PROJECT_STATUS.md` — mark sprint goal done/in-progress, update "Next up", update "Open questions", update "Last updated" date.
+3. Update `docs/TASKS.md` — move completed items to ✅, add any newly discovered tasks.
+4. Update `docs/CHANGELOG.md` — human-readable entry for what shipped this session.
+5. Update any other living doc touched by the session (`DECISIONS.md`, `ARCHITECTURE.md`, `API_CONTRACTS.md`, `PROMPTS.md`, `ENV_VARIABLES.md`).
+6. Commit all doc updates as a separate `docs:` commit.
