@@ -31,15 +31,15 @@ Never skip steps 3-4. Never start implementing before the user says go.
 
 ---
 
-## Currently focused tasks (Session 2)
+## Currently focused tasks (Session 4)
 
 These are the next ~5 tasks in priority order. Full list: [docs/TASKS.md](docs/TASKS.md).
 
-- [ ] **ADR-0002a:** Finnhub free-tier NSE/BSE smoke check — needs `FINNHUB_API_KEY` in `.env.local`. Once done, update `docs/DECISIONS.md` ADR-0002a and possibly reroute India symbols in `lib/data/symbol-search.ts`.
-- [ ] **Real LLM:** install `@anthropic-ai/sdk`, wire `lib/ai/llm.ts` to `claude-opus-4-7` (via `LLM_SYNTHESIS_MODEL` env), add Zod validation on every response.
-- [ ] **FastAPI pipeline:** build `services/app/pipeline/` — resolve → fundamentals → news → classify (haiku-4-5) → peers → synthesize (opus-4-7). Full §5 order.
-- [ ] **Drop mock:** wire `POST /api/reports` to FastAPI; remove the "Sample report" banner from `VerdictCard.tsx`.
-- [ ] **Symbol search input:** add a search box to the `/stocks/[symbol]` page header backed by `GET /api/symbols`.
+- [ ] **Watchlist CRUD** — add/remove symbols per user. Prisma `WatchlistItem` table already exists. Need: POST/DELETE `/api/watchlist`, watchlist UI component on stock page (heart/bookmark toggle).
+- [ ] **Saved AI reports** — persist `AiReport` rows (immutable; "refresh" creates a new row). Need: wire `/api/reports` to write to DB after synthesis, `GET /api/reports` to list user's saved reports.
+- [ ] **Supabase migration** — swap SQLite → Supabase Postgres. Steps: change `provider = "sqlite"` → `provider = "postgresql"` in `prisma/schema.prisma`, swap `@prisma/adapter-better-sqlite3` → `@prisma/adapter-pg`, run `prisma migrate deploy`. User confirmed Supabase as provider.
+- [ ] **Anthropic API key** — once `ANTHROPIC_API_KEY` is set in `.env.local`, update `baseURL` + model in `services/app/pipeline/_shared.py` to use Anthropic instead of Groq.
+- [ ] **IndianAPI.in key** — needed to unlock India (`.NS`/`.BO`) verdicts; currently returns `insufficient_data`.
 
 Blocked (needs user input before we can start):
 - TradingView Charting Library application — need legal entity, project URL, GitHub username. Submit at https://www.tradingview.com/advanced-charts/
@@ -50,15 +50,23 @@ Blocked (needs user input before we can start):
 
 **FinAI** — mobile-responsive stock research. TradingView chart + AI fundamental verdict (short/medium/long-term stance + confidence score). Markets: **NSE/BSE (India) + NYSE/NASDAQ (US)**, day one.
 
-**Tech stack:** Next.js 16 / React 19 / Tailwind v4 / TypeScript strict | FastAPI (Python) | Postgres + Redis (session 3) | Anthropic Claude API | Finnhub + IndianAPI.in.
+**Tech stack:** Next.js 16 / React 19 / Tailwind v4 / TypeScript strict | FastAPI (Python) | Prisma 7 + SQLite (dev) → Supabase Postgres (prod) | NextAuth.js v5 | Anthropic Claude API (Groq in dev) | Finnhub + IndianAPI.in.
 
 **Repo layout:**
 ```
 /app/(app)/stocks/[symbol]   ← main feature page
-/components/charts/           ← TradingView widget wrapper
+/app/(auth)/login|register   ← auth pages (dark glassmorphism)
+/app/api/auth/               ← NextAuth handlers + register endpoint
+/components/charts/           ← TradingView widget + LightweightChart
 /components/ai-report/        ← verdict cards, confidence bar, disclaimer
-/lib/ai/                      ← LLM adapter (llm.ts), schema (schema.ts), mock
-/lib/data/                    ← Finnhub, IndianAPI.in, symbol-search dispatcher
+/components/auth/             ← LoginForm, RegisterForm
+/components/ui/               ← FinAILogo, Badge, Card, Button
+/lib/ai/                      ← LLM adapter (llm.ts), Zod schema
+/lib/auth/                    ← config.ts (full), config.edge.ts (middleware-safe)
+/lib/data/                    ← Yahoo Finance, Finnhub, symbol-search dispatcher
+/lib/prisma.ts                ← Prisma singleton (BetterSQLite3 adapter)
+/prisma/                      ← schema.prisma + migrations
+/prisma.config.ts             ← Prisma 7 connection config (url lives here, not schema)
 /services/app/                ← FastAPI pipeline
 /docs/                        ← living documents (read first, update last)
 ```
@@ -88,7 +96,10 @@ Blocked (needs user input before we can start):
 | [docs/PROMPTS.md](docs/PROMPTS.md) | Production prompt templates (SYNTH_SYSTEM_V1, CLASSIFY_SYSTEM_V1) |
 | [docs/ENV_VARIABLES.md](docs/ENV_VARIABLES.md) | Every env var, purpose, required environment |
 | [lib/ai/schema.ts](lib/ai/schema.ts) | TypeScript §6 VerdictReport types |
-| [lib/ai/mock-verdict.ts](lib/ai/mock-verdict.ts) | Static mock verdict (remove in session 2) |
+| [lib/auth/config.ts](lib/auth/config.ts) | Full NextAuth config (PrismaAdapter + providers) — import for API routes only |
+| [lib/auth/config.edge.ts](lib/auth/config.edge.ts) | Edge-safe NextAuth config (JWT only, no Prisma) — used by middleware |
+| [lib/prisma.ts](lib/prisma.ts) | Prisma singleton; BetterSQLite3 adapter (swap to pg for Supabase) |
+| [prisma/schema.prisma](prisma/schema.prisma) | DB schema: User, Account, Session, WatchlistItem, AiReport |
 | [lib/data/symbol-search.ts](lib/data/symbol-search.ts) | Exchange-aware dispatcher; 15-symbol fallback |
 
 ---

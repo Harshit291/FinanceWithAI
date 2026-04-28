@@ -2,15 +2,15 @@
 
 > Single source of truth for "where are we right now". Updated at the end of every working session.
 
-**Last updated:** 2026-04-28 (session 3 partial)
+**Last updated:** 2026-04-28 (session 3 complete)
 
 ---
 
 ## Current sprint goal
 
-🔄 **Session 3 in progress.** Auth foundation complete: NextAuth.js v5 + Prisma 7 + SQLite local DB, email+password + Google OAuth, edge/node split middleware, register endpoint. Full "Precision Terminal" dark redesign shipped across all pages.
+✅ **Session 3 complete.** Auth foundation (NextAuth.js v5 + Prisma 7 + SQLite), full "Precision Terminal" dark redesign, middleware route guards, register endpoint — all shipped and committed.
 
-Next in session 3: watchlist CRUD, saved AI reports, Supabase migration.
+Next sprint goal: **Session 4 — persistence features.** Watchlist CRUD, saved AI reports, Supabase Postgres migration.
 
 ## Last session summary (2026-04-28 — session 3 partial)
 
@@ -44,7 +44,7 @@ Next in session 3: watchlist CRUD, saved AI reports, Supabase migration.
 
 ## In progress
 
-Nothing actively running. Session 3 partial commit pending.
+Nothing. Session 3 complete and committed.
 
 ## Blocked
 
@@ -56,18 +56,17 @@ Nothing actively running. Session 3 partial commit pending.
   Once provided, submit at https://www.tradingview.com/advanced-charts/. Tracked in DECISIONS.md ADR-0005 and ROADMAP.md item #3.
 - **Finnhub free-tier NSE/BSE smoke check (ADR-0002a):** requires a Finnhub API key. Once the user adds `FINNHUB_API_KEY` to `.env.local`, run: `curl "https://finnhub.io/api/v1/quote?symbol=RELIANCE.NS&token=<YOUR_KEY>"` for a few NSE/BSE tickers. If `c > 0` is returned, Finnhub free tier covers it; otherwise route India through IndianAPI.in. Update ADR-0002a in DECISIONS.md with findings.
 
-## Next up (session 3 — remaining)
+## Next up (session 4 — in order)
 
-1. Watchlist CRUD: add/remove symbols, persist per user (Prisma WatchlistItem table ready).
-2. Saved AI reports (immutable rows; "refresh" creates new row).
-3. Migrate local SQLite → Supabase Postgres when ready for production.
-4. Redis (Upstash) for report caching.
-5. Wire `ANTHROPIC_API_KEY` once available; swap Groq → Claude in `.env.local`.
+1. **Watchlist CRUD** — POST/DELETE `/api/watchlist`, bookmark toggle on stock page. `WatchlistItem` table already in schema.
+2. **Saved AI reports** — write `AiReport` row after synthesis; `GET /api/reports` to list user's history.
+3. **Supabase migration** — swap `provider = "sqlite"` → `"postgresql"` + `@prisma/adapter-pg`; run `prisma migrate deploy`.
+4. **Redis (Upstash)** — cache synthesised reports for 1 h to avoid redundant LLM calls.
+5. **Anthropic API key** — set `ANTHROPIC_API_KEY` in `.env.local`; update `_shared.py` `baseURL` + model.
 
 ## Open questions for the user
 
 1. **TradingView Charting Library application:** what legal entity, project URL, GitHub username?
-2. **Hosting region:** Vercel default (US-East) or India-region for NSE latency? Affects session 3 infra choices.
-3. **Anthropic API key:** swap Groq → Claude once key is available — just set `ANTHROPIC_API_KEY` in `.env.local` and update `GROQ_API_KEY` usage in `services/app/pipeline/_shared.py`.
+2. **Hosting region:** Vercel default (US-East) or India-region for NSE latency?
+3. **Anthropic API key:** swap Groq → Claude once key is available — set `ANTHROPIC_API_KEY` in `.env.local`, update `baseURL` + model in `services/app/pipeline/_shared.py`.
 4. **IndianAPI.in key:** needed to unlock India (`.NS`/`.BO`) verdicts — currently returns `insufficient_data`.
-5. **Postgres provider:** Supabase or Neon for session 3?
