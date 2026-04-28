@@ -2,15 +2,30 @@
 
 > Single source of truth for "where are we right now". Updated at the end of every working session.
 
-**Last updated:** 2026-04-28 (session 2 complete)
+**Last updated:** 2026-04-28 (session 3 partial)
 
 ---
 
 ## Current sprint goal
 
-✅ **Session 2 goal achieved.** FastAPI synthesis pipeline live (resolve → fundamentals → news → classify → peers → synthesize). Next.js BFF forwards to FastAPI; real Groq LLM verdicts on US stocks. Symbol search input in page header. ADR-0002a resolved: Finnhub free tier is US-only.
+🔄 **Session 3 in progress.** Auth foundation complete: NextAuth.js v5 + Prisma 7 + SQLite local DB, email+password + Google OAuth, edge/node split middleware, register endpoint. Full "Precision Terminal" dark redesign shipped across all pages.
 
-Next sprint goal: **Session 3 — auth + persistence.** NextAuth.js, Postgres (Supabase/Neon), Redis (Upstash), Prisma schema, watchlists, saved AI reports.
+Next in session 3: watchlist CRUD, saved AI reports, Supabase migration.
+
+## Last session summary (2026-04-28 — session 3 partial)
+
+**Auth foundation + full dark redesign.**
+
+- **Auth:** NextAuth.js v5 (Credentials + Google) wired. Prisma 7 + SQLite (BetterSQLite3 adapter). Schema: User, Account, Session, VerificationToken, WatchlistItem, AiReport. Register endpoint with bcrypt. Edge/Node config split so middleware doesn't hit Node.js APIs.
+- **Redesign — "Precision Terminal" aesthetic:** cyan accent, monospace data, left-edge gradient bars, dark glassmorphism auth cards, CSS ticker tape on landing page, left-aligned asymmetric hero, numbered feature strip. All pages consistent: landing, `/stocks/[symbol]`, `/login`, `/register`.
+- **DB migration path:** SQLite locally → Supabase (PostgreSQL) for production. Just swap provider + adapter in `prisma.config.ts`.
+- **TypeScript:** clean (`tsc --noEmit`). All auth pages, forms, middleware verified.
+
+**Notable Prisma 7 gotchas:**
+- No `url` in `schema.prisma` datasource (moved to `prisma.config.ts`).
+- `PrismaClient` requires either `adapter` or `accelerateUrl` — bare constructor fails.
+- Correct export from `@prisma/adapter-better-sqlite3` is `PrismaBetterSqlite3` (not `PrismaLibSQL`).
+- Adapter takes `{ url: absolutePath }` config object, not a Database instance.
 
 ## Last session summary (2026-04-27)
 
@@ -29,7 +44,7 @@ Next sprint goal: **Session 3 — auth + persistence.** NextAuth.js, Postgres (S
 
 ## In progress
 
-Nothing. Session 2 is complete.
+Nothing actively running. Session 3 partial commit pending.
 
 ## Blocked
 
@@ -41,16 +56,13 @@ Nothing. Session 2 is complete.
   Once provided, submit at https://www.tradingview.com/advanced-charts/. Tracked in DECISIONS.md ADR-0005 and ROADMAP.md item #3.
 - **Finnhub free-tier NSE/BSE smoke check (ADR-0002a):** requires a Finnhub API key. Once the user adds `FINNHUB_API_KEY` to `.env.local`, run: `curl "https://finnhub.io/api/v1/quote?symbol=RELIANCE.NS&token=<YOUR_KEY>"` for a few NSE/BSE tickers. If `c > 0` is returned, Finnhub free tier covers it; otherwise route India through IndianAPI.in. Update ADR-0002a in DECISIONS.md with findings.
 
-## Next up (session 3 — in order)
+## Next up (session 3 — remaining)
 
-1. Auth: NextAuth.js (email+password + Google OAuth) — `lib/auth/`, `app/api/auth/[...nextauth]/`.
-2. Postgres provisioning (Supabase or Neon — decide at session start).
-3. Redis provisioning (Upstash).
-4. Prisma/Drizzle schema: users, watchlists, ai_reports.
-5. Watchlist CRUD: add/remove symbols, persist per user.
-6. Saved AI reports (immutable rows; "refresh" creates new row).
-7. Guard `/app/*` routes — redirect unauthenticated users to `/login`.
-8. Wire `ANTHROPIC_API_KEY` once available; swap Groq → Claude in `.env.local`.
+1. Watchlist CRUD: add/remove symbols, persist per user (Prisma WatchlistItem table ready).
+2. Saved AI reports (immutable rows; "refresh" creates new row).
+3. Migrate local SQLite → Supabase Postgres when ready for production.
+4. Redis (Upstash) for report caching.
+5. Wire `ANTHROPIC_API_KEY` once available; swap Groq → Claude in `.env.local`.
 
 ## Open questions for the user
 

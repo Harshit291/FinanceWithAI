@@ -4,6 +4,55 @@
 
 ---
 
+## 2026-04-28 — Session 3: auth foundation + "Precision Terminal" redesign
+
+### Added
+- `prisma/schema.prisma` — full NextAuth adapter tables (User, Account, Session, VerificationToken) + app models (WatchlistItem, AiReport).
+- `prisma/migrations/` — initial SQLite migration.
+- `lib/prisma.ts` — Prisma 7 singleton using `PrismaBetterSqlite3` adapter; resolves absolute DB path.
+- `lib/auth/config.edge.ts` — Edge-safe NextAuth config (JWT only, no Prisma); used by middleware.
+- `lib/auth/config.ts` — Full NextAuth config (PrismaAdapter, Credentials + Google providers, bcrypt).
+- `app/api/auth/[...nextauth]/route.ts` — NextAuth API route (handlers from full config).
+- `app/api/auth/register/route.ts` — Registration endpoint: bcrypt hash, duplicate-email check, 201/400/409.
+- `middleware.ts` — Edge middleware guarding `/app/*`; redirects unauthenticated users to `/login?callbackUrl=...`.
+- `app/(auth)/login/page.tsx` + `app/(auth)/register/page.tsx` — Dark auth pages with FinAI logo, glassmorphism card.
+- `components/auth/LoginForm.tsx` + `components/auth/RegisterForm.tsx` — Dark forms with cyan CTA, monospace labels.
+- `components/ui/FinAILogo.tsx` — Blue square candlestick icon + "Fin**AI**" wordmark.
+- `app/page.tsx` — Full redesign: asymmetric left-aligned hero, CSS ticker tape, stats table, numbered feature strip.
+- `app/(app)/layout.tsx` — Dark sticky nav with FinAILogo.
+- `app/(auth)/layout.tsx` — Dark centered layout with subtle grid background.
+
+### Changed
+- `app/globals.css` — dark theme base (`--background: #020617`), ticker tape keyframe animation.
+- `app/layout.tsx` — `bg-slate-950 text-slate-100` body classes.
+- `components/ai-report/HorizonCard.tsx` — left-edge gradient accent bar, monospace return range numbers, Catalysts/Risks sections.
+- `components/ai-report/VerdictCard.tsx` — stacked HorizonCards, AI Insight box with Sparkles icon.
+- `components/ai-report/ConfidenceBar.tsx` — dark track, glowing fill.
+- `components/ai-report/Disclaimer.tsx` — amber-tinted dark border style.
+- `components/ui/badge.tsx` + `components/ui/card.tsx` — dark opacity variants.
+- `components/charts/TradingViewWidget.tsx` — `theme: "dark"`.
+- `app/(app)/stocks/[symbol]/ChartPanel.tsx` — `border-slate-800 bg-slate-900` wrapper.
+- `app/(app)/stocks/[symbol]/page.tsx` — editorial header with font-mono; centered "Fundamental Analysis" divider.
+
+### Design system
+- Aesthetic: "Precision Terminal" — cyan accent (`#06b6d4`), slate-950 base, monospace numbers throughout.
+- Differentiated from generic AI pattern (no purple gradients, no centered hero, no icon card grids).
+
+### Tech notes (Prisma 7 breaking changes for future reference)
+- No `url` field in `schema.prisma` datasource — connection URL lives in `prisma.config.ts` only.
+- `PrismaClient` constructor requires `adapter` or `accelerateUrl` — bare `new PrismaClient()` throws.
+- Correct export: `PrismaBetterSqlite3` from `@prisma/adapter-better-sqlite3` (not `PrismaLibSQL`).
+- Adapter takes `{ url: absolutePath }` config object.
+
+### Verified
+- TypeScript: clean (`tsc --noEmit`).
+- Login page: dark card, grid background, cyan "Sign in" button, FinAI logo.
+- Register page: same aesthetic, 3-field form, "Create account" CTA.
+- Landing page: ticker tape, left hero, stats table, feature strip.
+- Stock page: monospace header, "Fundamental Analysis" divider, dark HorizonCards.
+
+---
+
 ## 2026-04-28 — Session 2 (continued): Lightweight Charts integration
 
 ### Added

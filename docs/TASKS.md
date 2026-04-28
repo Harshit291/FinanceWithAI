@@ -62,13 +62,17 @@
 - [ ] TradingView Advanced Charts licence — submit application (legal entity + GitHub username needed)
 
 ### Session 3 — Auth + Persistence
-- [ ] Auth: NextAuth.js (email+password + Google OAuth) — `lib/auth/`, `app/api/auth/[...nextauth]/`
-- [ ] Postgres provisioning (Supabase or Neon — decide in session 3)
+- [x] Auth: NextAuth.js v5 (email+password + Google OAuth) — `lib/auth/`, `app/api/auth/[...nextauth]/`
+- [x] Prisma 7 + SQLite (BetterSQLite3 adapter) — local dev DB; schema: users, accounts, sessions, watchlist, ai_reports
+- [x] `app/api/auth/register/route.ts` — bcrypt password hashing, duplicate-email guard
+- [x] Edge/Node auth split — `lib/auth/config.edge.ts` (JWT, no Prisma) for middleware; `lib/auth/config.ts` (full) for API routes
+- [x] `middleware.ts` — guards `/app/*` routes; redirects unauthenticated to `/login?callbackUrl=...`
+- [x] Full "Precision Terminal" dark redesign — landing page, stock page, auth pages, nav, all AI report components
+- [x] Auth pages (`/login`, `/register`) — dark glassmorphism card, grid background, cyan CTA, monospace labels
+- [ ] Postgres migration (Supabase) — swap adapter when ready for production
 - [ ] Redis provisioning (Upstash — likely choice)
-- [ ] Prisma/Drizzle schema: users, watchlists, ai_reports
 - [ ] Watchlist CRUD: add/remove symbols, persist per user
 - [ ] Saved AI reports (immutable rows; "refresh" creates new row per §5.7)
-- [ ] Guard `/app/*` routes — redirect unauthenticated users to `/login`
 
 ### Session 4 — Polish + Safety
 - [ ] Rate limiting: 20 AI reports/day on free tier; quota meter in UI
