@@ -65,7 +65,7 @@ export async function searchSymbols(query: string): Promise<SymbolResult[]> {
       const results = await searchIndianSymbol(query);
       return results.map(fromIndian).slice(0, 8);
     }
-    // Default: Finnhub covers both US and basic NSE/BSE (pending ADR-0002a)
+    // ADR-0002a: Finnhub free tier covers US only; India paths need IndianAPI.in
     const results = await finnhubSearch(query);
     return results.map(fromFinnhub).slice(0, 8);
   } catch {

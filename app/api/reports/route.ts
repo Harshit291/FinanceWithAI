@@ -10,7 +10,6 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "symbol is required", code: "MISSING_SYMBOL" }, { status: 400 });
   }
 
-  // TODO(session-2): check Postgres cache; call FastAPI pipeline for real synthesis
   const report = await synthesiseVerdict(symbol);
   return NextResponse.json(report);
 }
