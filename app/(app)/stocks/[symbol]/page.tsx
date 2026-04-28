@@ -1,7 +1,6 @@
 /**
  * /stocks/[symbol] — the workhorse page.
- * Session 1: TradingView widget (free) + mocked §6 verdict card.
- * Session 2: wire real LLM synthesis via the FastAPI pipeline.
+ * Session 2: TradingView widget (free) + real LLM synthesis via Groq.
  *
  * Layout: stacked (< 640px) | side-by-side (≥ 640px) per §8.
  * Verified at 375×667 (iPhone SE) and 1440×900.
@@ -28,7 +27,6 @@ export default async function StockPage({ params }: Props) {
 
   if (!decodedSymbol || decodedSymbol.length > 20) notFound();
 
-  // Session 1: synthesiseVerdict returns a mock — no API key needed.
   const report = await synthesiseVerdict(decodedSymbol);
 
   return (
@@ -72,7 +70,7 @@ export default async function StockPage({ params }: Props) {
 
         {/* AI verdict */}
         <div className="w-full sm:w-2/5">
-          <VerdictCard report={report} isMock />
+          <VerdictCard report={report} />
         </div>
       </div>
     </main>
