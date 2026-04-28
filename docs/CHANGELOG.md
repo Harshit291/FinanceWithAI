@@ -4,6 +4,33 @@
 
 ---
 
+## 2026-04-28 — Session 2 (continued): FastAPI pipeline + symbol search
+
+### Added
+- `services/app/pipeline/` — full §5 pipeline: `resolve.py`, `fundamentals.py`, `news.py`, `classify.py`, `peers.py`, `synthesize.py`.
+- `services/app/models.py` — Pydantic `VerdictReport` / `Horizon` / `DataSource` models mirroring the TypeScript §6 schema.
+- `lib/ai/llm.ts` — rewired to call FastAPI (`FASTAPI_URL/reports`); Zod validates every FastAPI response.
+- `components/ui/SymbolSearch.tsx` — debounced client-side search input; calls `/api/symbols`, shows dropdown, navigates on selection.
+- Symbol search input added to `/stocks/[symbol]` page header (desktop: right-aligned; mobile: full-width below title).
+
+### Changed
+- `.env.local` — fixed duplicate `FINNHUB_API_KEY` (removed stale empty line; key now set once).
+- `app/(app)/stocks/[symbol]/page.tsx` — added `SymbolSearch`; fixed page title (was "AAPL — FinAI — FinAI", now "AAPL — FinAI").
+- `app/api/reports/route.ts` — removed stale session-2 TODO comment.
+- `lib/data/symbol-search.ts` — updated inline comment to reflect ADR-0002a resolution.
+- `.mcp.json` — reverted to default (Chrome installed; `--browser msedge` workaround no longer needed).
+
+### Verified (Playwright)
+- `/stocks/AAPL` — chart loads, real Groq verdict (bullish long term), symbol search dropdown functional.
+- `/stocks/MSFT` — news-driven verdict (bearish short, neutral medium, bullish long), navigation via search works.
+- Mobile 375×667 — stacked layout, full-width search, disclaimer visible.
+
+### ADR-0002a — resolved
+- Finnhub free tier: US stocks ✅ (`c > 0`), NSE/BSE ❌ (`"You don't have access"`).
+- India symbols return `insufficient_data` until `INDIANAPI_API_KEY` is set.
+
+---
+
 ## 2026-04-28 — Session 2: real LLM integration (Groq)
 
 ### Added

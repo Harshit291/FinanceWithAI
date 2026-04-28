@@ -2,15 +2,15 @@
 
 > Single source of truth for "where are we right now". Updated at the end of every working session.
 
-**Last updated:** 2026-04-28 (session 2 in progress)
+**Last updated:** 2026-04-28 (session 2 complete)
 
 ---
 
 ## Current sprint goal
 
-✅ **Session 1 goal achieved.** Living documents created, monorepo scaffolded, `/stocks/[symbol]` feature shell live with TradingView widget + mocked §6 verdict card for both NSE and US symbols.
+✅ **Session 2 goal achieved.** FastAPI synthesis pipeline live (resolve → fundamentals → news → classify → peers → synthesize). Next.js BFF forwards to FastAPI; real Groq LLM verdicts on US stocks. Symbol search input in page header. ADR-0002a resolved: Finnhub free tier is US-only.
 
-Current sprint goal: **Session 2 — real LLM integration.** `lib/ai/llm.ts` is now wired to Groq (free-tier stand-in for Anthropic). Next: build the FastAPI synthesis pipeline (symbol resolve → fundamentals → news → classify → peers → synthesize) so real market data flows through.
+Next sprint goal: **Session 3 — auth + persistence.** NextAuth.js, Postgres (Supabase/Neon), Redis (Upstash), Prisma schema, watchlists, saved AI reports.
 
 ## Last session summary (2026-04-27)
 
@@ -29,7 +29,7 @@ Current sprint goal: **Session 2 — real LLM integration.** `lib/ai/llm.ts` is 
 
 ## In progress
 
-Nothing. Session 1 is complete.
+Nothing. Session 2 is complete.
 
 ## Blocked
 
@@ -41,20 +41,21 @@ Nothing. Session 1 is complete.
   Once provided, submit at https://www.tradingview.com/advanced-charts/. Tracked in DECISIONS.md ADR-0005 and ROADMAP.md item #3.
 - **Finnhub free-tier NSE/BSE smoke check (ADR-0002a):** requires a Finnhub API key. Once the user adds `FINNHUB_API_KEY` to `.env.local`, run: `curl "https://finnhub.io/api/v1/quote?symbol=RELIANCE.NS&token=<YOUR_KEY>"` for a few NSE/BSE tickers. If `c > 0` is returned, Finnhub free tier covers it; otherwise route India through IndianAPI.in. Update ADR-0002a in DECISIONS.md with findings.
 
-## Next up (session 2 — in order)
+## Next up (session 3 — in order)
 
-1. Add Anthropic API key to `.env.local`; update `lib/ai/llm.ts` to call the real API using `claude-opus-4-7`.
-2. Build the FastAPI synthesis pipeline: `services/app/pipeline/` — symbol resolve → fundamentals → news → classify (haiku-4-5) → peers → synthesize (opus-4-7).
-3. Wire `POST /api/reports` BFF to forward to FastAPI pipeline; remove the mock.
-4. Add schema validation (Zod on TS side, Pydantic on Python side) for every Claude response.
-5. Confirm ADR-0002a (Finnhub NSE coverage) and update data layer dispatch accordingly.
-6. Add the symbol search input to the stock page header (currently hardcoded two links on the landing page).
-7. Run Playwright E2E smoke tests end-to-end (need `npx playwright install` first).
+1. Auth: NextAuth.js (email+password + Google OAuth) — `lib/auth/`, `app/api/auth/[...nextauth]/`.
+2. Postgres provisioning (Supabase or Neon — decide at session start).
+3. Redis provisioning (Upstash).
+4. Prisma/Drizzle schema: users, watchlists, ai_reports.
+5. Watchlist CRUD: add/remove symbols, persist per user.
+6. Saved AI reports (immutable rows; "refresh" creates new row).
+7. Guard `/app/*` routes — redirect unauthenticated users to `/login`.
+8. Wire `ANTHROPIC_API_KEY` once available; swap Groq → Claude in `.env.local`.
 
 ## Open questions for the user
 
 1. **TradingView Charting Library application:** what legal entity, project URL, GitHub username?
 2. **Hosting region:** Vercel default (US-East) or India-region for NSE latency? Affects session 3 infra choices.
-3. **Anthropic API key:** do you have one, or should we plan for a sign-up step before session 2?
-4. **Finnhub API key:** do you have one? (Smoke check for ADR-0002a is fast once we have it.)
-5. **Python environment:** `uv` or `venv+pip` for the FastAPI service? (Both work; `uv` is faster.)
+3. **Anthropic API key:** swap Groq → Claude once key is available — just set `ANTHROPIC_API_KEY` in `.env.local` and update `GROQ_API_KEY` usage in `services/app/pipeline/_shared.py`.
+4. **IndianAPI.in key:** needed to unlock India (`.NS`/`.BO`) verdicts — currently returns `insufficient_data`.
+5. **Postgres provider:** Supabase or Neon for session 3?

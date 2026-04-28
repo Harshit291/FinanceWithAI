@@ -44,19 +44,19 @@
 - [x] Add `openai` + `zod` as explicit deps
 - [x] Wire `lib/ai/llm.ts` to Groq (`llama-3.3-70b-versatile` via `LLM_SYNTHESIS_MODEL` env var) — swap to Anthropic when key available
 - [x] Add Zod schema validation: validate every LLM response against the §6 shape; retry once on ZodError/SyntaxError
-- [ ] Build FastAPI synthesis pipeline (`services/app/pipeline/`):
+- [x] Build FastAPI synthesis pipeline (`services/app/pipeline/`):
   - `resolve.py` — symbol → exchange + company metadata (Finnhub/IndianAPI dispatch)
-  - `fundamentals.py` — key ratios + last 4 quarters (Finnhub `stock/metric` + `stock/financials-reported` + IndianAPI)
-  - `news.py` — last 90 days headlines + bodies (Finnhub `company-news`)
-  - `classify.py` — per-article sentiment + relevance using `claude-haiku-4-5`
+  - `fundamentals.py` — key ratios + last 4 quarters (Finnhub `stock/metric` + `stock/earnings`)
+  - `news.py` — last 90 days headlines (Finnhub `company-news`, capped at 20)
+  - `classify.py` — per-article sentiment + relevance using Groq classifier model
   - `peers.py` — 3-5 sector peers (Finnhub `stock/peers`)
-  - `synthesize.py` — single `claude-opus-4-7` call with SYNTH_SYSTEM_V1 prompt from PROMPTS.md
-- [ ] Add Pydantic models in FastAPI mirroring the §6 TypeScript schema
-- [ ] Wire `POST /api/reports` BFF → forward to FastAPI pipeline; drop mock
-- [ ] Add `GET /api/reports/:report_id` endpoint (fetch from Postgres cache — Postgres not live yet; use Redis TTL cache as interim)
-- [ ] Remove "Sample report — LLM integration ships in session 2" banner from VerdictCard once real LLM is live
-- [ ] Add symbol search input to the `/stocks/[symbol]` page header (currently only hardcoded landing page links)
-- [ ] Run `npx playwright install` + verify Playwright E2E smoke spec passes
+  - `synthesize.py` — single Groq call with SYNTH_SYSTEM_V1 prompt; retry once on validation error
+- [x] Add Pydantic models in FastAPI mirroring the §6 TypeScript schema (`services/app/models.py`)
+- [x] Wire `POST /api/reports` BFF → forward to FastAPI pipeline; removed session-2 TODO comment
+- [x] Remove "Sample report" banner from VerdictCard (was removed in earlier session 2 work)
+- [x] Add symbol search input to the `/stocks/[symbol]` page header (`components/ui/SymbolSearch.tsx`)
+- [x] Playwright browser testing — Chrome installed; verified AAPL, MSFT, mobile 375×667
+- [ ] Add `GET /api/reports/:report_id` endpoint (deferred to session 3 with Postgres/Redis)
 
 ### Session 3 — Auth + Persistence
 - [ ] Auth: NextAuth.js (email+password + Google OAuth) — `lib/auth/`, `app/api/auth/[...nextauth]/`
