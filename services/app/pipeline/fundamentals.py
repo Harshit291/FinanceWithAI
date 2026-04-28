@@ -2,10 +2,10 @@
 Returns empty dict when FINNHUB_API_KEY is unset or fetch fails.
 """
 from __future__ import annotations
+import asyncio
 import os
 import httpx
-
-FINNHUB_BASE = "https://finnhub.io/api/v1"
+from ._shared import FINNHUB_BASE
 
 
 async def fetch_fundamentals(symbol: str) -> dict:
@@ -15,7 +15,7 @@ async def fetch_fundamentals(symbol: str) -> dict:
 
     try:
         async with httpx.AsyncClient(timeout=10) as client:
-            metrics_r, earnings_r = await _gather(
+            metrics_r, earnings_r = await asyncio.gather(
                 client.get(
                     f"{FINNHUB_BASE}/stock/metric",
                     params={"symbol": symbol, "metric": "all", "token": api_key},
@@ -30,8 +30,3 @@ async def fetch_fundamentals(symbol: str) -> dict:
         return {"metrics": metrics, "earnings": earnings}
     except Exception:
         return {}
-
-
-async def _gather(*coros):
-    import asyncio
-    return await asyncio.gather(*coros)

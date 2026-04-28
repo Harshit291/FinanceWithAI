@@ -2,9 +2,8 @@
 from __future__ import annotations
 import os
 import httpx
-from dataclasses import dataclass, field
-
-FINNHUB_BASE = "https://finnhub.io/api/v1"
+from dataclasses import dataclass
+from ._shared import FINNHUB_BASE
 
 
 @dataclass
@@ -12,8 +11,8 @@ class SymbolMeta:
     symbol: str
     exchange: str   # NSE | BSE | NYSE/NASDAQ
     currency: str   # INR | USD
-    company_name: str | None = field(default=None)
-    country: str | None = field(default=None)
+    company_name: str | None = None
+    country: str | None = None
 
 
 async def resolve(symbol: str) -> SymbolMeta:

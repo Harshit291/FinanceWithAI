@@ -43,7 +43,6 @@ async def health() -> JSONResponse:
 
 class ReportRequest(BaseModel):
     symbol: str
-    force_refresh: bool = False
 
 
 @app.post("/reports")

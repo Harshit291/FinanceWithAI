@@ -5,8 +5,7 @@ from __future__ import annotations
 import os
 import httpx
 from datetime import datetime, timedelta, timezone
-
-FINNHUB_BASE = "https://finnhub.io/api/v1"
+from ._shared import FINNHUB_BASE
 
 
 async def fetch_news(symbol: str) -> list[dict]:

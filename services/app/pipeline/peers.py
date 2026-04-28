@@ -4,8 +4,7 @@ Returns empty list when FINNHUB_API_KEY is unset or fetch fails.
 from __future__ import annotations
 import os
 import httpx
-
-FINNHUB_BASE = "https://finnhub.io/api/v1"
+from ._shared import FINNHUB_BASE
 
 
 async def fetch_peers(symbol: str) -> list[str]:

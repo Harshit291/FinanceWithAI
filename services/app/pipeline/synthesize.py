@@ -5,10 +5,10 @@ import os
 import uuid
 from datetime import datetime, timezone
 
-from openai import AsyncOpenAI
 from pydantic import ValidationError
 
 from ..models import DISCLAIMER, VerdictReport
+from ._shared import groq_client
 
 SYNTHESIS_MODEL = os.getenv("LLM_SYNTHESIS_MODEL", "llama-3.3-70b-versatile")
 
@@ -54,13 +54,6 @@ Schema:
 """
 
 
-def _client() -> AsyncOpenAI:
-    api_key = os.getenv("GROQ_API_KEY")
-    if not api_key:
-        raise RuntimeError("GROQ_API_KEY not set")
-    return AsyncOpenAI(api_key=api_key, base_url="https://api.groq.com/openai/v1")
-
-
 async def synthesize(
     symbol: str,
     exchange: str,
@@ -69,10 +62,8 @@ async def synthesize(
     fundamentals: dict,
     peers: list[str],
     classified_news: list[dict],
-    report_id: str | None = None,
 ) -> VerdictReport:
-    if report_id is None:
-        report_id = str(uuid.uuid4())
+    report_id = str(uuid.uuid4())
     now = datetime.now(timezone.utc).isoformat()
 
     fund_str = json.dumps(fundamentals, indent=2) if fundamentals else "unavailable"
@@ -92,7 +83,7 @@ async def synthesize(
         "Produce the VerdictReport now."
     )
 
-    client = _client()
+    client = groq_client()
 
     async def _call() -> VerdictReport:
         completion = await client.chat.completions.create(
@@ -106,7 +97,6 @@ async def synthesize(
         )
         data = json.loads(completion.choices[0].message.content or "")
         report = VerdictReport.model_validate(data)
-        # Enforce our canonical fields
         report.report_id = report_id
         report.symbol = symbol
         report.as_of = now
