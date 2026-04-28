@@ -4,6 +4,21 @@ Auto-loaded every Claude Code session. Full rulebook: [docs/PROJECT_INSTRUCTIONS
 
 ---
 
+## graphify
+
+Knowledge graph at `graphify-out/graph.json` (262 nodes, 284 edges, 19.8x token reduction).
+Before answering codebase questions, query the graph instead of reading raw files:
+`/graphify query "<question>"` — BFS broad context. `/graphify query "<question>" --dfs` — trace a path.
+After code changes: `/graphify . --update` (incremental, only changed files).
+
+## caveman
+
+Caveman plugin active. Respond terse — drop filler, keep all technical substance.
+Rules: fragments OK, short synonyms, no pleasantries. Code/commits/PRs written normal.
+Switch level: `/caveman lite|full|ultra`. Stop: "normal mode".
+
+---
+
 ## When the user says "init" — run this every time
 
 1. **Read** [docs/PROJECT_STATUS.md](docs/PROJECT_STATUS.md) and [docs/TASKS.md](docs/TASKS.md).

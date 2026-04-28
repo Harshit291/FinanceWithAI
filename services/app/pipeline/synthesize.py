@@ -5,9 +5,10 @@ import os
 import uuid
 from datetime import datetime, timezone
 
+from openai import RateLimitError, APIError
 from pydantic import ValidationError
 
-from ..models import DISCLAIMER, VerdictReport
+from ..models import DISCLAIMER, VerdictReport, Horizon, Horizons
 from ._shared import groq_client
 
 SYNTHESIS_MODEL = os.getenv("LLM_SYNTHESIS_MODEL", "llama-3.3-70b-versatile")
@@ -108,3 +109,27 @@ async def synthesize(
         return await _call()
     except (ValidationError, ValueError, json.JSONDecodeError):
         return await _call()  # retry once
+    except (RateLimitError, APIError) as exc:
+        reason = "rate_limit" if isinstance(exc, RateLimitError) else "api_error"
+        insufficient = Horizon(
+            window="unavailable",
+            stance="insufficient_data",
+            expected_return_pct_range=None,
+            confidence_pct=0,
+            key_drivers=[],
+            key_risks=[],
+        )
+        return VerdictReport(
+            report_id=report_id,
+            symbol=symbol,
+            as_of=now,
+            model=SYNTHESIS_MODEL,
+            data_sources=[],
+            horizons=Horizons(
+                short_term=insufficient,
+                medium_term=insufficient,
+                long_term=insufficient,
+            ),
+            summary_paragraph=f"AI analysis temporarily unavailable ({reason}). Please try again later.",
+            disclaimer=DISCLAIMER,
+        )

@@ -38,7 +38,7 @@ export function TradingViewWidget({ symbol, isMobile = false }: TradingViewWidge
         symbol: tvSymbol,
         interval: "D",
         timezone: "Etc/UTC",
-        theme: "light",
+        theme: "dark",
         style: "1",
         locale: "en",
         // §8 mobile toolbar tweaks

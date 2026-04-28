@@ -1,16 +1,8 @@
-/**
- * /stocks/[symbol] — the workhorse page.
- * Session 2: TradingView widget (free) + real LLM synthesis via Groq.
- *
- * Layout: stacked (< 640px) | side-by-side (≥ 640px) per §8.
- * Verified at 375×667 (iPhone SE) and 1440×900.
- */
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import { synthesiseVerdict } from "@/lib/ai/llm";
 import { VerdictCard } from "@/components/ai-report/VerdictCard";
-import { SymbolSearch } from "@/components/ui/SymbolSearch";
 import { ChartPanel } from "./ChartPanel";
 
 interface Props {
@@ -22,48 +14,50 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return { title: symbol.toUpperCase() };
 }
 
+function exchangeLabel(symbol: string) {
+  if (symbol.endsWith(".NS")) return "NSE";
+  if (symbol.endsWith(".BO")) return "BSE";
+  return "US";
+}
+
 export default async function StockPage({ params }: Props) {
   const { symbol } = await params;
   const decodedSymbol = decodeURIComponent(symbol).toUpperCase();
-
   if (!decodedSymbol || decodedSymbol.length > 20) notFound();
 
   const report = await synthesiseVerdict(decodedSymbol);
+  const exchange = exchangeLabel(decodedSymbol);
 
   return (
-    <main className="min-h-screen bg-zinc-50 px-4 py-6 sm:px-6 lg:px-8">
-      {/* Symbol header */}
-      <header className="mb-6">
-        <div className="flex flex-wrap items-center justify-between gap-3">
-          <div className="flex flex-wrap items-baseline gap-3">
-            <h1 className="text-2xl font-bold tracking-tight text-zinc-900">{decodedSymbol}</h1>
-            <span className="text-sm text-zinc-400">
-              {decodedSymbol.endsWith(".NS")
-                ? "NSE"
-                : decodedSymbol.endsWith(".BO")
-                ? "BSE"
-                : "US"}
-            </span>
+    <main className="min-h-screen bg-slate-950 px-4 sm:px-6 lg:px-8 py-6 max-w-screen-xl mx-auto">
+
+      {/* Editorial stock header */}
+      <header className="mb-6 pb-5 border-b border-slate-800/60">
+        <div className="flex flex-wrap items-end justify-between gap-3">
+          <div>
+            <p className="text-xs font-mono uppercase tracking-[0.2em] text-slate-600 mb-1">
+              {exchange} · Equities
+            </p>
+            <h1 className="text-3xl sm:text-4xl font-bold tracking-tight font-mono text-slate-100">
+              {decodedSymbol}
+            </h1>
           </div>
-          <SymbolSearch />
+          <div className="text-right">
+            <p className="text-xs font-mono text-slate-600 uppercase tracking-wider">
+              Technical + AI Research
+            </p>
+          </div>
         </div>
-        <p className="mt-1 text-sm text-zinc-500">
-          Technical analysis + AI fundamental research
-        </p>
       </header>
 
-      {/*
-        Layout:
-          mobile  (< 640px): chart stacked above AI panel
-          desktop (≥ 640px): chart left, AI panel right (60/40 split)
-        §8 requirement: no side-by-side on mobile.
-      */}
-      <div className="flex flex-col gap-6 sm:flex-row sm:items-start">
+      {/* Layout: chart (3/5) + analysis (2/5) */}
+      <div className="flex flex-col gap-5 sm:flex-row sm:items-start">
+
         {/* Chart */}
-        <div className="w-full sm:w-3/5">
+        <div className="w-full sm:w-[60%]">
           <Suspense
             fallback={
-              <div className="flex h-[350px] items-center justify-center rounded-xl bg-white text-sm text-zinc-400 sm:h-[500px]">
+              <div className="flex h-[420px] items-center justify-center rounded-xl border border-slate-800 bg-slate-900/60 text-xs font-mono text-slate-600 sm:h-[540px]">
                 Loading chart…
               </div>
             }
@@ -72,10 +66,18 @@ export default async function StockPage({ params }: Props) {
           </Suspense>
         </div>
 
-        {/* AI verdict */}
-        <div className="w-full sm:w-2/5">
+        {/* AI fundamental analysis */}
+        <div className="w-full sm:w-[40%]">
+          <div className="flex items-center gap-2 mb-4">
+            <div className="h-px flex-1 bg-slate-800" />
+            <p className="text-[9px] font-mono font-bold uppercase tracking-[0.25em] text-slate-600 shrink-0">
+              Fundamental Analysis
+            </p>
+            <div className="h-px flex-1 bg-slate-800" />
+          </div>
           <VerdictCard report={report} />
         </div>
+
       </div>
     </main>
   );
