@@ -41,9 +41,9 @@
   - Update `docs/DECISIONS.md` ADR-0005 with submission date
 
 ### Session 2 — Real LLM Integration
-- [ ] Add Anthropic SDK: `npm install @anthropic-ai/sdk`
-- [ ] Wire `lib/ai/llm.ts` to real API (`claude-opus-4-7` via `LLM_SYNTHESIS_MODEL` env var)
-- [ ] Add Zod schema validation: validate every Claude response against the §6 shape; retry once on failure; graceful error on second failure
+- [x] Add `openai` + `zod` as explicit deps
+- [x] Wire `lib/ai/llm.ts` to Groq (`llama-3.3-70b-versatile` via `LLM_SYNTHESIS_MODEL` env var) — swap to Anthropic when key available
+- [x] Add Zod schema validation: validate every LLM response against the §6 shape; retry once on ZodError/SyntaxError
 - [ ] Build FastAPI synthesis pipeline (`services/app/pipeline/`):
   - `resolve.py` — symbol → exchange + company metadata (Finnhub/IndianAPI dispatch)
   - `fundamentals.py` — key ratios + last 4 quarters (Finnhub `stock/metric` + `stock/financials-reported` + IndianAPI)

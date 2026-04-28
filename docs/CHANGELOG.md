@@ -4,6 +4,26 @@
 
 ---
 
+## 2026-04-28 — Session 2: real LLM integration (Groq)
+
+### Added
+- `openai` + `zod` as explicit dependencies.
+- Zod runtime schemas in `lib/ai/schema.ts` (`VerdictReportSchema`) — validates every LLM response; parse fails throw `ZodError`.
+- `GROQ_API_KEY` env var — Groq free-tier key used in dev while Anthropic key is pending.
+
+### Changed
+- `lib/ai/llm.ts` — rewrote from mock stub to real LLM call via Groq's OpenAI-compatible API (`llama-3.3-70b-versatile`). Retries once on `ZodError`/`SyntaxError`. Model IDs still read from env, never hardcoded.
+- `components/ai-report/VerdictCard.tsx` — removed `isMock` prop and "Sample report" banner. Component now only renders real data.
+- `app/(app)/stocks/[symbol]/page.tsx` — removed `isMock` pass-through.
+- `docs/ENV_VARIABLES.md` — added `GROQ_API_KEY`; clarified dev vs prod defaults for `LLM_SYNTHESIS_MODEL` / `LLM_CLASSIFIER_MODEL`.
+- `.env.local` — updated model defaults to Groq model names for dev.
+
+### Technical notes
+- FastAPI data pipeline not yet connected; Groq returns `insufficient_data` stances for all horizons (correct — no fabricated numbers).
+- Switching to Anthropic: set `ANTHROPIC_API_KEY` in `.env.local`, update `baseURL` + model names in `.env.local`, refactor `llm.ts` to use the Anthropic SDK.
+
+---
+
 ## 2026-04-27 — Session 1: kickoff
 
 ### Added

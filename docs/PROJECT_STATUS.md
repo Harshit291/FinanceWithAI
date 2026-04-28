@@ -2,7 +2,7 @@
 
 > Single source of truth for "where are we right now". Updated at the end of every working session.
 
-**Last updated:** 2026-04-27 (session 1 complete)
+**Last updated:** 2026-04-28 (session 2 in progress)
 
 ---
 
@@ -10,7 +10,7 @@
 
 ✅ **Session 1 goal achieved.** Living documents created, monorepo scaffolded, `/stocks/[symbol]` feature shell live with TradingView widget + mocked §6 verdict card for both NSE and US symbols.
 
-Next sprint goal: **Session 2 — real LLM integration.** Wire `lib/ai/llm.ts` to the Anthropic API, build the FastAPI synthesis pipeline (symbol resolve → fundamentals → news → classify → peers → synthesize), and drop the mock verdict.
+Current sprint goal: **Session 2 — real LLM integration.** `lib/ai/llm.ts` is now wired to Groq (free-tier stand-in for Anthropic). Next: build the FastAPI synthesis pipeline (symbol resolve → fundamentals → news → classify → peers → synthesize) so real market data flows through.
 
 ## Last session summary (2026-04-27)
 
