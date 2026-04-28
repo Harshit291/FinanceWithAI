@@ -4,6 +4,30 @@
 
 ---
 
+## ADR-0006 — OHLCV chart data source
+
+**Date:** 2026-04-28
+**Status:** Accepted
+
+**Context.** `LightweightChart` needs 1-year daily OHLCV candles for both US and India symbols. Finnhub was the initial candidate but the smoke-check showed its free tier blocks both `/stock/candle` (HTTP 403 paywalled) and NSE/BSE quotes (ADR-0002a).
+
+**Options considered.**
+- **Finnhub `/stock/candle`** — discarded, requires paid plan.
+- **Alpha Vantage `TIME_SERIES_DAILY`** — 25 requests/day free; too low for any real usage.
+- **Polygon.io** — US only, free tier is previous-day data only.
+- **TwelveData** — 800 free API calls/day; viable but needs a key and sign-up.
+- **Yahoo Finance v8 chart API** — unofficial, free, no key, supports US + India (`.NS`/`.BO`), 1-year daily. Widely used by open-source libraries (yfinance, etc.).
+
+**Decision.** **Yahoo Finance v8 chart API** (`query1.finance.yahoo.com/v8/finance/chart/{symbol}?interval=1d&range=1y`). No API key. `lib/data/yahoo.ts` wraps the call; BFF `/api/candles/[symbol]` caches for 1 hour.
+
+**Consequences.**
+- India charts now work (RELIANCE.NS, TCS.NS, etc.) — fixes the gap from ADR-0002a for the chart layer.
+- No official SLA; Yahoo has historically rate-limited scrapers. Add `User-Agent` header; back off on HTTP 429.
+- Upgrade trigger: if Yahoo becomes unreliable, switch to TwelveData (800/day free) or Polygon (US) + IndianAPI.in (India).
+- Chart data is **independent** of AI verdict data — verdict still uses Finnhub (US) and will use IndianAPI.in (India) once key is available.
+
+---
+
 ## ADR-0001 — Initial market scope
 
 **Date:** 2026-04-27

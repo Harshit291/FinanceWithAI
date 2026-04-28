@@ -4,6 +4,30 @@
 
 ---
 
+## 2026-04-28 — Session 2 (continued): Lightweight Charts integration
+
+### Added
+- `lightweight-charts@5.2.0` — open-source TradingView chart library (Apache 2.0, no licence required).
+- `lib/data/yahoo.ts` — Yahoo Finance v8 chart API adapter; 1-year daily OHLCV for US + India symbols (free, no key).
+- `app/api/candles/[symbol]/route.ts` — BFF endpoint returning `CandleBar[]` from Yahoo Finance; cached 1 h.
+- `components/charts/LightweightChart.tsx` — client component: candlestick + volume series, INR/USD price formatter, `autoSize` fill, loading/empty/error states.
+
+### Changed
+- `app/(app)/stocks/[symbol]/ChartPanel.tsx` — swapped `TradingViewWidget` for `LightweightChart`; passes `currency` derived from symbol suffix.
+- Removed `TradingViewWidget` from ChartPanel (widget kept in codebase under `TODO(charting-library)` for eventual Advanced Charts swap).
+
+### Why Yahoo Finance for OHLCV
+- Finnhub free tier blocks both `/stock/candle` (paywalled) and NSE/BSE quotes (ADR-0002a).
+- Yahoo Finance v8 chart API is free, requires no key, and covers US + India (`.NS`/`.BO`) symbols.
+- Not production SLA — switch to paid provider when volume justifies it (ADR-0002 upgrade trigger).
+
+### Verified (Playwright)
+- AAPL desktop: full 1-year candlestick, volume "15.8M", price $269.84, search + navigate works.
+- RELIANCE.NS desktop: full 1-year NSE candlestick, ₹ prices, volume "41.0M".
+- AAPL mobile 375×667: 350px chart, stacked layout, all content visible.
+
+---
+
 ## 2026-04-28 — Session 2 (continued): FastAPI pipeline + symbol search
 
 ### Added

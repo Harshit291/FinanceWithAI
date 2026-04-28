@@ -56,7 +56,10 @@
 - [x] Remove "Sample report" banner from VerdictCard (was removed in earlier session 2 work)
 - [x] Add symbol search input to the `/stocks/[symbol]` page header (`components/ui/SymbolSearch.tsx`)
 - [x] Playwright browser testing — Chrome installed; verified AAPL, MSFT, mobile 375×667
+- [x] Integrate `lightweight-charts@5.2.0` — real candlestick + volume chart, US + India symbols, mobile-responsive
+- [x] `lib/data/yahoo.ts` + `/api/candles/[symbol]` — Yahoo Finance v8 OHLCV (free, no key, US+NSE/BSE)
 - [ ] Add `GET /api/reports/:report_id` endpoint (deferred to session 3 with Postgres/Redis)
+- [ ] TradingView Advanced Charts licence — submit application (legal entity + GitHub username needed)
 
 ### Session 3 — Auth + Persistence
 - [ ] Auth: NextAuth.js (email+password + Google OAuth) — `lib/auth/`, `app/api/auth/[...nextauth]/`
