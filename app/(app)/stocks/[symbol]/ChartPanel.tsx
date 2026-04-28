@@ -1,14 +1,17 @@
 "use client";
-// TODO(charting-library): swap TradingViewWidget for self-hosted Advanced Charts once license is approved.
+// TODO(charting-library): swap LightweightChart for self-hosted Advanced Charts once licence approved.
 
 import { useEffect, useState } from "react";
-import { TradingViewWidget } from "@/components/charts/TradingViewWidget";
+import { LightweightChart } from "@/components/charts/LightweightChart";
 
 interface ChartPanelProps {
   symbol: string;
 }
 
-/** Detects viewport width to apply §8 mobile toolbar rules. */
+function toCurrency(symbol: string): "INR" | "USD" {
+  return symbol.endsWith(".NS") || symbol.endsWith(".BO") ? "INR" : "USD";
+}
+
 export function ChartPanel({ symbol }: ChartPanelProps) {
   const [isMobile, setIsMobile] = useState(false);
 
@@ -22,7 +25,7 @@ export function ChartPanel({ symbol }: ChartPanelProps) {
 
   return (
     <div className="overflow-hidden rounded-xl border border-zinc-200 bg-white shadow-sm">
-      <TradingViewWidget symbol={symbol} isMobile={isMobile} />
+      <LightweightChart symbol={symbol} currency={toCurrency(symbol)} isMobile={isMobile} />
     </div>
   );
 }
