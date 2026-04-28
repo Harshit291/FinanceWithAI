@@ -58,18 +58,23 @@
 
 ---
 
-## ADR-0002a — Finnhub free-tier NSE/BSE coverage (placeholder)
+## ADR-0002a — Finnhub free-tier NSE/BSE coverage
 
-**Date:** TBD (session 1 step C)
-**Status:** Pending
+**Date:** 2026-04-28
+**Status:** Accepted
 
-**Context.** Finnhub's documentation does not enumerate which NSE/BSE symbols are available on the free tier. Need empirical verification before wiring symbol search.
+**Context.** Needed empirical verification of whether Finnhub free tier covers NSE/BSE before wiring symbol dispatch.
 
-**Smoke-check plan.** Hit Finnhub `/search` and `/quote` for: RELIANCE.NS, INFY.NS, HDFCBANK.NS, TCS.NS, ITC.NS (NSE) + RELIANCE.BO, INFY.BO, HDFCBANK.BO, TCS.BO, ITC.BO (BSE) + AAPL, MSFT, GOOGL, AMZN, NVDA (US).
+**Smoke-check results (2026-04-28).**
+- `AAPL` (US): ✅ `{"c":267.61,"d":-3.45,...}` — full quote returned.
+- `RELIANCE.NS` (NSE): ❌ `{"error":"You don't have access to this resource."}` — free tier blocks NSE.
 
-**To be filled with:**
-- Per-symbol pass/fail.
-- Decision: route everything through Finnhub OR split India through IndianAPI.in OR fall back to hardcoded sample list.
+**Decision.** Finnhub free tier covers **US only**. India symbols (`.NS`, `.BO`) must route through **IndianAPI.in** for fundamentals, news, and quotes.
+
+**Consequences.**
+- `services/app/pipeline/` Finnhub calls are US-only. India path will be added once `INDIANAPI_API_KEY` is available (session 2 continuation).
+- `lib/data/symbol-search.ts` dispatcher already separates by suffix — no architecture change needed, just wire the IndianAPI.in adapter for `.NS`/`.BO` paths.
+- Until IndianAPI.in is wired, India symbols return `insufficient_data` (graceful degradation, no fabricated numbers).
 
 ---
 
