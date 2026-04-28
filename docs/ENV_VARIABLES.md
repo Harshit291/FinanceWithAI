@@ -10,7 +10,8 @@
 
 | Variable | Purpose | Used in | Required in |
 |---|---|---|---|
-| `GROQ_API_KEY` | Auth for Groq API (OpenAI-compatible). Used in dev until `ANTHROPIC_API_KEY` is available. | `lib/ai/llm.ts` | dev |
+| `GROQ_API_KEY` | Auth for Groq API (OpenAI-compatible). Used by FastAPI pipeline in dev until `ANTHROPIC_API_KEY` is available. | `services/app/pipeline/classify.py`, `services/app/pipeline/synthesize.py` | dev |
+| `FASTAPI_URL` | Base URL of the FastAPI pipeline service. Default: `http://localhost:8000`. | `lib/ai/llm.ts` | dev, prod |
 | `ANTHROPIC_API_KEY` | Auth for the Claude Messages API (production target). Replace Groq key when available. | `lib/ai/llm.ts`, `services/app/pipeline/synthesis.py` | prod |
 | `LLM_SYNTHESIS_MODEL` | Model ID for the per-stock synthesis call (§5.6). Dev default: `llama-3.3-70b-versatile`. Prod default: `claude-opus-4-7` (ADR-0004). Never hardcoded. | same as above | dev, prod |
 | `LLM_CLASSIFIER_MODEL` | Model ID for the per-news classifier call (§5.4). Dev default: `llama-3.1-8b-instant`. Prod default: `claude-haiku-4-5` (ADR-0004). Never hardcoded. | `services/app/pipeline/classify.py` | dev, prod |
