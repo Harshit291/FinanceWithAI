@@ -1,29 +1,29 @@
 # Graph Report - .  (2026-04-29)
 
 ## Corpus Check
-- 122 files · ~89,865 words
+- 110 files · ~64,319 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 467 nodes · 516 edges · 52 communities detected
-- Extraction: 85% EXTRACTED · 15% INFERRED · 0% AMBIGUOUS · INFERRED: 79 edges (avg confidence: 0.77)
+- 510 nodes · 570 edges · 51 communities detected
+- Extraction: 84% EXTRACTED · 16% INFERRED · 0% AMBIGUOUS · INFERRED: 93 edges (avg confidence: 0.77)
 - Token cost: 0 input · 0 output
 
 ## Community Hubs (Navigation)
-- [[_COMMUNITY_Pipeline resolve→fundamentals→news→classify→peers→synthesize|Pipeline: resolve→fundamentals→news→classify→peers→synthesize]]
 - [[_COMMUNITY_Session 2|Session 2]]
-- [[_COMMUNITY__shared.py|_shared.py]]
-- [[_COMMUNITY_HorizonCard Component|HorizonCard Component]]
 - [[_COMMUNITY_main.py|main.py]]
-- [[_COMMUNITY_PROVIDER_CATALOGUE|PROVIDER_CATALOGUE]]
+- [[_COMMUNITY_Pipeline resolve→fundamentals→news→classify→peers→synthesize|Pipeline: resolve→fundamentals→news→classify→peers→synthesize]]
+- [[_COMMUNITY__shared.py|_shared.py]]
 - [[_COMMUNITY_FinAI Project|FinAI Project]]
-- [[_COMMUNITY_technical_analysis.py|technical_analysis.py]]
+- [[_COMMUNITY_AiReport Prisma Model|AiReport Prisma Model]]
+- [[_COMMUNITY_HorizonCard Component|HorizonCard Component]]
 - [[_COMMUNITY_VerdictReport TypeScript Interface|VerdictReport TypeScript Interface]]
+- [[_COMMUNITY_PROVIDER_CATALOGUE|PROVIDER_CATALOGUE]]
+- [[_COMMUNITY_synthesiseVerdict()|synthesiseVerdict()]]
 - [[_COMMUNITY_toTvSymbol Function|toTvSymbol Function]]
-- [[_COMMUNITY_libaillm.ts|lib/ai/llm.ts]]
 - [[_COMMUNITY_SEBI + SEC Disclaimer|SEBI + SEC Disclaimer]]
 - [[_COMMUNITY_SymbolResult Data Interface|SymbolResult Data Interface]]
-- [[_COMMUNITY_StockPage()|StockPage()]]
+- [[_COMMUNITY_searchSymbols()|searchSymbols()]]
 - [[_COMMUNITY_cn Tailwind Class Merger|cn Tailwind Class Merger]]
 - [[_COMMUNITY_apiKey()|apiKey()]]
 - [[_COMMUNITY_SymbolSearch.tsx|SymbolSearch.tsx]]
@@ -32,11 +32,10 @@
 - [[_COMMUNITY_ConfidenceBar()|ConfidenceBar()]]
 - [[_COMMUNITY_apiKey()|apiKey()]]
 - [[_COMMUNITY_ESLint Config|ESLint Config]]
-- [[_COMMUNITY_FinnhubQuote Interface|FinnhubQuote Interface]]
 - [[_COMMUNITY_FinnhubSearchResult Interface|FinnhubSearchResult Interface]]
+- [[_COMMUNITY_FinnhubQuote Interface|FinnhubQuote Interface]]
 - [[_COMMUNITY_System topology diagram|System topology diagram]]
 - [[_COMMUNITY_Changelog lightweight-charts integration (2026-04-28)|Changelog: lightweight-charts integration (2026-04-28)]]
-- [[_COMMUNITY_Root Layout (applayout.tsx)|Root Layout (app/layout.tsx)]]
 - [[_COMMUNITY_VerdictReport Schema (libaischema.ts)|VerdictReport Schema (lib/ai/schema.ts)]]
 - [[_COMMUNITY_Horizons Pydantic Model|Horizons Pydantic Model]]
 - [[_COMMUNITY_README.md — Next.js project bootstrap|README.md — Next.js project bootstrap]]
@@ -68,12 +67,12 @@
 2. `FinAI Project` - 11 edges
 3. `Session 3` - 10 edges
 4. `PROVIDER_CATALOGUE` - 10 edges
-5. `toTvSymbol Function` - 8 edges
-6. `GET()` - 7 edges
-7. `create_report()` - 7 edges
-8. `VerdictReport TypeScript Interface` - 7 edges
-9. `SEBI + SEC Disclaimer` - 7 edges
-10. `chat_with_failover()` - 7 edges
+5. `AiReport Prisma Model` - 9 edges
+6. `toTvSymbol Function` - 8 edges
+7. `GET()` - 7 edges
+8. `create_report()` - 7 edges
+9. `VerdictReport TypeScript Interface` - 7 edges
+10. `SEBI + SEC Disclaimer` - 7 edges
 
 ## Surprising Connections (you probably didn't know these)
 - `Groq OpenAI-compatible API (dev LLM)` --semantically_similar_to--> `ANTHROPIC_API_KEY env var`  [INFERRED] [semantically similar]
@@ -82,61 +81,61 @@
   services/app/pipeline/synthesize.py → docs/PROMPTS.md
 - `Tata Motors Symbol Search Dropdown Screenshot` --references--> `toTvSymbol Function`  [INFERRED]
   tata-search.png → lib/data/tv-symbol.ts
+- `200-row per-user cap (oldest-eviction)` --rationale_for--> `AiReport Prisma Model`  [INFERRED]
+  lib/reports/persist.ts → prisma/schema.prisma
 - `Benchmark each configured LLM provider on the same fundamental-synthesis prompt` --uses--> `VerdictReport`  [INFERRED]
-  services\scripts\rank_providers.py → services\app\models.py
-- `Fill ``latency`` (0–10 pts) based on each provider's speed relative to     the s` --uses--> `VerdictReport`  [INFERRED]
   services\scripts\rank_providers.py → services\app\models.py
 
 ## Hyperedges (group relationships)
-- **LLM Failover Chain (4 providers)** — provider_groq, provider_cerebras, provider_sambanova, provider_openrouter, code_chat_with_failover [EXTRACTED 1.00]
-- **FastAPI synthesis pipeline stages** — code_resolve_py, code_fundamentals_py, code_news_py, code_classify_py, code_peers_py, code_synthesize_py [EXTRACTED 1.00]
-- **NextAuth + Prisma auth stack** — tech_nextauth, tech_prisma7, code_lib_auth_config_ts, code_lib_auth_config_edge_ts, code_middleware, code_api_register [EXTRACTED 1.00]
+- **Saved AI Reports stack (session 6)** — ai_report_model, persist_ai_report, api_reports_route, report_history_component, reports_page [EXTRACTED 0.95]
+- **Report UI components** — report_history_component, refresh_button_component, report_row_delete_button, verdict_card [EXTRACTED 0.90]
+- **Force-refresh flow** — refresh_button_component, api_reports_post, force_refresh_param, synthesise_verdict_fresh [EXTRACTED 0.90]
 
 ## Communities
 
-### Community 0 - "Pipeline: resolve→fundamentals→news→classify→peers→synthesize"
+### Community 0 - "Session 2"
+Cohesion: 0.06
+Nodes (49): Session 1, Session 2, Session 4, /api/candles/[symbol] route, ChartPanel, fundamentals.py, lib/ai/llm.ts, lib/ai/schema.ts (+41 more)
+
+### Community 1 - "main.py"
+Cohesion: 0.09
+Nodes (33): create_report(), FinAI research pipeline service — FastAPI.  Session 2: /health + POST /reports (, ReportRequest, technical_analysis(), DataSource, Horizon, Horizons, KeyLevels (+25 more)
+
+### Community 2 - "Pipeline: resolve→fundamentals→news→classify→peers→synthesize"
 Cohesion: 0.08
 Nodes (37): POST /api/reports contract, VerdictReport canonical schema (§6), Data flow for AI report generation, Changelog: Groq LLM integration (2026-04-28), Changelog: FastAPI pipeline + symbol search (2026-04-28), CLAUDE.md — session orientation rulebook, VerdictReport (§6 schema concept), Groq OpenAI-compatible API (dev LLM) (+29 more)
 
-### Community 1 - "Session 2"
-Cohesion: 0.08
-Nodes (35): Session 1, Session 2, /api/candles/[symbol] route, ChartPanel, classify.py, fundamentals.py, lib/data/finnhub.ts, lib/data/indianapi.ts (+27 more)
-
-### Community 2 - "_shared.py"
+### Community 3 - "_shared.py"
 Cohesion: 0.09
 Nodes (30): _any_provider_configured(), classify_articles(), _classify_one(), Per-article sentiment + relevance classifier using the LLM classifier model. Ski, _active_providers(), chat_with_failover(), close_all_clients(), _get_client() (+22 more)
 
-### Community 3 - "HorizonCard Component"
+### Community 4 - "FinAI Project"
+Cohesion: 0.07
+Nodes (32): Caveman Plugin, FinAI Project, Graphify Knowledge Graph, Session 3, Session 6, /api/auth/register route, lib/auth/config.edge.ts (edge-safe), lib/auth/config.ts (full) (+24 more)
+
+### Community 5 - "AiReport Prisma Model"
 Cohesion: 0.09
-Nodes (29): API Route: GET /api/candles/[symbol], API Route: POST /api/reports, API Route: GET /api/symbols, Home Page (app/page.tsx), ConfidenceBar Component, Disclaimer Component, HorizonCard Component, LightweightChart Component (+21 more)
+Nodes (25): @@index([userId, symbol, createdAt]), AiReport Prisma Model, @@unique([userId, reportId]), DELETE /api/reports, GET /api/reports, POST /api/reports, App layout (nav), force_refresh query param (+17 more)
 
-### Community 4 - "main.py"
+### Community 6 - "HorizonCard Component"
 Cohesion: 0.09
-Nodes (18): create_report(), FinAI research pipeline service — FastAPI.  Session 2: /health + POST /reports (, ReportRequest, technical_analysis(), searchSymbols(), getYahooCandles(), searchYahooSymbols(), fetch_fundamentals() (+10 more)
+Nodes (29): API Route: GET /api/candles/[symbol], /api/reports route handlers, API Route: GET /api/symbols, Home Page (app/page.tsx), ConfidenceBar Component, Disclaimer Component, HorizonCard Component, LightweightChart Component (+21 more)
 
-### Community 5 - "PROVIDER_CATALOGUE"
-Cohesion: 0.1
-Nodes (26): Session 5, Session 6, /api/watchlist route, chat_with_failover(), load_provider_order(), prisma/schema.prisma, PROVIDER_CATALOGUE, providers.ranked.json (+18 more)
-
-### Community 6 - "FinAI Project"
-Cohesion: 0.09
-Nodes (25): Caveman Plugin, FinAI Project, Graphify Knowledge Graph, Session 3, /api/auth/register route, lib/auth/config.edge.ts (edge-safe), lib/auth/config.ts (full), lib/prisma.ts (+17 more)
-
-### Community 7 - "technical_analysis.py"
-Cohesion: 0.19
-Nodes (19): DataSource, Horizon, Horizons, KeyLevels, Pydantic models mirroring the §6 TypeScript VerdictReport schema., TechnicalSignal, TechnicalVerdict, VerdictReport (+11 more)
-
-### Community 8 - "VerdictReport TypeScript Interface"
+### Community 7 - "VerdictReport TypeScript Interface"
 Cohesion: 0.11
 Nodes (22): Badge CVA Variants (bullish/bearish/neutral/insufficient_data), classify_articles Pipeline Step, CandleBar Interface, Finnhub getCandles, fetch_fundamentals Pipeline Step, synthesiseVerdict LLM Adapter, FastAPI Application (main.py), POST /reports Endpoint (+14 more)
 
-### Community 9 - "toTvSymbol Function"
+### Community 8 - "PROVIDER_CATALOGUE"
+Cohesion: 0.15
+Nodes (19): Session 5, /api/watchlist route, chat_with_failover(), classify.py, PROVIDER_CATALOGUE, synthesize.py, /watchlist page, WatchlistRemoveButton component (+11 more)
+
+### Community 9 - "synthesiseVerdict()"
+Cohesion: 0.17
+Nodes (10): callFastapi(), synthesiseVerdict(), synthesiseVerdictFresh(), synthesiseTechnical(), persistAiReport(), DELETE(), GET(), POST() (+2 more)
+
+### Community 10 - "toTvSymbol Function"
 Cohesion: 0.22
 Nodes (16): MOCK_VERDICT Export, DISCLAIMER Export from schema.ts, toTvSymbol Function, After-Fix UI Screenshot — AAPL Chart with Rate Limit Error, Tata Motors Symbol Search Dropdown Screenshot, Confidence Percentage Range Test, Disclaimer String Equality Test, Horizon Drivers and Risks Presence Test (+8 more)
-
-### Community 10 - "lib/ai/llm.ts"
-Cohesion: 0.19
-Nodes (14): Session 4, lib/ai/llm.ts, lib/ai/schema.ts, lib/ai/technical.ts, models.py (Pydantic), Stock detail page, SymbolSearch component, technical_analysis.py (+6 more)
 
 ### Community 11 - "SEBI + SEC Disclaimer"
 Cohesion: 0.19
@@ -146,9 +145,9 @@ Nodes (13): AGENTS.md — Next.js agent warning, Disclaimer component, HorizonCa
 Cohesion: 0.22
 Nodes (10): IndianSearchResult Interface, IndianAPI searchIndianSymbol, SAMPLE_SYMBOLS Fallback List, SymbolResult Interface (UI), SymbolResult Data Interface, SymbolSearch UI Component, searchSymbols Dispatcher, toTvSymbol Converter (+2 more)
 
-### Community 13 - "StockPage()"
-Cohesion: 0.22
-Nodes (5): synthesiseVerdict(), synthesiseTechnical(), POST(), exchangeLabel(), StockPage()
+### Community 13 - "searchSymbols()"
+Cohesion: 0.29
+Nodes (4): searchSymbols(), getYahooCandles(), searchYahooSymbols(), GET()
 
 ### Community 14 - "cn Tailwind Class Merger"
 Cohesion: 0.29
@@ -178,132 +177,128 @@ Nodes (2): ConfidenceBar(), confidenceColor()
 Cohesion: 1.0
 Nodes (2): apiKey(), searchIndianSymbol()
 
-### Community 31 - "ESLint Config"
+### Community 32 - "ESLint Config"
 Cohesion: 1.0
 Nodes (2): ESLint Config, Next.js Config
-
-### Community 32 - "FinnhubQuote Interface"
-Cohesion: 1.0
-Nodes (2): FinnhubQuote Interface, Finnhub getQuote
 
 ### Community 33 - "FinnhubSearchResult Interface"
 Cohesion: 1.0
 Nodes (2): FinnhubSearchResult Interface, Finnhub searchSymbols
 
-### Community 34 - "System topology diagram"
+### Community 34 - "FinnhubQuote Interface"
+Cohesion: 1.0
+Nodes (2): FinnhubQuote Interface, Finnhub getQuote
+
+### Community 35 - "System topology diagram"
 Cohesion: 1.0
 Nodes (2): System topology diagram, ADR-0003: Single monorepo layout
 
-### Community 35 - "Changelog: lightweight-charts integration (2026-04-28)"
+### Community 36 - "Changelog: lightweight-charts integration (2026-04-28)"
 Cohesion: 1.0
 Nodes (2): Changelog: lightweight-charts integration (2026-04-28), ADR-0006: Yahoo Finance v8 for OHLCV chart data
 
-### Community 63 - "Root Layout (app/layout.tsx)"
-Cohesion: 1.0
-Nodes (1): Root Layout (app/layout.tsx)
-
-### Community 64 - "VerdictReport Schema (lib/ai/schema.ts)"
+### Community 66 - "VerdictReport Schema (lib/ai/schema.ts)"
 Cohesion: 1.0
 Nodes (1): VerdictReport Schema (lib/ai/schema.ts)
 
-### Community 65 - "Horizons Pydantic Model"
+### Community 67 - "Horizons Pydantic Model"
 Cohesion: 1.0
 Nodes (1): Horizons Pydantic Model
 
-### Community 66 - "README.md — Next.js project bootstrap"
+### Community 68 - "README.md — Next.js project bootstrap"
 Cohesion: 1.0
 Nodes (1): README.md — Next.js project bootstrap
 
-### Community 67 - "GET /api/symbols/search contract"
+### Community 69 - "GET /api/symbols/search contract"
 Cohesion: 1.0
 Nodes (1): GET /api/symbols/search contract
 
-### Community 68 - "GET /health contract (FastAPI)"
+### Community 70 - "GET /health contract (FastAPI)"
 Cohesion: 1.0
 Nodes (1): GET /health contract (FastAPI)
 
-### Community 69 - "Deploy topology (Vercel + Render/Fly"
+### Community 71 - "Deploy topology (Vercel + Render/Fly"
 Cohesion: 1.0
 Nodes (1): Deploy topology (Vercel + Render/Fly + Supabase/Neon + Upstash)
 
-### Community 70 - "Changelog: session 1 kickoff (2026-04-27)"
+### Community 72 - "Changelog: session 1 kickoff (2026-04-27)"
 Cohesion: 1.0
 Nodes (1): Changelog: session 1 kickoff (2026-04-27)
 
-### Community 71 - "ADR-0005: TradingView widget MVP →"
+### Community 73 - "ADR-0005: TradingView widget MVP →"
 Cohesion: 1.0
 Nodes (1): ADR-0005: TradingView widget MVP → Charting Library phase 2
 
-### Community 72 - "HTTPX HTTP Client Dependency"
+### Community 74 - "HTTPX HTTP Client Dependency"
 Cohesion: 1.0
 Nodes (1): HTTPX HTTP Client Dependency
 
-### Community 73 - "Python Dotenv Dependency"
+### Community 75 - "Python Dotenv Dependency"
 Cohesion: 1.0
 Nodes (1): Python Dotenv Dependency
 
-### Community 74 - "OpenAI SDK Dependency"
+### Community 76 - "OpenAI SDK Dependency"
 Cohesion: 1.0
 Nodes (1): OpenAI SDK Dependency
 
-### Community 98 - "Redis (Upstash)"
+### Community 100 - "Redis (Upstash)"
 Cohesion: 1.0
 Nodes (1): Redis (Upstash)
 
-### Community 99 - "Vitest 4"
+### Community 101 - "Vitest 4"
 Cohesion: 1.0
 Nodes (1): Vitest 4
 
-### Community 100 - "Playwright"
+### Community 102 - "Playwright"
 Cohesion: 1.0
 Nodes (1): Playwright
 
-### Community 101 - "FastAPI main.py"
+### Community 103 - "FastAPI main.py"
 Cohesion: 1.0
 Nodes (1): FastAPI main.py
 
-### Community 102 - "prisma.config.ts"
+### Community 104 - "prisma.config.ts"
 Cohesion: 1.0
 Nodes (1): prisma.config.ts
 
-### Community 103 - "/api/reports route"
+### Community 105 - "/api/reports route"
 Cohesion: 1.0
 Nodes (1): /api/reports route
 
-### Community 104 - "FinAILogo component"
+### Community 106 - "FinAILogo component"
 Cohesion: 1.0
 Nodes (1): FinAILogo component
 
-### Community 105 - "SYNTH_SYSTEM_V1 prompt"
+### Community 107 - "SYNTH_SYSTEM_V1 prompt"
 Cohesion: 1.0
 Nodes (1): SYNTH_SYSTEM_V1 prompt
 
-### Community 106 - "CLASSIFY_SYSTEM_V1 prompt"
+### Community 108 - "CLASSIFY_SYSTEM_V1 prompt"
 Cohesion: 1.0
 Nodes (1): CLASSIFY_SYSTEM_V1 prompt
 
-### Community 107 - "DATABASE_URL"
+### Community 109 - "DATABASE_URL"
 Cohesion: 1.0
 Nodes (1): DATABASE_URL
 
-### Community 108 - "REDIS_URL"
+### Community 110 - "REDIS_URL"
 Cohesion: 1.0
 Nodes (1): REDIS_URL
 
-### Community 109 - "EODHD_API_KEY"
+### Community 111 - "EODHD_API_KEY"
 Cohesion: 1.0
 Nodes (1): EODHD_API_KEY
 
-### Community 110 - "SENTRY_DSN"
+### Community 112 - "SENTRY_DSN"
 Cohesion: 1.0
 Nodes (1): SENTRY_DSN
 
-### Community 111 - "RATE_LIMIT_REPORTS_PER_DAY"
+### Community 113 - "RATE_LIMIT_REPORTS_PER_DAY"
 Cohesion: 1.0
 Nodes (1): RATE_LIMIT_REPORTS_PER_DAY
 
 ## Knowledge Gaps
-- **126 isolated node(s):** `FinAI research pipeline service — FastAPI.  Session 2: /health + POST /reports (`, `Pydantic models mirroring the §6 TypeScript VerdictReport schema.`, `Per-article sentiment + relevance classifier using the LLM classifier model. Ski`, `Key financial ratios + last 4 quarters from Finnhub. Returns empty dict when FIN`, `Last 90 days of company news from Finnhub. Returns empty list when FINNHUB_API_K` (+121 more)
+- **133 isolated node(s):** `FinAI research pipeline service — FastAPI.  Session 2: /health + POST /reports (`, `Pydantic models mirroring the §6 TypeScript VerdictReport schema.`, `Per-article sentiment + relevance classifier using the LLM classifier model. Ski`, `Key financial ratios + last 4 quarters from Finnhub. Returns empty dict when FIN`, `Last 90 days of company news from Finnhub. Returns empty list when FINNHUB_API_K` (+128 more)
   These have ≤1 connection - possible missing edges or undocumented components.
 - **Thin community `SymbolSearch.tsx`** (4 nodes): `SymbolSearch.tsx`, `navigate()`, `onClickOutside()`, `onKeyDown()`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
@@ -315,15 +310,13 @@ Nodes (1): RATE_LIMIT_REPORTS_PER_DAY
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
 - **Thin community `ESLint Config`** (2 nodes): `ESLint Config`, `Next.js Config`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `FinnhubQuote Interface`** (2 nodes): `FinnhubQuote Interface`, `Finnhub getQuote`
-  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
 - **Thin community `FinnhubSearchResult Interface`** (2 nodes): `FinnhubSearchResult Interface`, `Finnhub searchSymbols`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `FinnhubQuote Interface`** (2 nodes): `FinnhubQuote Interface`, `Finnhub getQuote`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
 - **Thin community `System topology diagram`** (2 nodes): `System topology diagram`, `ADR-0003: Single monorepo layout`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
 - **Thin community `Changelog: lightweight-charts integration (2026-04-28)`** (2 nodes): `Changelog: lightweight-charts integration (2026-04-28)`, `ADR-0006: Yahoo Finance v8 for OHLCV chart data`
-  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Root Layout (app/layout.tsx)`** (1 nodes): `Root Layout (app/layout.tsx)`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
 - **Thin community `VerdictReport Schema (lib/ai/schema.ts)`** (1 nodes): `VerdictReport Schema (lib/ai/schema.ts)`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
@@ -379,17 +372,17 @@ Nodes (1): RATE_LIMIT_REPORTS_PER_DAY
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `SEBI + SEC Disclaimer` connect `SEBI + SEC Disclaimer` to `Pipeline: resolve→fundamentals→news→classify→peers→synthesize`, `Session 2`?**
-  _High betweenness centrality (0.047) - this node is a cross-community bridge._
+- **Why does `SEBI + SEC Disclaimer` connect `SEBI + SEC Disclaimer` to `Session 2`, `Pipeline: resolve→fundamentals→news→classify→peers→synthesize`?**
+  _High betweenness centrality (0.039) - this node is a cross-community bridge._
 - **Why does `ADR-0001 Initial Market Scope (India + US)` connect `Session 2` to `SEBI + SEC Disclaimer`?**
-  _High betweenness centrality (0.034) - this node is a cross-community bridge._
-- **Why does `Session 1` connect `Session 2` to `FinAI Project`?**
-  _High betweenness centrality (0.029) - this node is a cross-community bridge._
+  _High betweenness centrality (0.028) - this node is a cross-community bridge._
+- **Are the 3 inferred relationships involving `AiReport Prisma Model` (e.g. with `GET /api/reports` and `DELETE /api/reports`) actually correct?**
+  _`AiReport Prisma Model` has 3 INFERRED edges - model-reasoned connections that need verification._
 - **What connects `FinAI research pipeline service — FastAPI.  Session 2: /health + POST /reports (`, `Pydantic models mirroring the §6 TypeScript VerdictReport schema.`, `Per-article sentiment + relevance classifier using the LLM classifier model. Ski` to the rest of the system?**
-  _126 weakly-connected nodes found - possible documentation gaps or missing edges._
+  _133 weakly-connected nodes found - possible documentation gaps or missing edges._
+- **Should `Session 2` be split into smaller, more focused modules?**
+  _Cohesion score 0.06 - nodes in this community are weakly interconnected._
+- **Should `main.py` be split into smaller, more focused modules?**
+  _Cohesion score 0.09 - nodes in this community are weakly interconnected._
 - **Should `Pipeline: resolve→fundamentals→news→classify→peers→synthesize` be split into smaller, more focused modules?**
   _Cohesion score 0.08 - nodes in this community are weakly interconnected._
-- **Should `Session 2` be split into smaller, more focused modules?**
-  _Cohesion score 0.08 - nodes in this community are weakly interconnected._
-- **Should `_shared.py` be split into smaller, more focused modules?**
-  _Cohesion score 0.09 - nodes in this community are weakly interconnected._
