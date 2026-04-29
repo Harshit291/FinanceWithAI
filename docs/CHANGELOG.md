@@ -4,6 +4,27 @@
 
 ---
 
+## 2026-04-29 — Session 4: AI technical analysis panel
+
+### Added
+- `services/app/pipeline/technical_analysis.py` — pure-Python indicator engine (RSI-14, SMA-20/50/200, MACD) from Yahoo Finance 1y OHLCV; LLM synthesizes BUY/HOLD/SELL with confidence score for two horizons.
+- `FastAPI POST /technical-analysis` — new endpoint; reuses `ReportRequest` model.
+- `TechnicalVerdict` + `TechnicalSignal` + `KeyLevels` Pydantic models in `services/app/models.py`.
+- `TechnicalVerdict` TypeScript types + Zod schema in `lib/ai/schema.ts`.
+- `lib/ai/technical.ts` — `synthesiseTechnical(symbol)` adapter; mirrors `synthesiseVerdict` pattern.
+- `components/charts/TechnicalPanel.tsx` — two side-by-side signal cards (short-term 1-4w / long-term 1y+), each with BUY/HOLD/SELL badge, confidence bar, indicator bullets, rationale; key support/resistance row; disclaimer strip.
+
+### Changed
+- `app/(app)/stocks/[symbol]/page.tsx` — `Promise.all([synthesiseVerdict, synthesiseTechnical])` in parallel; `TechnicalPanel` renders below `ChartPanel`. Technical call wrapped in `.catch(() => null)` so a failure never breaks the page.
+- `.env.local` — fixed `FASTAPI_URL` port mismatch (was `8001`, should be `8000`).
+
+### Verified (Playwright + curl)
+- `POST /technical-analysis` AAPL: RSI 62.7, MACD 0.8356, SMA-200 254.21, key levels support 260.56 / resistance 286.19. BUY short-term 80%, BUY long-term 90%.
+- Stock page renders: `TechnicalPanel` visible below chart with real data.
+- TypeScript: clean (`tsc --noEmit`).
+
+---
+
 ## 2026-04-28 — Session 3: auth foundation + "Precision Terminal" redesign
 
 ### Added

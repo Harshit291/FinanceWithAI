@@ -2,15 +2,15 @@
 
 > Single source of truth for "where are we right now". Updated at the end of every working session.
 
-**Last updated:** 2026-04-28 (session 3 complete)
+**Last updated:** 2026-04-29 (session 4 complete)
 
 ---
 
 ## Current sprint goal
 
-✅ **Session 3 complete.** Auth foundation (NextAuth.js v5 + Prisma 7 + SQLite), full "Precision Terminal" dark redesign, middleware route guards, register endpoint — all shipped and committed.
+✅ **Session 4 complete.** AI technical analysis panel shipped: FastAPI `/technical-analysis` computes RSI-14/SMA-20/50/200/MACD from 1y Yahoo Finance OHLCV, LLM synthesizes BUY/HOLD/SELL for short-term (1-4w) and long-term (1y+) with confidence score. `TechnicalPanel` renders below chart on stock page.
 
-Next sprint goal: **Session 4 — persistence features.** Watchlist CRUD, saved AI reports, Supabase Postgres migration.
+Next sprint goal: **Session 5 — persistence features.** Watchlist CRUD, saved AI reports, Supabase Postgres migration.
 
 ## Last session summary (2026-04-28 — session 3 partial)
 
@@ -44,7 +44,7 @@ Next sprint goal: **Session 4 — persistence features.** Watchlist CRUD, saved 
 
 ## In progress
 
-Nothing. Session 3 complete and committed.
+Nothing. Session 4 complete and committed.
 
 ## Blocked
 

@@ -31,7 +31,7 @@ Never skip steps 3-4. Never start implementing before the user says go.
 
 ---
 
-## Currently focused tasks (Session 4)
+## Currently focused tasks (Session 5)
 
 These are the next ~5 tasks in priority order. Full list: [docs/TASKS.md](docs/TASKS.md).
 
@@ -101,6 +101,9 @@ Blocked (needs user input before we can start):
 | [lib/prisma.ts](lib/prisma.ts) | Prisma singleton; BetterSQLite3 adapter (swap to pg for Supabase) |
 | [prisma/schema.prisma](prisma/schema.prisma) | DB schema: User, Account, Session, WatchlistItem, AiReport |
 | [lib/data/symbol-search.ts](lib/data/symbol-search.ts) | Exchange-aware dispatcher; 15-symbol fallback |
+| [lib/ai/technical.ts](lib/ai/technical.ts) | synthesiseTechnical() — calls FastAPI /technical-analysis |
+| [components/charts/TechnicalPanel.tsx](components/charts/TechnicalPanel.tsx) | BUY/HOLD/SELL signal cards rendered below chart |
+| [services/app/pipeline/technical_analysis.py](services/app/pipeline/technical_analysis.py) | OHLCV fetch → RSI/SMA/MACD compute → LLM synthesis |
 
 ---
 

@@ -74,7 +74,16 @@
 - [ ] Watchlist CRUD: add/remove symbols, persist per user
 - [ ] Saved AI reports (immutable rows; "refresh" creates new row per §5.7)
 
-### Session 4 — Polish + Safety
+### Session 4 — Technical Analysis
+- [x] `services/app/pipeline/technical_analysis.py` — fetch 1y OHLCV from Yahoo Finance, compute RSI-14/SMA-20/50/200/MACD in pure Python, LLM synthesizes BUY/HOLD/SELL
+- [x] `FastAPI POST /technical-analysis` route
+- [x] `TechnicalVerdict` / `TechnicalSignal` schema in Python (`models.py`) + TypeScript (`schema.ts`) + Zod
+- [x] `lib/ai/technical.ts` — `synthesiseTechnical()` adapter
+- [x] `components/charts/TechnicalPanel.tsx` — short/long term signal cards with BUY/HOLD/SELL badge, confidence bar, indicator bullets, key levels
+- [x] Stock page: `Promise.all` for both analyses, `TechnicalPanel` below chart
+- [x] Fixed `FASTAPI_URL` port mismatch in `.env.local` (8001 → 8000)
+
+### Session 5 — Polish + Safety
 - [ ] Rate limiting: 20 AI reports/day on free tier; quota meter in UI
 - [ ] GDPR/DPDP: data export endpoint (`GET /api/user/export`) + account deletion (`DELETE /api/user`)
 - [ ] Error states: handle provider failures gracefully (data missing → `stance: "insufficient_data"`)
