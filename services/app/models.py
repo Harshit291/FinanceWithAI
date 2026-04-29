@@ -6,6 +6,7 @@ import uuid
 from datetime import datetime, timezone
 
 Stance = Literal["bullish", "neutral", "bearish", "insufficient_data"]
+Action = Literal["buy", "hold", "sell", "insufficient_data"]
 
 DISCLAIMER = (
     "Not investment advice. Educational research only. "
@@ -44,3 +45,23 @@ class VerdictReport(BaseModel):
     horizons: Horizons
     summary_paragraph: str
     disclaimer: str = DISCLAIMER
+
+
+class KeyLevels(BaseModel):
+    support: float | None = None
+    resistance: float | None = None
+
+
+class TechnicalSignal(BaseModel):
+    action: Action
+    confidence_pct: float = Field(..., ge=0, le=100)
+    rationale: str
+    indicators: list[str]
+
+
+class TechnicalVerdict(BaseModel):
+    symbol: str
+    as_of: str = Field(default_factory=lambda: datetime.now(timezone.utc).isoformat())
+    short_term: TechnicalSignal
+    long_term: TechnicalSignal
+    key_levels: KeyLevels

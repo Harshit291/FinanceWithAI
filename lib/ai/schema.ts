@@ -56,6 +56,46 @@ const HorizonSchema = z.object({
   key_risks: z.array(z.string()),
 });
 
+// ── Technical analysis types ─────────────────────────────────────────────────
+
+export type Action = "buy" | "hold" | "sell" | "insufficient_data";
+
+export interface TechnicalSignal {
+  action: Action;
+  /** 0-100 */
+  confidence_pct: number;
+  rationale: string;
+  indicators: string[];
+}
+
+export interface TechnicalVerdict {
+  symbol: string;
+  as_of: string;
+  short_term: TechnicalSignal;
+  long_term: TechnicalSignal;
+  key_levels: { support: number | null; resistance: number | null };
+}
+
+const TechnicalSignalSchema = z.object({
+  action: z.enum(["buy", "hold", "sell", "insufficient_data"]),
+  confidence_pct: z.number().min(0).max(100),
+  rationale: z.string(),
+  indicators: z.array(z.string()),
+});
+
+export const TechnicalVerdictSchema = z.object({
+  symbol: z.string(),
+  as_of: z.string(),
+  short_term: TechnicalSignalSchema,
+  long_term: TechnicalSignalSchema,
+  key_levels: z.object({
+    support: z.number().nullable(),
+    resistance: z.number().nullable(),
+  }),
+});
+
+// ── Fundamental report schema ─────────────────────────────────────────────────
+
 export const VerdictReportSchema = z.object({
   report_id: z.string(),
   symbol: z.string(),

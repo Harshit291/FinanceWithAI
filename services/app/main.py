@@ -22,6 +22,7 @@ from .pipeline.news import fetch_news  # noqa: E402
 from .pipeline.classify import classify_articles  # noqa: E402
 from .pipeline.peers import fetch_peers  # noqa: E402
 from .pipeline.synthesize import synthesize  # noqa: E402
+from .pipeline.technical_analysis import run_technical_analysis  # noqa: E402
 
 app = FastAPI(title="FinAI Research Pipeline", version="0.2.0")
 
@@ -68,3 +69,11 @@ async def create_report(req: ReportRequest):
         classified_news=classified_news,
     )
     return report
+
+
+@app.post("/technical-analysis")
+async def technical_analysis(req: ReportRequest):
+    symbol = req.symbol.strip().upper()
+    if not symbol or len(symbol) > 20:
+        raise HTTPException(status_code=422, detail="Invalid symbol")
+    return await run_technical_analysis(symbol)

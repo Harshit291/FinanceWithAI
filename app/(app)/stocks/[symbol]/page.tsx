@@ -2,7 +2,9 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import { synthesiseVerdict } from "@/lib/ai/llm";
+import { synthesiseTechnical } from "@/lib/ai/technical";
 import { VerdictCard } from "@/components/ai-report/VerdictCard";
+import { TechnicalPanel } from "@/components/charts/TechnicalPanel";
 import { ChartPanel } from "./ChartPanel";
 
 interface Props {
@@ -25,7 +27,10 @@ export default async function StockPage({ params }: Props) {
   const decodedSymbol = decodeURIComponent(symbol).toUpperCase();
   if (!decodedSymbol || decodedSymbol.length > 20) notFound();
 
-  const report = await synthesiseVerdict(decodedSymbol);
+  const [report, technical] = await Promise.all([
+    synthesiseVerdict(decodedSymbol),
+    synthesiseTechnical(decodedSymbol).catch(() => null),
+  ]);
   const exchange = exchangeLabel(decodedSymbol);
 
   return (
@@ -53,7 +58,7 @@ export default async function StockPage({ params }: Props) {
       {/* Layout: chart (3/5) + analysis (2/5) */}
       <div className="flex flex-col gap-5 sm:flex-row sm:items-start">
 
-        {/* Chart */}
+        {/* Chart + Technical Analysis */}
         <div className="w-full sm:w-[60%]">
           <Suspense
             fallback={
@@ -64,6 +69,7 @@ export default async function StockPage({ params }: Props) {
           >
             <ChartPanel symbol={decodedSymbol} />
           </Suspense>
+          {technical && <TechnicalPanel verdict={technical} />}
         </div>
 
         {/* AI fundamental analysis */}
