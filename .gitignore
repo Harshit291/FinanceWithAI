@@ -52,3 +52,11 @@ next-env.d.ts
 # LLM provider benchmark artifacts (rank_providers.py output)
 services/providers.ranked.json
 services/scripts/benchmark_outputs/
+
+# Playwright test screenshots at repo root (loose artifacts, not project content)
+/*.png
+
+# graphify outputs
+/graphify-out/.graphify_*
+/.graphify_*
+/graphify_history/
