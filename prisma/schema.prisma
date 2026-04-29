@@ -74,7 +74,11 @@ model AiReport {
   id         String   @id @default(cuid())
   userId     String
   symbol     String
+  reportId   String
   reportJson String
   createdAt  DateTime @default(now())
   user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, reportId])
+  @@index([userId, symbol, createdAt])
 }

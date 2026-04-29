@@ -5,7 +5,10 @@ import { auth } from "@/lib/auth/config";
 import { prisma } from "@/lib/prisma";
 import { synthesiseVerdict } from "@/lib/ai/llm";
 import { synthesiseTechnical } from "@/lib/ai/technical";
+import { persistAiReport } from "@/lib/reports/persist";
 import { VerdictCard } from "@/components/ai-report/VerdictCard";
+import { ReportHistory } from "@/components/ai-report/ReportHistory";
+import { RefreshButton } from "@/components/ai-report/RefreshButton";
 import { TechnicalPanel } from "@/components/charts/TechnicalPanel";
 import { WatchlistToggle } from "@/components/watchlist/WatchlistToggle";
 import { ChartPanel } from "./ChartPanel";
@@ -45,6 +48,23 @@ export default async function StockPage({ params }: Props) {
   const isAuthenticated = !!session?.user?.id;
   const isSaved = !!savedItem;
 
+  // Auto-persist for authenticated users (idempotent on report_id within cache window).
+  let history: Array<{ id: string; createdAt: Date; report: import("@/lib/ai/schema").VerdictReport }> = [];
+  if (session?.user?.id) {
+    await persistAiReport(session.user.id, decodedSymbol, report).catch(() => {});
+    const rows = await prisma.aiReport.findMany({
+      where: { userId: session.user.id, symbol: decodedSymbol },
+      orderBy: { createdAt: "desc" },
+      take: 10,
+      select: { id: true, createdAt: true, reportJson: true },
+    });
+    history = rows.map((r) => ({
+      id: r.id,
+      createdAt: r.createdAt,
+      report: JSON.parse(r.reportJson) as import("@/lib/ai/schema").VerdictReport,
+    }));
+  }
+
   return (
     <main className="min-h-screen bg-slate-950 px-4 sm:px-6 lg:px-8 py-6 max-w-screen-xl mx-auto">
 
@@ -63,11 +83,14 @@ export default async function StockPage({ params }: Props) {
             <p className="text-xs font-mono text-slate-600 uppercase tracking-wider">
               Technical + AI Research
             </p>
-            <WatchlistToggle
-              symbol={decodedSymbol}
-              initialIsSaved={isSaved}
-              isAuthenticated={isAuthenticated}
-            />
+            <div className="flex items-center gap-2">
+              <RefreshButton symbol={decodedSymbol} isAuthenticated={isAuthenticated} />
+              <WatchlistToggle
+                symbol={decodedSymbol}
+                initialIsSaved={isSaved}
+                isAuthenticated={isAuthenticated}
+              />
+            </div>
           </div>
         </div>
       </header>
@@ -99,6 +122,9 @@ export default async function StockPage({ params }: Props) {
             <div className="h-px flex-1 bg-slate-800" />
           </div>
           <VerdictCard report={report} />
+          {history.length > 0 && (
+            <ReportHistory items={history} currentReportId={report.report_id} />
+          )}
         </div>
 
       </div>
