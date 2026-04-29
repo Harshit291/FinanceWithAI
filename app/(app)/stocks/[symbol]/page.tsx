@@ -1,10 +1,13 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
+import { auth } from "@/lib/auth/config";
+import { prisma } from "@/lib/prisma";
 import { synthesiseVerdict } from "@/lib/ai/llm";
 import { synthesiseTechnical } from "@/lib/ai/technical";
 import { VerdictCard } from "@/components/ai-report/VerdictCard";
 import { TechnicalPanel } from "@/components/charts/TechnicalPanel";
+import { WatchlistToggle } from "@/components/watchlist/WatchlistToggle";
 import { ChartPanel } from "./ChartPanel";
 
 interface Props {
@@ -27,11 +30,20 @@ export default async function StockPage({ params }: Props) {
   const decodedSymbol = decodeURIComponent(symbol).toUpperCase();
   if (!decodedSymbol || decodedSymbol.length > 20) notFound();
 
-  const [report, technical] = await Promise.all([
+  const session = await auth();
+  const [report, technical, savedItem] = await Promise.all([
     synthesiseVerdict(decodedSymbol),
     synthesiseTechnical(decodedSymbol).catch(() => null),
+    session?.user?.id
+      ? prisma.watchlistItem.findUnique({
+          where: { userId_symbol: { userId: session.user.id, symbol: decodedSymbol } },
+          select: { symbol: true },
+        })
+      : Promise.resolve(null),
   ]);
   const exchange = exchangeLabel(decodedSymbol);
+  const isAuthenticated = !!session?.user?.id;
+  const isSaved = !!savedItem;
 
   return (
     <main className="min-h-screen bg-slate-950 px-4 sm:px-6 lg:px-8 py-6 max-w-screen-xl mx-auto">
@@ -47,10 +59,15 @@ export default async function StockPage({ params }: Props) {
               {decodedSymbol}
             </h1>
           </div>
-          <div className="text-right">
+          <div className="flex flex-col items-end gap-2">
             <p className="text-xs font-mono text-slate-600 uppercase tracking-wider">
               Technical + AI Research
             </p>
+            <WatchlistToggle
+              symbol={decodedSymbol}
+              initialIsSaved={isSaved}
+              isAuthenticated={isAuthenticated}
+            />
           </div>
         </div>
       </header>
