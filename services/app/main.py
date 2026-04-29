@@ -5,12 +5,22 @@ Session 2: /health + POST /reports
 """
 from __future__ import annotations
 import asyncio
+import logging
 import os
 from pathlib import Path
 
 from dotenv import load_dotenv
 
 load_dotenv(Path(__file__).parent.parent.parent / ".env.local")
+
+# Surface app-level INFO logs (provider failover, etc.) under uvicorn.
+# `force=True` overrides uvicorn's preconfigured root handlers.
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s %(name)s %(levelname)s %(message)s",
+    force=True,
+)
+logging.getLogger("services.app.pipeline._shared").setLevel(logging.INFO)
 
 from fastapi import FastAPI, HTTPException  # noqa: E402
 from fastapi.responses import JSONResponse  # noqa: E402

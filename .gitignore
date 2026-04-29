@@ -48,3 +48,7 @@ services/**/*.pyc
 next-env.d.ts
 
 /lib/generated/prisma
+
+# LLM provider benchmark artifacts (rank_providers.py output)
+services/providers.ranked.json
+services/scripts/benchmark_outputs/

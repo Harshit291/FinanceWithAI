@@ -1,7 +1,6 @@
 """Full synthesis: calls the LLM with all pipeline data, returns a validated VerdictReport."""
 from __future__ import annotations
 import json
-import os
 import uuid
 from datetime import datetime, timezone
 
@@ -9,9 +8,7 @@ from openai import RateLimitError, APIError
 from pydantic import ValidationError
 
 from ..models import DISCLAIMER, VerdictReport, Horizon, Horizons
-from ._shared import groq_client
-
-SYNTHESIS_MODEL = os.getenv("LLM_SYNTHESIS_MODEL", "llama-3.3-70b-versatile")
+from ._shared import chat_with_failover
 
 _SYSTEM = """\
 You are a neutral, analytical equity research assistant. Synthesize a structured, evidence-based report \
@@ -84,31 +81,30 @@ async def synthesize(
         "Produce the VerdictReport now."
     )
 
-    client = groq_client()
-
     async def _call() -> VerdictReport:
-        completion = await client.chat.completions.create(
-            model=SYNTHESIS_MODEL,
+        completion, provider_name = await chat_with_failover(
             messages=[
                 {"role": "system", "content": _SYSTEM},
                 {"role": "user", "content": user_msg},
             ],
+            kind="synthesis",
             temperature=0.2,
             response_format={"type": "json_object"},
+            symbol=symbol,
         )
         data = json.loads(completion.choices[0].message.content or "")
         report = VerdictReport.model_validate(data)
         report.report_id = report_id
         report.symbol = symbol
         report.as_of = now
-        report.model = SYNTHESIS_MODEL
+        report.model = f"{provider_name}:{completion.model}" if completion.model else provider_name
         report.disclaimer = DISCLAIMER
         return report
 
     try:
         return await _call()
     except (ValidationError, ValueError, json.JSONDecodeError):
-        return await _call()  # retry once
+        return await _call()  # retry once on bad JSON / schema drift
     except (RateLimitError, APIError) as exc:
         reason = "rate_limit" if isinstance(exc, RateLimitError) else "api_error"
         insufficient = Horizon(
@@ -123,7 +119,7 @@ async def synthesize(
             report_id=report_id,
             symbol=symbol,
             as_of=now,
-            model=SYNTHESIS_MODEL,
+            model="all_providers_exhausted",
             data_sources=[],
             horizons=Horizons(
                 short_term=insufficient,

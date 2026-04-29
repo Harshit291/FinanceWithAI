@@ -4,6 +4,42 @@
 
 ---
 
+## ADR-0007 — Multi-provider LLM failover with quality-ranked ordering
+
+**Date:** 2026-04-29
+**Status:** Accepted
+
+**Context.** FinAI's FastAPI pipeline relied on Groq alone for every LLM call (synthesis, technical, classifier). When Groq's free-tier RPD or TPM quota was exhausted, the user saw `insufficient_data` for all three horizons — observed live on `/stocks/AAPL` after a routine session of testing. Single-provider dependency is also a liability for vendor outages.
+
+Several free-tier providers offer the **same OpenAI Chat Completions API shape** (drop-in `base_url` swap), so we can chain them as a failover sequence behind the existing OpenAI SDK with zero new dependencies.
+
+**Options considered.**
+- **Add Anthropic Claude as a paid backup** — no persistent free tier; defers cost to later.
+- **Round-robin across providers** — wastes quota on requests that would succeed on the cheapest provider; complicates observability.
+- **Quota-aware routing** — needs a Redis counter and book-keeping; premature without observed exhaustion patterns.
+- **Ordered failover, quality-ranked** *(chosen)* — pick the highest-quality provider first; on transient error (429/timeout/5xx), drop to next. Quality is benchmarked, not assumed.
+
+**Decision.**
+1. **Provider catalogue** in `services/app/pipeline/_shared.py` defining four OpenAI-compatible providers: Groq, Cerebras, SambaNova, OpenRouter. Each has a per-kind model map (`synthesis` 70B, `classifier` 8B).
+2. **`chat_with_failover()` helper** wraps `AsyncOpenAI.chat.completions.create()`, walks the active provider list (filters by `<X>_API_KEY` presence), drops to next on `RateLimitError` / `APITimeoutError` / `APIConnectionError` / `InternalServerError`, and **fails fast** on `AuthenticationError` / `BadRequestError` (config bugs).
+3. **Quality-ranked order** — `services/scripts/rank_providers.py` benchmarks every active provider on the same fundamental-synthesis prompt for `AAPL` (or any symbol), scores each output (schema validity 25 pts, completeness 20, depth 20, specificity 20, latency 10, confidence calibration 5), and writes `services/providers.ranked.json` (gitignored). The helper loads this file at startup; falls back to a hardcoded default if missing.
+4. **Classifier capped at 2 providers** (`max_providers=2`) so per-article classification (10–20 calls per stock report) doesn't burn OpenRouter's 200 RPD on a low-stakes path that already has a graceful neutral fallback.
+
+**Consequences.**
+- Combined free quota across 4 providers ≈ **5× single-provider capacity**. Survives single-vendor 429.
+- The first hit on a fresh search uses the highest-quality provider per the latest benchmark; later hits gracefully degrade as the top provider's quota burns through the day.
+- Each call logs which provider served it (`llm.ok provider=cerebras kind=synthesis symbol=AAPL`), so we can see the chain hopping in real time.
+- Pydantic validation already in place catches per-provider JSON drift; existing one-retry logic at each call site stays intact (do not advance providers on bad-JSON 200s — that burns quota).
+- **Privacy trade-off:** OpenRouter's free tier may train on prompt data. We send: ticker, computed indicators, public news headlines, public fundamentals — **no PII, no user identifiers**. OpenRouter is last in chain so it's only reached when all other providers 429. Documented here as accepted.
+- **Benchmark drift:** the scoring rubric is heuristic, not ground-truth. The user can manually reorder `providers.ranked.json` if intuition disagrees with the score.
+- **Re-ranking cadence:** manual today (run `python -m services.scripts.rank_providers` whenever credentials change or model versions update). Schedule via cron when Redis lands in session 5.
+
+**Implementation cost.** ~410 lines added, ~37 changed across 9 files. No new dependencies (reuses `openai` SDK).
+
+**Supersedes.** Sole-Groq dependency in `_shared.py` (legacy `groq_client()` kept as deprecated alias).
+
+---
+
 ## ADR-0006 — OHLCV chart data source
 
 **Date:** 2026-04-28

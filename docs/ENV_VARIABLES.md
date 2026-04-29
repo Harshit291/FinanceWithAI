@@ -2,7 +2,7 @@
 
 > Every env var, what it does, where it's used, which environments need it. Updated when env vars change. Mirrors `.env.example` (which lives at repo root with all keys unset).
 
-**Last updated:** 2026-04-27
+**Last updated:** 2026-04-29
 
 ---
 
@@ -10,11 +10,14 @@
 
 | Variable | Purpose | Used in | Required in |
 |---|---|---|---|
-| `GROQ_API_KEY` | Auth for Groq API (OpenAI-compatible). Used by FastAPI pipeline in dev until `ANTHROPIC_API_KEY` is available. | `services/app/pipeline/classify.py`, `services/app/pipeline/synthesize.py` | dev |
+| `GROQ_API_KEY` | Auth for Groq API (OpenAI-compatible). One of four LLM providers in the failover chain (ADR-0007). | `services/app/pipeline/_shared.py` (PROVIDER_CATALOGUE) | dev (any one provider key required) |
+| `CEREBRAS_API_KEY` | Auth for Cerebras Inference. OpenAI-compatible. 1 M tokens/day free tier. | `services/app/pipeline/_shared.py` | optional |
+| `SAMBANOVA_API_KEY` | Auth for SambaNova Cloud. OpenAI-compatible. $5 starting credit. | `services/app/pipeline/_shared.py` | optional |
+| `OPENROUTER_API_KEY` | Auth for OpenRouter. OpenAI-compatible. **Free tier may train on prompt data** (ADR-0007). Last in failover chain. | `services/app/pipeline/_shared.py` | optional |
 | `FASTAPI_URL` | Base URL of the FastAPI pipeline service. Default: `http://localhost:8000`. | `lib/ai/llm.ts` | dev, prod |
-| `ANTHROPIC_API_KEY` | Auth for the Claude Messages API (production target). Replace Groq key when available. | `lib/ai/llm.ts`, `services/app/pipeline/synthesis.py` | prod |
-| `LLM_SYNTHESIS_MODEL` | Model ID for the per-stock synthesis call (§5.6). Dev default: `llama-3.3-70b-versatile`. Prod default: `claude-opus-4-7` (ADR-0004). Never hardcoded. | same as above | dev, prod |
-| `LLM_CLASSIFIER_MODEL` | Model ID for the per-news classifier call (§5.4). Dev default: `llama-3.1-8b-instant`. Prod default: `claude-haiku-4-5` (ADR-0004). Never hardcoded. | `services/app/pipeline/classify.py` | dev, prod |
+| `ANTHROPIC_API_KEY` | Auth for the Claude Messages API (production target). Will join the failover chain when wired. | `lib/ai/llm.ts`, `services/app/pipeline/_shared.py` | prod |
+| `LLM_SYNTHESIS_MODEL` | Legacy. Per-provider model names now live in `services/app/pipeline/_shared.py` `PROVIDER_CATALOGUE`. Kept in `.env.example` for backwards compat — not read by the new failover helper. | n/a | optional |
+| `LLM_CLASSIFIER_MODEL` | Legacy (same as above). | n/a | optional |
 | `FINNHUB_API_KEY` | Primary market-data + news provider (ADR-0002). Free tier 60/min. | `lib/data/finnhub.ts`, `services/app/pipeline/*` | dev, prod |
 | `INDIANAPI_API_KEY` | India-deep supplement for NSE/BSE fundamentals (ADR-0002). | `lib/data/indianapi.ts`, `services/app/pipeline/*` | dev, prod |
 | `DATABASE_URL` | Postgres connection string (Supabase or Neon — TBD session 3). | `lib/db/*`, `services/app/db.py` | dev, staging, prod |

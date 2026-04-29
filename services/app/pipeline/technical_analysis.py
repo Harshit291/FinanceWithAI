@@ -1,7 +1,6 @@
 """Technical analysis pipeline: OHLCV → indicators → LLM → TechnicalVerdict."""
 from __future__ import annotations
 import json
-import os
 from datetime import datetime, timezone
 
 import httpx
@@ -9,9 +8,7 @@ from openai import RateLimitError, APIError
 from pydantic import ValidationError
 
 from ..models import TechnicalSignal, TechnicalVerdict, KeyLevels
-from ._shared import groq_client
-
-SYNTHESIS_MODEL = os.getenv("LLM_SYNTHESIS_MODEL", "llama-3.3-70b-versatile")
+from ._shared import chat_with_failover
 _YAHOO_URL = "https://query1.finance.yahoo.com/v8/finance/chart/{symbol}"
 _YAHOO_HEADERS = {"User-Agent": "Mozilla/5.0 (compatible; FinAI/1.0)"}
 
@@ -190,17 +187,16 @@ async def run_technical_analysis(symbol: str) -> TechnicalVerdict:
         "Produce the TechnicalVerdict now."
     )
 
-    client = groq_client()
-
     async def _call() -> TechnicalVerdict:
-        completion = await client.chat.completions.create(
-            model=SYNTHESIS_MODEL,
+        completion, _provider = await chat_with_failover(
             messages=[
                 {"role": "system", "content": _SYSTEM},
                 {"role": "user", "content": user_msg},
             ],
+            kind="synthesis",
             temperature=0.1,
             response_format={"type": "json_object"},
+            symbol=symbol,
         )
         data = json.loads(completion.choices[0].message.content or "")
         verdict = TechnicalVerdict.model_validate(data)
