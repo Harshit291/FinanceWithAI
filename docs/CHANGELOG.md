@@ -4,6 +4,31 @@
 
 ---
 
+## 2026-04-29 — Session 6: saved AI reports with auto-persist + history UI
+
+### Added
+- `prisma/schema.prisma` — `AiReport` extended with `reportId` column + `@@unique([userId, reportId])` constraint for idempotent upserts within Next.js fetch cache windows; `@@index([userId, symbol, createdAt])` for history queries. Migration `20260429080022_add_aireport_dedupe`.
+- `lib/reports/persist.ts` — `persistAiReport(userId, symbol, report)` upserts by report_id, trims oldest row when user hits 200-report cap, skips graceful-degradation reports (`model="all_providers_exhausted"` or all-insufficient_data horizons).
+- `lib/ai/llm.ts` — `synthesiseVerdictFresh(symbol)` bypasses Next.js fetch cache (`cache: "no-store"`) for explicit user-triggered refresh. Existing `synthesiseVerdict` still uses 6h revalidate cache for default page renders.
+- `app/api/reports/route.ts` — full rewrite: GET lists user's saved reports (paginated, optional `?symbol` filter, 20-item default, 50 max); POST takes `{symbol, force_refresh?}` and persists when authenticated; DELETE removes own row by `?id`.
+- `components/ai-report/ReportHistory.tsx` — server component rendering compact past-report list below the live VerdictCard. Filters out the current verdict by `report_id` to avoid duplicating it.
+- `components/ai-report/RefreshButton.tsx` — client component on stock-page header. Hidden for anonymous users; calls `POST /api/reports?force_refresh=1` then `router.refresh()`.
+- `components/ai-report/ReportRowDeleteButton.tsx` — hover-only delete on `/reports` rows.
+- `app/(app)/reports/page.tsx` — auth-gated paginated grid (20/page) with color-coded stance abbreviations (`S:BULL 70% M:BULL 78% L:BULL 82%`), AI insight summary, deletable rows.
+
+### Changed
+- `app/(app)/stocks/[symbol]/page.tsx` — auto-persists synthesised verdict for authenticated users (idempotent on `report_id`); fetches last 10 history rows; renders ReportHistory below VerdictCard with `currentReportId` filter.
+- `app/(app)/layout.tsx` — adds `Reports` nav link next to `Watchlist` when authenticated.
+
+### Verified (Playwright)
+- `/reports` empty state: "No saved reports yet" + Browse stocks CTA.
+- Inserted 3 sample AAPL reports → `/reports` lists all three with correct color-coded stances (BULL green, NEUT amber, BEAR red).
+- Stock page header now shows `[Refresh] [Saved]` button pair.
+- Stock-page history panel renders 3 past entries with `S:BULL M:BULL L:BULL` style (live verdict was rate-limited and not persisted, so all 3 DB rows shown).
+- TypeScript: clean (`tsc --noEmit`).
+
+---
+
 ## 2026-04-29 — Session 5: multi-provider LLM failover + watchlist
 
 ### Added

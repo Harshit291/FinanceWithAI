@@ -2,17 +2,23 @@
 
 > Single source of truth for "where are we right now". Updated at the end of every working session.
 
-**Last updated:** 2026-04-29 (session 5 complete)
+**Last updated:** 2026-04-29 (session 6 complete)
 
 ---
 
 ## Current sprint goal
 
-✅ **Session 5 complete.** Two ships:
-1. **Multi-provider LLM failover** (ADR-0007) — `chat_with_failover()` walks an ordered chain across Groq / Cerebras / SambaNova / OpenRouter (all OpenAI-compatible, drop-in `base_url` swap). Order is loaded from `services/providers.ranked.json` (written by `services/scripts/rank_providers.py` benchmark script). On 429/timeout/5xx → next provider. On auth/bad-request → fail fast. Verified: with only Groq configured, `llm.transient ... failing over → llm.exhausted → insufficient_data` graceful path holds.
-2. **Watchlist CRUD** — `POST/GET/DELETE /api/watchlist` (auth-gated, 50/user cap). `WatchlistToggle` on stock-page header with optimistic updates. `/watchlist` page (auth-redirect) shows grid of saved symbols with hover-only remove buttons.
+✅ **Session 6 complete.** Saved AI reports shipped:
+- Prisma `AiReport` extended with `reportId` + `@@unique([userId, reportId])` for idempotent upsert; migration `20260429080022_add_aireport_dedupe`.
+- `lib/reports/persist.ts` — auto-save authenticated synthesis, skip graceful-degradation, 200-row cap with oldest-eviction.
+- `app/api/reports/route.ts` — POST persists, supports `force_refresh` (bypass cache); GET paginates history (`?symbol=` filter, `limit`/`offset`); DELETE removes own row by id.
+- Stock page auto-saves on view, renders compact `ReportHistory` below verdict (filters out current report by `report_id`).
+- `RefreshButton` client component triggers fresh synthesis bypass cache.
+- `/reports` paginated page (20/row, color stance abbreviations, hover delete).
+- Nav link in app layout next to Watchlist when authenticated.
+- Verified end-to-end via Playwright: 3 sample reports inserted → /reports renders all → stock-page history shows past 2 entries.
 
-Next sprint goal: **Session 6 — saved reports + Supabase.** Persist AiReport rows, history UI, swap SQLite → Supabase Postgres.
+Next sprint goal: **Session 7 — production readiness.** Supabase Postgres migration, run provider benchmark with multiple keys, Anthropic API integration, India-deep verdicts via IndianAPI.in.
 
 ## Last session summary (2026-04-28 — session 3 partial)
 
@@ -46,7 +52,7 @@ Next sprint goal: **Session 6 — saved reports + Supabase.** Persist AiReport r
 
 ## In progress
 
-Nothing. Session 5 complete and committed.
+Nothing. Session 6 complete and committed.
 
 ## Blocked
 

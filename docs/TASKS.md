@@ -95,7 +95,17 @@
 - [x] `/watchlist` page — grid of saved symbols with hover-only remove
 - [x] App-layout nav link toggles between Watchlist and Sign in based on session
 
-### Session 6 — Polish + Safety
+### Session 6 — Saved AI Reports
+- [x] `prisma/schema.prisma`: AiReport gains `reportId` + `@@unique([userId, reportId])` + index for history queries; migration `20260429080022_add_aireport_dedupe`
+- [x] `lib/reports/persist.ts` — idempotent upsert keyed by report_id, 200-row cap, skip graceful-degradation
+- [x] `lib/ai/llm.ts` — `synthesiseVerdictFresh()` bypasses cache for force_refresh
+- [x] `/api/reports` — auth-gated GET (paginated, ?symbol filter), POST (auto-save), DELETE (by id)
+- [x] Stock page auto-saves on view + renders ReportHistory below verdict
+- [x] `RefreshButton` client component (force-refresh, requires auth)
+- [x] `/reports` paginated grid (20/page) with stance abbreviations + hover delete
+- [x] Nav link in app layout
+
+### Session 7 — Polish + Safety
 - [ ] Rate limiting: 20 AI reports/day on free tier; quota meter in UI
 - [ ] GDPR/DPDP: data export endpoint (`GET /api/user/export`) + account deletion (`DELETE /api/user`)
 - [ ] Error states: handle provider failures gracefully (data missing → `stance: "insufficient_data"`)
