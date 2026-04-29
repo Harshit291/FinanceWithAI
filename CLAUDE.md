@@ -6,7 +6,7 @@ Auto-loaded every Claude Code session. Full rulebook: [docs/PROJECT_INSTRUCTIONS
 
 ## graphify
 
-Knowledge graph at `graphify-out/graph.json` (262 nodes, 284 edges, 19.8x token reduction).
+Knowledge graph at `graphify-out/graph.json` (467 nodes, 516 edges, 52 communities — refreshed 2026-04-29 after session 5).
 Before answering codebase questions, query the graph instead of reading raw files:
 `/graphify query "<question>"` — BFS broad context. `/graphify query "<question>" --dfs` — trace a path.
 After code changes: `/graphify . --update` (incremental, only changed files).
