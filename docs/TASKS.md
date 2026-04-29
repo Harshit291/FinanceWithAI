@@ -83,7 +83,19 @@
 - [x] Stock page: `Promise.all` for both analyses, `TechnicalPanel` below chart
 - [x] Fixed `FASTAPI_URL` port mismatch in `.env.local` (8001 → 8000)
 
-### Session 5 — Polish + Safety
+### Session 5 — Multi-provider LLM + Watchlist
+- [x] `services/app/pipeline/_shared.py` — Provider dataclass + PROVIDER_CATALOGUE (groq/cerebras/sambanova/openrouter)
+- [x] `chat_with_failover()` helper — ordered chain, transient failover, fail-fast on auth errors
+- [x] `services/scripts/rank_providers.py` — benchmark + scoring (schema/completeness/depth/specificity/latency/calibration), writes `providers.ranked.json`
+- [x] `synthesize.py` / `technical_analysis.py` / `classify.py` — swap to `chat_with_failover()`
+- [x] `.env.example` adds CEREBRAS/SAMBANOVA/OPENROUTER keys; `.gitignore` excludes ranking artifacts
+- [x] ADR-0007 documents the chain + OpenRouter privacy trade-off
+- [x] `POST/GET/DELETE /api/watchlist` — auth-gated, 50/user cap, P2002 → 409
+- [x] `WatchlistToggle` component + server-side initial state on stock page
+- [x] `/watchlist` page — grid of saved symbols with hover-only remove
+- [x] App-layout nav link toggles between Watchlist and Sign in based on session
+
+### Session 6 — Polish + Safety
 - [ ] Rate limiting: 20 AI reports/day on free tier; quota meter in UI
 - [ ] GDPR/DPDP: data export endpoint (`GET /api/user/export`) + account deletion (`DELETE /api/user`)
 - [ ] Error states: handle provider failures gracefully (data missing → `stance: "insufficient_data"`)

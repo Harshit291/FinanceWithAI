@@ -2,15 +2,17 @@
 
 > Single source of truth for "where are we right now". Updated at the end of every working session.
 
-**Last updated:** 2026-04-29 (session 4 complete)
+**Last updated:** 2026-04-29 (session 5 complete)
 
 ---
 
 ## Current sprint goal
 
-✅ **Session 4 complete.** AI technical analysis panel shipped: FastAPI `/technical-analysis` computes RSI-14/SMA-20/50/200/MACD from 1y Yahoo Finance OHLCV, LLM synthesizes BUY/HOLD/SELL for short-term (1-4w) and long-term (1y+) with confidence score. `TechnicalPanel` renders below chart on stock page.
+✅ **Session 5 complete.** Two ships:
+1. **Multi-provider LLM failover** (ADR-0007) — `chat_with_failover()` walks an ordered chain across Groq / Cerebras / SambaNova / OpenRouter (all OpenAI-compatible, drop-in `base_url` swap). Order is loaded from `services/providers.ranked.json` (written by `services/scripts/rank_providers.py` benchmark script). On 429/timeout/5xx → next provider. On auth/bad-request → fail fast. Verified: with only Groq configured, `llm.transient ... failing over → llm.exhausted → insufficient_data` graceful path holds.
+2. **Watchlist CRUD** — `POST/GET/DELETE /api/watchlist` (auth-gated, 50/user cap). `WatchlistToggle` on stock-page header with optimistic updates. `/watchlist` page (auth-redirect) shows grid of saved symbols with hover-only remove buttons.
 
-Next sprint goal: **Session 5 — persistence features.** Watchlist CRUD, saved AI reports, Supabase Postgres migration.
+Next sprint goal: **Session 6 — saved reports + Supabase.** Persist AiReport rows, history UI, swap SQLite → Supabase Postgres.
 
 ## Last session summary (2026-04-28 — session 3 partial)
 
@@ -44,7 +46,7 @@ Next sprint goal: **Session 5 — persistence features.** Watchlist CRUD, saved 
 
 ## In progress
 
-Nothing. Session 4 complete and committed.
+Nothing. Session 5 complete and committed.
 
 ## Blocked
 

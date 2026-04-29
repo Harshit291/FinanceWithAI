@@ -4,6 +4,30 @@
 
 ---
 
+## 2026-04-29 — Session 5: multi-provider LLM failover + watchlist
+
+### Added
+- **Multi-provider LLM failover** (ADR-0007). `services/app/pipeline/_shared.py` defines `PROVIDER_CATALOGUE` with four OpenAI-compatible providers (Groq, Cerebras, SambaNova, OpenRouter); `chat_with_failover()` walks the chain on 429/timeout/5xx, fails fast on auth/bad-request, re-raises last exception when exhausted so existing graceful-degradation paths still trigger. Per-provider `AsyncOpenAI` client cache.
+- `services/scripts/rank_providers.py` — benchmark every active provider on the same fundamental-synthesis prompt for a given symbol, score per rubric (schema 25 / completeness 20 / depth 20 / specificity 20 / latency 10 / calibration 5), write `services/providers.ranked.json` (gitignored) consumed by `load_provider_order()` at startup. Per-provider raw + parsed JSON in `services/scripts/benchmark_outputs/`.
+- **Watchlist CRUD.** `POST/GET/DELETE /api/watchlist` (auth-gated via NextAuth `auth()`, 50/user cap, Prisma `P2002` → 409). `components/watchlist/WatchlistToggle.tsx` with optimistic update + rollback. `components/watchlist/WatchlistRemoveButton.tsx` for the watchlist page. `app/(app)/watchlist/page.tsx` auth-gated grid with hover-only remove buttons + empty state.
+- Nav link in `app/(app)/layout.tsx` — toggles between "Watchlist" and "Sign in" based on session.
+
+### Changed
+- `synthesize.py` / `technical_analysis.py` / `classify.py` — swap `groq_client()` calls for `chat_with_failover(kind=...)`. Classifier capped at `max_providers=2` so per-article calls don't burn OpenRouter's 200 RPD. Synthesis report's `model` field now reports `<provider>:<model>` for traceability.
+- `app/(app)/stocks/[symbol]/page.tsx` — adds `WatchlistToggle` in editorial header (top-right), with server-side initial-saved state via Prisma `findUnique` on `userId_symbol` compound key.
+- `services/app/main.py` — `logging.basicConfig(force=True)` so app-level INFO logs (provider routing) surface under uvicorn.
+- `.env.example` — adds `CEREBRAS_API_KEY` / `SAMBANOVA_API_KEY` / `OPENROUTER_API_KEY`. `.gitignore` excludes `services/providers.ranked.json` and `services/scripts/benchmark_outputs/`.
+- `docs/ENV_VARIABLES.md` — documents new provider keys; legacy `LLM_SYNTHESIS_MODEL` / `LLM_CLASSIFIER_MODEL` no longer read by the multi-provider helper (per-provider models live in catalogue).
+- `docs/DECISIONS.md` — ADR-0007 documenting the failover chain, scoring rubric, and OpenRouter privacy trade-off.
+
+### Verified (Playwright + curl)
+- `POST /technical-analysis` AAPL: still 200 OK, log shows `llm.ok provider=groq kind=synthesis symbol=AAPL`.
+- `POST /reports` AAPL: classifier looped over Groq fine, synthesis hit Groq TPD limit, log shows `llm.transient ... 429 ... failing over → llm.exhausted → insufficient_data` — graceful path intact.
+- Watchlist UX: register `watchtest@example.com`, sign in, click "Save" on `/stocks/AAPL` → toggle becomes "Saved" (cyan). Navigate to `/watchlist` → grid shows AAPL card with US · Equities tag and "Added 2026-04-29".
+- TypeScript: clean (`tsc --noEmit`).
+
+---
+
 ## 2026-04-29 — Session 4: AI technical analysis panel
 
 ### Added

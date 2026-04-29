@@ -31,15 +31,18 @@ Never skip steps 3-4. Never start implementing before the user says go.
 
 ---
 
-## Currently focused tasks (Session 5)
+## Currently focused tasks (Session 6)
 
 These are the next ~5 tasks in priority order. Full list: [docs/TASKS.md](docs/TASKS.md).
 
-- [ ] **Watchlist CRUD** — add/remove symbols per user. Prisma `WatchlistItem` table already exists. Need: POST/DELETE `/api/watchlist`, watchlist UI component on stock page (heart/bookmark toggle).
-- [ ] **Saved AI reports** — persist `AiReport` rows (immutable; "refresh" creates a new row). Need: wire `/api/reports` to write to DB after synthesis, `GET /api/reports` to list user's saved reports.
+- [ ] **Saved AI reports** — persist `AiReport` rows (immutable; "refresh" creates a new row). Need: wire `/api/reports` to write to DB after synthesis, `GET /api/reports` to list user's saved reports, history UI on stock page or dedicated page.
 - [ ] **Supabase migration** — swap SQLite → Supabase Postgres. Steps: change `provider = "sqlite"` → `provider = "postgresql"` in `prisma/schema.prisma`, swap `@prisma/adapter-better-sqlite3` → `@prisma/adapter-pg`, run `prisma migrate deploy`. User confirmed Supabase as provider.
-- [ ] **Anthropic API key** — once `ANTHROPIC_API_KEY` is set in `.env.local`, update `baseURL` + model in `services/app/pipeline/_shared.py` to use Anthropic instead of Groq.
+- [ ] **Run provider benchmark** — once user adds Cerebras/SambaNova/OpenRouter keys to `.env.local`, run `services/.venv/Scripts/python -m services.scripts.rank_providers` to write `services/providers.ranked.json` and unlock failover.
+- [ ] **Anthropic API key** — once `ANTHROPIC_API_KEY` is set, add Anthropic as a provider in `PROVIDER_CATALOGUE` (`services/app/pipeline/_shared.py`). One-line registry append.
 - [ ] **IndianAPI.in key** — needed to unlock India (`.NS`/`.BO`) verdicts; currently returns `insufficient_data`.
+
+Pre-existing nice-to-haves:
+- Middleware matcher is `/app/:path*` but Next.js route groups don't appear in URLs — middleware currently guards nothing. `/watchlist` page-level redirect works fine, but other auth-only routes need explicit gates or a fixed matcher.
 
 Blocked (needs user input before we can start):
 - TradingView Charting Library application — need legal entity, project URL, GitHub username. Submit at https://www.tradingview.com/advanced-charts/
@@ -104,6 +107,10 @@ Blocked (needs user input before we can start):
 | [lib/ai/technical.ts](lib/ai/technical.ts) | synthesiseTechnical() — calls FastAPI /technical-analysis |
 | [components/charts/TechnicalPanel.tsx](components/charts/TechnicalPanel.tsx) | BUY/HOLD/SELL signal cards rendered below chart |
 | [services/app/pipeline/technical_analysis.py](services/app/pipeline/technical_analysis.py) | OHLCV fetch → RSI/SMA/MACD compute → LLM synthesis |
+| [services/app/pipeline/_shared.py](services/app/pipeline/_shared.py) | PROVIDER_CATALOGUE + chat_with_failover() — multi-provider LLM chain (ADR-0007) |
+| [services/scripts/rank_providers.py](services/scripts/rank_providers.py) | Benchmark + rank LLM providers; writes services/providers.ranked.json |
+| [app/api/watchlist/route.ts](app/api/watchlist/route.ts) | GET/POST/DELETE watchlist endpoints (auth-gated, 50/user cap) |
+| [components/watchlist/WatchlistToggle.tsx](components/watchlist/WatchlistToggle.tsx) | Stock-page Save/Saved toggle with optimistic updates |
 
 ---
 
