@@ -12,7 +12,7 @@ export async function synthesiseVerdict(symbol: string): Promise<VerdictReport> 
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ symbol }),
-    cache: "no-store",
+    next: { revalidate: 21600 }, // 6h — fundamentals change slowly
   });
 
   if (!res.ok) {
