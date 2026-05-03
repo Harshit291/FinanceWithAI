@@ -6,9 +6,12 @@ import { prisma } from "@/lib/prisma";
 import { synthesiseVerdict } from "@/lib/ai/llm";
 import { synthesiseTechnical } from "@/lib/ai/technical";
 import { persistAiReport } from "@/lib/reports/persist";
+import { checkQuota, type QuotaState } from "@/lib/reports/quota";
 import { VerdictCard } from "@/components/ai-report/VerdictCard";
 import { ReportHistory } from "@/components/ai-report/ReportHistory";
 import { RefreshButton } from "@/components/ai-report/RefreshButton";
+import { QuotaMeter } from "@/components/ai-report/QuotaMeter";
+import { QuotaExceededBanner } from "@/components/ai-report/QuotaExceededBanner";
 import { TechnicalPanel } from "@/components/charts/TechnicalPanel";
 import { WatchlistToggle } from "@/components/watchlist/WatchlistToggle";
 import { ChartPanel } from "./ChartPanel";
@@ -34,26 +37,33 @@ export default async function StockPage({ params }: Props) {
   if (!decodedSymbol || decodedSymbol.length > 20) notFound();
 
   const session = await auth();
+  const userId = session?.user?.id ?? null;
+  const isAuthenticated = !!userId;
+
+  // Pre-flight quota check (auth users only).
+  let quota: QuotaState | null = null;
+  if (userId) quota = await checkQuota(userId);
+  const allowSynthesis = !quota || quota.allowed;
+
   const [report, technical, savedItem] = await Promise.all([
-    synthesiseVerdict(decodedSymbol),
+    allowSynthesis ? synthesiseVerdict(decodedSymbol).catch(() => null) : Promise.resolve(null),
     synthesiseTechnical(decodedSymbol).catch(() => null),
-    session?.user?.id
+    userId
       ? prisma.watchlistItem.findUnique({
-          where: { userId_symbol: { userId: session.user.id, symbol: decodedSymbol } },
+          where: { userId_symbol: { userId, symbol: decodedSymbol } },
           select: { symbol: true },
         })
       : Promise.resolve(null),
   ]);
   const exchange = exchangeLabel(decodedSymbol);
-  const isAuthenticated = !!session?.user?.id;
   const isSaved = !!savedItem;
 
   // Auto-persist for authenticated users (idempotent on report_id within cache window).
   let history: Array<{ id: string; createdAt: Date; report: import("@/lib/ai/schema").VerdictReport }> = [];
-  if (session?.user?.id) {
-    await persistAiReport(session.user.id, decodedSymbol, report).catch(() => {});
+  if (userId) {
+    if (report) await persistAiReport(userId, decodedSymbol, report).catch(() => {});
     const rows = await prisma.aiReport.findMany({
-      where: { userId: session.user.id, symbol: decodedSymbol },
+      where: { userId, symbol: decodedSymbol },
       orderBy: { createdAt: "desc" },
       take: 10,
       select: { id: true, createdAt: true, reportJson: true },
@@ -83,7 +93,8 @@ export default async function StockPage({ params }: Props) {
             <p className="text-xs font-mono text-slate-600 uppercase tracking-wider">
               Technical + AI Research
             </p>
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 flex-wrap justify-end">
+              {quota && <QuotaMeter used={quota.used} limit={quota.limit} />}
               <RefreshButton symbol={decodedSymbol} isAuthenticated={isAuthenticated} />
               <WatchlistToggle
                 symbol={decodedSymbol}
@@ -121,9 +132,24 @@ export default async function StockPage({ params }: Props) {
             </p>
             <div className="h-px flex-1 bg-slate-800" />
           </div>
-          <VerdictCard report={report} />
+          {report ? (
+            <VerdictCard report={report} />
+          ) : quota && !quota.allowed ? (
+            <QuotaExceededBanner
+              used={quota.used}
+              limit={quota.limit}
+              resetsAt={quota.resetsAt}
+            />
+          ) : (
+            <div className="rounded-xl border border-slate-800 bg-slate-900/40 p-5 text-xs font-mono text-slate-500">
+              AI fundamental analysis temporarily unavailable. Please try again later.
+            </div>
+          )}
           {history.length > 0 && (
-            <ReportHistory items={history} currentReportId={report.report_id} />
+            <ReportHistory
+              items={history}
+              currentReportId={report?.report_id}
+            />
           )}
         </div>
 

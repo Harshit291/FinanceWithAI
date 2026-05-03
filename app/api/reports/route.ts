@@ -3,6 +3,7 @@ import { auth } from "@/lib/auth/config";
 import { prisma } from "@/lib/prisma";
 import { synthesiseVerdict, synthesiseVerdictFresh } from "@/lib/ai/llm";
 import { persistAiReport } from "@/lib/reports/persist";
+import { checkQuota } from "@/lib/reports/quota";
 
 const MAX_PAGE_SIZE = 50;
 const DEFAULT_PAGE_SIZE = 20;
@@ -67,11 +68,30 @@ export async function POST(req: NextRequest) {
     );
   }
 
+  const session = await auth();
+
+  // Authenticated users gated by daily quota. Anonymous users get the
+  // shared cache; no per-user quota since they don't persist rows.
+  if (session?.user?.id) {
+    const quota = await checkQuota(session.user.id);
+    if (!quota.allowed) {
+      return NextResponse.json(
+        {
+          error: "Daily report quota reached",
+          code: "QUOTA_EXCEEDED",
+          used: quota.used,
+          limit: quota.limit,
+          resetsAt: quota.resetsAt.toISOString(),
+        },
+        { status: 429 },
+      );
+    }
+  }
+
   const report = body.force_refresh
     ? await synthesiseVerdictFresh(symbol)
     : await synthesiseVerdict(symbol);
 
-  const session = await auth();
   if (session?.user?.id) {
     await persistAiReport(session.user.id, symbol, report).catch(() => {
       // Persistence failure must not break the user-facing response.

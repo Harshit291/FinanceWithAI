@@ -32,7 +32,7 @@
 | Variable | Purpose | Notes |
 |---|---|---|
 | `SENTRY_DSN` | Error monitoring. | Add when we wire Sentry (session 4). |
-| `RATE_LIMIT_REPORTS_PER_DAY` | Per-user daily AI report quota (§7). Default: `20`. | Read by both Next.js BFF and FastAPI. |
+| `RATE_LIMIT_REPORTS_PER_DAY` | Per-user daily AI report quota — counts AiReport rows persisted in last 24h rolling window. Default: `20`. Read by `lib/reports/quota.ts`; gates `POST /api/reports` and stock-page synthesis. | Active. Optional. |
 | `EODHD_API_KEY` | Set only after upgrading to EODHD ALL-IN-ONE (ADR-0002 paid path). | Triggers the data-layer dispatcher to prefer EODHD. |
 
 ## Rules (per PROJECT_INSTRUCTIONS.md §7 and §14)
