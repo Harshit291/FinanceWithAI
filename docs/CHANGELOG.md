@@ -4,6 +4,20 @@
 
 ---
 
+## 2026-05-17 — Session 7: per-user daily AI report quota
+
+### Added
+- `lib/reports/quota.ts` — `checkQuota(userId)` counts `AiReport` rows in the last 24h rolling window against `RATE_LIMIT_REPORTS_PER_DAY` (env, default 20). Returns `{ used, limit, allowed, resetsAt }`.
+- `components/ai-report/QuotaMeter.tsx` — compact badge "12 / 20 today" in stock-page header; color tiers: cyan (<80%), amber (80–95%), red (≥95%).
+- `components/ai-report/QuotaExceededBanner.tsx` — amber section replacing VerdictCard when `!quota.allowed`; shows used/limit ratio, approximate time-to-reset, link to `/reports`.
+
+### Changed
+- `app/(app)/stocks/[symbol]/page.tsx` — pre-flight `checkQuota()` before synthesis; sets `allowSynthesis` flag; renders `QuotaMeter` in header and `QuotaExceededBanner` in analysis panel.
+- `app/api/reports/route.ts` — `POST` gate: authenticated users over quota get 429 `{ code: "QUOTA_EXCEEDED", used, limit, resetsAt }`.
+- `docs/ENV_VARIABLES.md` — `RATE_LIMIT_REPORTS_PER_DAY` documented as optional var (active, default 20).
+
+---
+
 ## 2026-04-29 — Session 6: saved AI reports with auto-persist + history UI
 
 ### Added

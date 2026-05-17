@@ -2,23 +2,21 @@
 
 > Single source of truth for "where are we right now". Updated at the end of every working session.
 
-**Last updated:** 2026-04-29 (session 6 complete)
+**Last updated:** 2026-05-17 (session 7 complete)
 
 ---
 
 ## Current sprint goal
 
-✅ **Session 6 complete.** Saved AI reports shipped:
-- Prisma `AiReport` extended with `reportId` + `@@unique([userId, reportId])` for idempotent upsert; migration `20260429080022_add_aireport_dedupe`.
-- `lib/reports/persist.ts` — auto-save authenticated synthesis, skip graceful-degradation, 200-row cap with oldest-eviction.
-- `app/api/reports/route.ts` — POST persists, supports `force_refresh` (bypass cache); GET paginates history (`?symbol=` filter, `limit`/`offset`); DELETE removes own row by id.
-- Stock page auto-saves on view, renders compact `ReportHistory` below verdict (filters out current report by `report_id`).
-- `RefreshButton` client component triggers fresh synthesis bypass cache.
-- `/reports` paginated page (20/row, color stance abbreviations, hover delete).
-- Nav link in app layout next to Watchlist when authenticated.
-- Verified end-to-end via Playwright: 3 sample reports inserted → /reports renders all → stock-page history shows past 2 entries.
+✅ **Session 7 complete.** Per-user daily quota shipped:
+- `lib/reports/quota.ts` — `checkQuota(userId)` rolling 24h window count against `RATE_LIMIT_REPORTS_PER_DAY` (default 20).
+- `components/ai-report/QuotaMeter.tsx` — badge "12 / 20 today" with color tiers (cyan/amber/red).
+- `components/ai-report/QuotaExceededBanner.tsx` — amber banner shown instead of VerdictCard when quota exhausted; shows time-to-reset + link to /reports.
+- Stock page pre-flight quota check; skips synthesis and shows banner when over limit.
+- `POST /api/reports` returns 429 `QUOTA_EXCEEDED` for authenticated users over limit.
+- `docs/ENV_VARIABLES.md` documents `RATE_LIMIT_REPORTS_PER_DAY` optional var.
 
-Next sprint goal: **Session 7 — production readiness.** Supabase Postgres migration, run provider benchmark with multiple keys, Anthropic API integration, India-deep verdicts via IndianAPI.in.
+Next sprint goal: **Session 8 — UX polish + provider unlock.** Loading skeletons, run provider benchmark (needs keys), prompt drift reconciliation.
 
 ## Last session summary (2026-04-28 — session 3 partial)
 
@@ -52,7 +50,7 @@ Next sprint goal: **Session 7 — production readiness.** Supabase Postgres migr
 
 ## In progress
 
-Nothing. Session 6 complete and committed.
+Nothing. Session 7 complete and committed.
 
 ## Blocked
 
@@ -64,13 +62,14 @@ Nothing. Session 6 complete and committed.
   Once provided, submit at https://www.tradingview.com/advanced-charts/. Tracked in DECISIONS.md ADR-0005 and ROADMAP.md item #3.
 - **Finnhub free-tier NSE/BSE smoke check (ADR-0002a):** requires a Finnhub API key. Once the user adds `FINNHUB_API_KEY` to `.env.local`, run: `curl "https://finnhub.io/api/v1/quote?symbol=RELIANCE.NS&token=<YOUR_KEY>"` for a few NSE/BSE tickers. If `c > 0` is returned, Finnhub free tier covers it; otherwise route India through IndianAPI.in. Update ADR-0002a in DECISIONS.md with findings.
 
-## Next up (session 4 — in order)
+## Next up (session 8 — in order)
 
-1. **Watchlist CRUD** — POST/DELETE `/api/watchlist`, bookmark toggle on stock page. `WatchlistItem` table already in schema.
-2. **Saved AI reports** — write `AiReport` row after synthesis; `GET /api/reports` to list user's history.
-3. **Supabase migration** — swap `provider = "sqlite"` → `"postgresql"` + `@prisma/adapter-pg`; run `prisma migrate deploy`.
-4. **Redis (Upstash)** — cache synthesised reports for 1 h to avoid redundant LLM calls.
-5. **Anthropic API key** — set `ANTHROPIC_API_KEY` in `.env.local`; update `_shared.py` `baseURL` + model.
+1. **Loading skeletons** — chart + AI panel flash blank before content pops in; add skeleton placeholders.
+2. **Reconcile prompt drift** — `_SYSTEM` in `synthesize.py` vs `SYNTH_SYSTEM_V1` in `docs/PROMPTS.md` (non-fatal doc debt).
+3. **Run provider benchmark** — needs Cerebras/SambaNova/OpenRouter keys in `.env.local`, then `python -m services.scripts.rank_providers`.
+4. **Anthropic API key** — add to `PROVIDER_CATALOGUE` in `_shared.py` once `ANTHROPIC_API_KEY` available.
+5. **IndianAPI.in key** — unlocks `.NS`/`.BO` verdicts currently returning `insufficient_data`.
+6. **Postgres migration** — prefer Neon free tier (no card); `@prisma/adapter-pg` swap.
 
 ## Open questions for the user
 

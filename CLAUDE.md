@@ -31,15 +31,16 @@ Never skip steps 3-4. Never start implementing before the user says go.
 
 ---
 
-## Currently focused tasks (Session 7)
+## Currently focused tasks (Session 8)
 
 These are the next ~5 tasks in priority order. Full list: [docs/TASKS.md](docs/TASKS.md).
 
-- [ ] **Supabase migration** — swap SQLite → Supabase Postgres. Steps: change `provider = "sqlite"` → `provider = "postgresql"` in `prisma/schema.prisma`, swap `@prisma/adapter-better-sqlite3` → `@prisma/adapter-pg`, run `prisma migrate deploy`. User confirmed Supabase as provider.
+- [ ] **Postgres migration** (deferred from session 7 on cost grounds — stay on SQLite until deploy time). When ready: prefer Neon free tier (no card, generous, simple `@prisma/adapter-pg` swap).
 - [ ] **Run provider benchmark** — once user adds Cerebras/SambaNova/OpenRouter keys to `.env.local`, run `services/.venv/Scripts/python -m services.scripts.rank_providers` to write `services/providers.ranked.json` and unlock failover.
 - [ ] **Anthropic API key** — once `ANTHROPIC_API_KEY` is set, add Anthropic as a provider in `PROVIDER_CATALOGUE` (`services/app/pipeline/_shared.py`). One-line registry append.
 - [ ] **IndianAPI.in key** — needed to unlock India (`.NS`/`.BO`) verdicts; currently returns `insufficient_data`.
 - [ ] **Reconcile prompt drift** — graphify flagged that the inline `_SYSTEM` prompt in `services/app/pipeline/synthesize.py` is `semantically_similar_to` the `SYNTH_SYSTEM_V1` template in `docs/PROMPTS.md`. They've drifted. Pick one as canonical, delete the other.
+- [ ] **Loading skeletons** for chart + AI panel (current page flashes blank before content pops in).
 
 Pre-existing nice-to-haves:
 - Middleware matcher is `/app/:path*` but Next.js route groups don't appear in URLs — middleware currently guards nothing. `/watchlist` and `/reports` use page-level `redirect()` instead, which works. Could fix the matcher to `["/watchlist/:path*", "/reports/:path*"]` for defence-in-depth.

@@ -106,13 +106,24 @@
 - [x] Nav link in app layout
 
 ### Session 7 — Polish + Safety
-- [ ] Rate limiting: 20 AI reports/day on free tier; quota meter in UI
+- [x] Rate limiting: 20 AI reports/day rolling 24h window; `checkQuota()` in `lib/reports/quota.ts`
+- [x] `QuotaMeter` badge in stock-page header (cyan/amber/red color tiers)
+- [x] `QuotaExceededBanner` replaces VerdictCard when quota exhausted (time-to-reset, link to /reports)
+- [x] Pre-flight quota check in stock page; `POST /api/reports` returns 429 `QUOTA_EXCEEDED`
+- [x] `RATE_LIMIT_REPORTS_PER_DAY` env var documented in `docs/ENV_VARIABLES.md`
 - [ ] GDPR/DPDP: data export endpoint (`GET /api/user/export`) + account deletion (`DELETE /api/user`)
 - [ ] Error states: handle provider failures gracefully (data missing → `stance: "insufficient_data"`)
 - [ ] Loading skeletons for chart and AI panel
 - [ ] Performance: verify FCP < 2s on simulated 4G (Lighthouse CI)
 - [ ] Accessibility pass: `aria-*` audit, color contrast AA, tap targets ≥ 44px verification
 - [ ] Add `.gitattributes` to fix CRLF warnings on Windows
+
+### Session 8 — UX Polish + Provider Unlock
+- [ ] Loading skeletons for chart panel + AI fundamental panel
+- [ ] Reconcile prompt drift (`synthesize.py` inline `_SYSTEM` vs `docs/PROMPTS.md` `SYNTH_SYSTEM_V1`)
+- [ ] Run provider benchmark once Cerebras/SambaNova/OpenRouter keys added
+- [ ] Add Anthropic to `PROVIDER_CATALOGUE` once `ANTHROPIC_API_KEY` available
+- [ ] IndianAPI.in key — unlocks `.NS`/`.BO` verdicts
 
 ### Post-MVP (ideas — not scheduled)
 - [ ] TradingView widget → Charting Library migration (gated on license approval)
