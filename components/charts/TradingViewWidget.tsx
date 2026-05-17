@@ -3,7 +3,7 @@
 // Apply at https://www.tradingview.com/advanced-charts/ — see docs/DECISIONS.md ADR-0005.
 
 import { useEffect, useRef } from "react";
-import { toTvSymbol, fromTvSymbol } from "@/lib/data/tv-symbol";
+import { toTvSymbol } from "@/lib/data/tv-symbol";
 
 interface TradingViewWidgetProps {
   symbol: string; // internal format: RELIANCE.NS, AAPL, etc.
@@ -21,11 +21,46 @@ declare global {
 /** Embeds the TradingView Advanced Real-Time Chart Widget (free, attribution required). */
 export function TradingViewWidget({ symbol, isMobile = false, onSymbolChange }: TradingViewWidgetProps) {
   const containerRef = useRef<HTMLDivElement>(null);
-  const widgetRef = useRef<unknown>(null);
   const tvSymbol = toTvSymbol(symbol);
-  // Keep a stable ref so the subscription closure doesn't capture a stale callback.
+
+  // Stable refs so closures never capture stale values.
   const onSymbolChangeRef = useRef(onSymbolChange);
   useEffect(() => { onSymbolChangeRef.current = onSymbolChange; }, [onSymbolChange]);
+  const currentSymbolRef = useRef(symbol.toUpperCase());
+  useEffect(() => { currentSymbolRef.current = symbol.toUpperCase(); }, [symbol]);
+  // Prevent firing router.push multiple times before the new symbol prop arrives.
+  const navigatingRef = useRef(false);
+  useEffect(() => { navigatingRef.current = false; }, [symbol]);
+
+  // Listen for quoteUpdate postMessages from the TradingView iframe.
+  // The free tv.js widget does NOT expose onChartReady / chart() — those are
+  // Charting Library APIs. All communication goes through window.postMessage.
+  // When the user picks a new symbol, TradingView fires quoteUpdate with the
+  // new short_name + exchange before the price ticks start.
+  useEffect(() => {
+    function handleMessage(event: MessageEvent) {
+      try {
+        const msg = (typeof event.data === "string" ? JSON.parse(event.data) : event.data) as {
+          name?: string;
+          data?: { short_name?: string; exchange?: string };
+        };
+        if (msg?.name !== "quoteUpdate" || !msg.data?.short_name) return;
+
+        const { short_name, exchange } = msg.data;
+        let incoming = short_name!.toUpperCase();
+        if (exchange === "NSE") incoming += ".NS";
+        else if (exchange === "BSE") incoming += ".BO";
+
+        if (incoming !== currentSymbolRef.current && !navigatingRef.current) {
+          navigatingRef.current = true;
+          onSymbolChangeRef.current?.(incoming);
+        }
+      } catch { /* malformed message — ignore */ }
+    }
+
+    window.addEventListener("message", handleMessage);
+    return () => window.removeEventListener("message", handleMessage);
+  }, []); // intentionally empty — uses refs for current values
 
   useEffect(() => {
     // Dynamically load the TradingView widget script
@@ -34,11 +69,8 @@ export function TradingViewWidget({ symbol, isMobile = false, onSymbolChange }: 
 
     function initWidget() {
       if (!containerRef.current || !window.TradingView) return;
-      // Destroy previous widget if symbol changed
       containerRef.current.innerHTML = "";
-
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const w: any = new window.TradingView.widget({
+      new window.TradingView.widget({
         autosize: true,
         symbol: tvSymbol,
         interval: "D",
@@ -46,27 +78,10 @@ export function TradingViewWidget({ symbol, isMobile = false, onSymbolChange }: 
         theme: "dark",
         style: "1",
         locale: "en",
-        // §8 mobile toolbar tweaks
         hide_side_toolbar: isMobile,
         allow_symbol_change: true,
         container_id: containerRef.current.id,
       });
-      widgetRef.current = w;
-
-      // Subscribe to symbol changes so the page can navigate to the new symbol.
-      try {
-        w.onChartReady(() => {
-          try {
-            w.chart().onSymbolChanged().subscribe(null, () => {
-              try {
-                const tvSym: string = w.chart().symbol();
-                const ourSymbol = fromTvSymbol(tvSym);
-                onSymbolChangeRef.current?.(ourSymbol);
-              } catch { /* ignore — widget may be mid-destroy */ }
-            });
-          } catch { /* chart API unavailable in this widget version */ }
-        });
-      } catch { /* onChartReady unavailable */ }
     }
 
     if (!existing) {
