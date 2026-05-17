@@ -3,11 +3,12 @@
 // Apply at https://www.tradingview.com/advanced-charts/ — see docs/DECISIONS.md ADR-0005.
 
 import { useEffect, useRef } from "react";
-import { toTvSymbol } from "@/lib/data/tv-symbol";
+import { toTvSymbol, fromTvSymbol } from "@/lib/data/tv-symbol";
 
 interface TradingViewWidgetProps {
   symbol: string; // internal format: RELIANCE.NS, AAPL, etc.
   isMobile?: boolean;
+  onSymbolChange?: (newSymbol: string) => void;
 }
 
 declare global {
@@ -18,10 +19,13 @@ declare global {
 }
 
 /** Embeds the TradingView Advanced Real-Time Chart Widget (free, attribution required). */
-export function TradingViewWidget({ symbol, isMobile = false }: TradingViewWidgetProps) {
+export function TradingViewWidget({ symbol, isMobile = false, onSymbolChange }: TradingViewWidgetProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const widgetRef = useRef<unknown>(null);
   const tvSymbol = toTvSymbol(symbol);
+  // Keep a stable ref so the subscription closure doesn't capture a stale callback.
+  const onSymbolChangeRef = useRef(onSymbolChange);
+  useEffect(() => { onSymbolChangeRef.current = onSymbolChange; }, [onSymbolChange]);
 
   useEffect(() => {
     // Dynamically load the TradingView widget script
@@ -33,7 +37,8 @@ export function TradingViewWidget({ symbol, isMobile = false }: TradingViewWidge
       // Destroy previous widget if symbol changed
       containerRef.current.innerHTML = "";
 
-      widgetRef.current = new window.TradingView.widget({
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const w: any = new window.TradingView.widget({
         autosize: true,
         symbol: tvSymbol,
         interval: "D",
@@ -46,6 +51,22 @@ export function TradingViewWidget({ symbol, isMobile = false }: TradingViewWidge
         allow_symbol_change: true,
         container_id: containerRef.current.id,
       });
+      widgetRef.current = w;
+
+      // Subscribe to symbol changes so the page can navigate to the new symbol.
+      try {
+        w.onChartReady(() => {
+          try {
+            w.chart().onSymbolChanged().subscribe(null, () => {
+              try {
+                const tvSym: string = w.chart().symbol();
+                const ourSymbol = fromTvSymbol(tvSym);
+                onSymbolChangeRef.current?.(ourSymbol);
+              } catch { /* ignore — widget may be mid-destroy */ }
+            });
+          } catch { /* chart API unavailable in this widget version */ }
+        });
+      } catch { /* onChartReady unavailable */ }
     }
 
     if (!existing) {

@@ -8,6 +8,16 @@ const US_NASDAQ_SYMBOLS = new Set([
   "NFLX","AMD","INTC","QCOM","INTU","AMAT","MU","ADI","LRCX","KLAC",
 ]);
 
+/** Map a TradingView exchange:ticker pair back to our internal symbol format.
+ *  "NSE:RELIANCE" → "RELIANCE.NS", "BSE:TCS" → "TCS.BO", "NASDAQ:NFLX" → "NFLX" */
+export function fromTvSymbol(tvSymbol: string): string {
+  const upper = tvSymbol.toUpperCase().trim();
+  if (upper.startsWith("NSE:")) return upper.slice(4) + ".NS";
+  if (upper.startsWith("BSE:")) return upper.slice(4) + ".BO";
+  const colon = upper.indexOf(":");
+  return colon >= 0 ? upper.slice(colon + 1) : upper;
+}
+
 /** Map an internal symbol string to a TradingView exchange:ticker pair. */
 export function toTvSymbol(symbol: string): string {
   const upper = symbol.toUpperCase();
