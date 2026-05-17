@@ -2,19 +2,13 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import { auth } from "@/lib/auth/config";
-import { prisma } from "@/lib/prisma";
-import { synthesiseVerdict } from "@/lib/ai/llm";
-import { synthesiseTechnical } from "@/lib/ai/technical";
-import { persistAiReport } from "@/lib/reports/persist";
-import { checkQuota, type QuotaState } from "@/lib/reports/quota";
-import { VerdictCard } from "@/components/ai-report/VerdictCard";
-import { ReportHistory } from "@/components/ai-report/ReportHistory";
-import { RefreshButton } from "@/components/ai-report/RefreshButton";
-import { QuotaMeter } from "@/components/ai-report/QuotaMeter";
-import { QuotaExceededBanner } from "@/components/ai-report/QuotaExceededBanner";
-import { TechnicalPanel } from "@/components/charts/TechnicalPanel";
-import { WatchlistToggle } from "@/components/watchlist/WatchlistToggle";
+import { VerdictCardSkeleton } from "@/components/ai-report/VerdictCardSkeleton";
+import { TechnicalPanelSkeleton } from "@/components/charts/TechnicalPanelSkeleton";
+import { Skeleton } from "@/components/ui/Skeleton";
 import { ChartPanel } from "./ChartPanel";
+import { HeaderActions } from "./HeaderActions";
+import { TechnicalSection } from "./TechnicalSection";
+import { AiAnalysisSection } from "./AiAnalysisSection";
 
 interface Props {
   params: Promise<{ symbol: string }>;
@@ -31,6 +25,29 @@ function exchangeLabel(symbol: string) {
   return "US";
 }
 
+function HeaderActionsSkeleton() {
+  return (
+    <div className="flex items-center gap-2 flex-wrap justify-end">
+      <Skeleton className="h-7 w-20 rounded-md" />
+      <Skeleton className="h-7 w-20 rounded-md" />
+      <Skeleton className="h-7 w-16 rounded-md" />
+    </div>
+  );
+}
+
+function ChartSkeleton() {
+  return (
+    <div className="flex h-[420px] items-center justify-center rounded-xl border border-slate-800 bg-slate-900/60 sm:h-[540px]">
+      <div className="flex flex-col items-center gap-3">
+        <div className="h-4 w-4 animate-spin rounded-full border-2 border-slate-700 border-t-cyan-500" />
+        <span className="text-xs font-mono text-slate-600 uppercase tracking-wider">
+          Loading chart…
+        </span>
+      </div>
+    </div>
+  );
+}
+
 export default async function StockPage({ params }: Props) {
   const { symbol } = await params;
   const decodedSymbol = decodeURIComponent(symbol).toUpperCase();
@@ -39,46 +56,12 @@ export default async function StockPage({ params }: Props) {
   const session = await auth();
   const userId = session?.user?.id ?? null;
   const isAuthenticated = !!userId;
-
-  // Pre-flight quota check (auth users only).
-  let quota: QuotaState | null = null;
-  if (userId) quota = await checkQuota(userId);
-  const allowSynthesis = !quota || quota.allowed;
-
-  const [report, technical, savedItem] = await Promise.all([
-    allowSynthesis ? synthesiseVerdict(decodedSymbol).catch(() => null) : Promise.resolve(null),
-    synthesiseTechnical(decodedSymbol).catch(() => null),
-    userId
-      ? prisma.watchlistItem.findUnique({
-          where: { userId_symbol: { userId, symbol: decodedSymbol } },
-          select: { symbol: true },
-        })
-      : Promise.resolve(null),
-  ]);
   const exchange = exchangeLabel(decodedSymbol);
-  const isSaved = !!savedItem;
-
-  // Auto-persist for authenticated users (idempotent on report_id within cache window).
-  let history: Array<{ id: string; createdAt: Date; report: import("@/lib/ai/schema").VerdictReport }> = [];
-  if (userId) {
-    if (report) await persistAiReport(userId, decodedSymbol, report).catch(() => {});
-    const rows = await prisma.aiReport.findMany({
-      where: { userId, symbol: decodedSymbol },
-      orderBy: { createdAt: "desc" },
-      take: 10,
-      select: { id: true, createdAt: true, reportJson: true },
-    });
-    history = rows.map((r) => ({
-      id: r.id,
-      createdAt: r.createdAt,
-      report: JSON.parse(r.reportJson) as import("@/lib/ai/schema").VerdictReport,
-    }));
-  }
 
   return (
     <main className="min-h-screen bg-slate-950 px-4 sm:px-6 lg:px-8 py-6 max-w-screen-xl mx-auto">
 
-      {/* Editorial stock header */}
+      {/* Editorial stock header — renders immediately */}
       <header className="mb-6 pb-5 border-b border-slate-800/60">
         <div className="flex flex-wrap items-end justify-between gap-3">
           <div>
@@ -93,15 +76,13 @@ export default async function StockPage({ params }: Props) {
             <p className="text-xs font-mono text-slate-600 uppercase tracking-wider">
               Technical + AI Research
             </p>
-            <div className="flex items-center gap-2 flex-wrap justify-end">
-              {quota && <QuotaMeter used={quota.used} limit={quota.limit} />}
-              <RefreshButton symbol={decodedSymbol} isAuthenticated={isAuthenticated} />
-              <WatchlistToggle
+            <Suspense fallback={<HeaderActionsSkeleton />}>
+              <HeaderActions
                 symbol={decodedSymbol}
-                initialIsSaved={isSaved}
+                userId={userId}
                 isAuthenticated={isAuthenticated}
               />
-            </div>
+            </Suspense>
           </div>
         </div>
       </header>
@@ -111,16 +92,12 @@ export default async function StockPage({ params }: Props) {
 
         {/* Chart + Technical Analysis */}
         <div className="w-full sm:w-[60%]">
-          <Suspense
-            fallback={
-              <div className="flex h-[420px] items-center justify-center rounded-xl border border-slate-800 bg-slate-900/60 text-xs font-mono text-slate-600 sm:h-[540px]">
-                Loading chart…
-              </div>
-            }
-          >
+          <Suspense fallback={<ChartSkeleton />}>
             <ChartPanel symbol={decodedSymbol} />
           </Suspense>
-          {technical && <TechnicalPanel verdict={technical} />}
+          <Suspense fallback={<TechnicalPanelSkeleton />}>
+            <TechnicalSection symbol={decodedSymbol} />
+          </Suspense>
         </div>
 
         {/* AI fundamental analysis */}
@@ -132,25 +109,9 @@ export default async function StockPage({ params }: Props) {
             </p>
             <div className="h-px flex-1 bg-slate-800" />
           </div>
-          {report ? (
-            <VerdictCard report={report} />
-          ) : quota && !quota.allowed ? (
-            <QuotaExceededBanner
-              used={quota.used}
-              limit={quota.limit}
-              resetsAt={quota.resetsAt}
-            />
-          ) : (
-            <div className="rounded-xl border border-slate-800 bg-slate-900/40 p-5 text-xs font-mono text-slate-500">
-              AI fundamental analysis temporarily unavailable. Please try again later.
-            </div>
-          )}
-          {history.length > 0 && (
-            <ReportHistory
-              items={history}
-              currentReportId={report?.report_id}
-            />
-          )}
+          <Suspense fallback={<VerdictCardSkeleton />}>
+            <AiAnalysisSection symbol={decodedSymbol} userId={userId} />
+          </Suspense>
         </div>
 
       </div>

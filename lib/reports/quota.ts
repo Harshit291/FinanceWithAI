@@ -1,3 +1,4 @@
+import { cache } from "react";
 import { prisma } from "@/lib/prisma";
 
 const DEFAULT_LIMIT = 20;
@@ -18,7 +19,7 @@ export interface QuotaState {
  *  Returns `allowed=false` once `used >= limit`. Each call to
  *  `persistAiReport` adds 1 to the count; force_refresh + cache-miss
  *  syntheses are the only paths that create rows. */
-export async function checkQuota(userId: string): Promise<QuotaState> {
+export const checkQuota = cache(async function checkQuota(userId: string): Promise<QuotaState> {
   const limit = envLimit();
   const since = new Date(Date.now() - 24 * 60 * 60 * 1000);
   const used = await prisma.aiReport.count({
@@ -30,4 +31,4 @@ export async function checkQuota(userId: string): Promise<QuotaState> {
     allowed: used < limit,
     resetsAt: new Date(Date.now() + 24 * 60 * 60 * 1000),
   };
-}
+});
