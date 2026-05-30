@@ -1,0 +1,11 @@
+[    3035ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/stocks/AAPL:0
+[    3078ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2431
+[    3093ms] [LOG] [HMR] connected @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2431
+[    3129ms] Error: FastAPI pipeline error 500: Internal Server Error
+    at synthesiseVerdict (about://React/Server/C:%5CUsers%5Charsh%5CDownloads%5CFinanceWithAI%5CFinanceWithAI%5C.next%5Cdev%5Cserver%5Cchunks%5Cssr%5C%5Broot-of-the-server%5D__0sc.3eg._.js?0:101:15)
+    at  StockPage (about://React/Server/C:%5CUsers%5Charsh%5CDownloads%5CFinanceWithAI%5CFinanceWithAI%5C.next%5Cdev%5Cserver%5Cchunks%5Cssr%5C%5Broot-of-the-server%5D__0sc.3eg._.js?1:890:20)
+    at resolveErrorDev (http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_react-server-dom-turbopack_0p3wegg._.js:1919:105)
+    at processFullStringRow (http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_react-server-dom-turbopack_0p3wegg._.js:2434:29)
+    at processFullBinaryRow (http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_react-server-dom-turbopack_0p3wegg._.js:2393:9)
+    at processBinaryChunk (http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_react-server-dom-turbopack_0p3wegg._.js:2502:221)
+    at progress (http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_react-server-dom-turbopack_0p3wegg._.js:2689:13)

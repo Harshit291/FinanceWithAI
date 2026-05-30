@@ -1,0 +1,325 @@
+- generic [ref=e1]:
+  - main [ref=e2]:
+    - generic [ref=e3]:
+      - generic [ref=e4]:
+        - generic [ref=e5]:
+          - heading "AAPL" [level=1] [ref=e6]
+          - generic [ref=e7]: US
+        - searchbox "Search for a stock symbol" [active] [ref=e9]
+      - paragraph [ref=e10]: Technical analysis + AI fundamental research
+    - generic [ref=e11]:
+      - generic "TradingView chart for AAPL" [ref=e14]:
+        - iframe [ref=e140]:
+          - generic [ref=f2e2]:
+            - toolbar [ref=f2e6]:
+              - generic [ref=f2e10]:
+                - generic [ref=f2e11]:
+                  - button "Symbol search" [ref=f2e12]:
+                    - img [ref=f2e13]:
+                      - img [ref=f2e14]
+                    - generic [ref=f2e16]: AAPL
+                  - button "Compare symbols" [ref=f2e17]:
+                    - img [ref=f2e18]:
+                      - img [ref=f2e19]
+                - generic [ref=f2e25]:
+                  - radiogroup [ref=f2e26]:
+                    - radio "1 minute" [ref=f2e27]:
+                      - generic [ref=f2e29]: 1m
+                    - radio "30 minutes" [ref=f2e30]:
+                      - generic [ref=f2e32]: 30m
+                    - radio "1 hour" [ref=f2e33]:
+                      - generic [ref=f2e35]: 1h
+                    - radio "1 day" [checked] [ref=f2e36]:
+                      - generic [ref=f2e38]: D
+                  - button "Chart interval" [ref=f2e39]:
+                    - img [ref=f2e42]:
+                      - img [ref=f2e43]
+                - generic [ref=f2e48]:
+                  - radiogroup [ref=f2e49]:
+                    - radio "Bars" [ref=f2e50]:
+                      - img [ref=f2e51]:
+                        - img [ref=f2e52]
+                    - radio "Candles" [checked] [ref=f2e54]:
+                      - img [ref=f2e55]:
+                        - img [ref=f2e56]
+                    - radio "Area" [ref=f2e61]:
+                      - img [ref=f2e62]:
+                        - img [ref=f2e63]
+                  - button "Bar's style" [ref=f2e65]:
+                    - img [ref=f2e68]:
+                      - img [ref=f2e69]
+                - button "Indicators, metrics, and strategies" [ref=f2e75]:
+                  - img [ref=f2e76]:
+                    - img [ref=f2e77]
+                  - generic [ref=f2e80]: Indicators
+                - button "Take a snapshot" [ref=f2e83]:
+                  - img [ref=f2e85]:
+                    - img [ref=f2e86]
+            - toolbar [ref=f2e90]:
+              - generic [ref=f2e94]:
+                - generic [ref=f2e95]:
+                  - generic [ref=f2e98]:
+                    - button "Cross" [ref=f2e100]:
+                      - img [ref=f2e101]:
+                        - img [ref=f2e102]
+                    - button "Cursors" [pressed] [ref=f2e106]:
+                      - img [ref=f2e107]:
+                        - img [ref=f2e108]
+                  - generic [ref=f2e112]:
+                    - button "Trendline" [ref=f2e114]:
+                      - img [ref=f2e115]:
+                        - img [ref=f2e116]
+                    - button "Trend tools" [ref=f2e120]:
+                      - img [ref=f2e121]:
+                        - img [ref=f2e122]
+                  - generic [ref=f2e126]:
+                    - button "Fib retracement" [ref=f2e128]:
+                      - img [ref=f2e129]:
+                        - img [ref=f2e130]
+                    - button "Gann and Fibonacci tools" [ref=f2e137]:
+                      - img [ref=f2e138]:
+                        - img [ref=f2e139]
+                  - generic [ref=f2e143]:
+                    - button "XABCD pattern" [ref=f2e145]:
+                      - img [ref=f2e146]:
+                        - img [ref=f2e147]
+                    - button "Patterns" [ref=f2e151]:
+                      - img [ref=f2e152]:
+                        - img [ref=f2e153]
+                  - generic [ref=f2e157]:
+                    - button "Long position" [ref=f2e159]:
+                      - img [ref=f2e160]:
+                        - img [ref=f2e161]
+                    - button "Forecasting and measurement tools" [ref=f2e163]:
+                      - img [ref=f2e164]:
+                        - img [ref=f2e165]
+                  - generic [ref=f2e169]:
+                    - button "Brush" [ref=f2e171]:
+                      - img [ref=f2e172]:
+                        - img [ref=f2e173]
+                    - button "Geometric shapes" [ref=f2e177]:
+                      - img [ref=f2e178]:
+                        - img [ref=f2e179]
+                  - generic [ref=f2e183]:
+                    - button "Text" [ref=f2e185]:
+                      - img [ref=f2e186]:
+                        - img [ref=f2e187]
+                    - button "Annotation tools" [ref=f2e189]:
+                      - img [ref=f2e190]:
+                        - img [ref=f2e191]
+                  - generic [ref=f2e194]:
+                    - button "Icon" [ref=f2e196]:
+                      - img [ref=f2e197]:
+                        - img [ref=f2e198]
+                    - button "Icons" [ref=f2e200]:
+                      - img [ref=f2e201]:
+                        - img [ref=f2e202]
+                - generic [ref=f2e204]:
+                  - button "Measure" [ref=f2e205]:
+                    - img [ref=f2e206]:
+                      - img [ref=f2e207]
+                  - button "Zoom in" [ref=f2e209]:
+                    - img [ref=f2e210]:
+                      - img [ref=f2e211]
+                - generic [ref=f2e219]:
+                  - button "Magnet mode snaps drawings placed near price bars to the closest OHLC value" [ref=f2e221]:
+                    - img [ref=f2e222]:
+                      - img [ref=f2e223]
+                  - button "Magnets" [ref=f2e227]:
+                    - img [ref=f2e228]:
+                      - img [ref=f2e229]
+            - 'region "Chart #1" [ref=f2e235]':
+              - generic [ref=f2e239]:
+                - generic:
+                  - generic:
+                    - toolbar:
+                      - generic:
+                        - generic [ref=f2e240]:
+                          - generic "Change symbol" [ref=f2e241]:
+                            - generic [ref=f2e242]:
+                              - img [ref=f2e244]
+                              - generic [ref=f2e245]: A
+                            - button "Change symbol" [ref=f2e246]: Apple Inc
+                          - generic "Change interval" [ref=f2e247]:
+                            - text: ·
+                            - button "Change interval" [ref=f2e248]: 1D
+                          - generic [ref=f2e249]:
+                            - text: ·
+                            - generic [ref=f2e250]: Cboe One
+                        - generic:
+                          - generic:
+                            - button "More":
+                              - generic:
+                                - img
+                        - button "Market open · Data is delayed" [ref=f2e252]:
+                          - img [ref=f2e253]:
+                            - img [ref=f2e254]
+                          - img [ref=f2e256]:
+                            - img [ref=f2e257]
+                      - generic [ref=f2e260]:
+                        - generic [ref=f2e261]:
+                          - generic [ref=f2e262]: O
+                          - generic [ref=f2e263]: "272.33"
+                        - generic [ref=f2e264]:
+                          - generic [ref=f2e265]: H
+                          - generic [ref=f2e266]: "273.23"
+                        - generic [ref=f2e267]:
+                          - generic [ref=f2e268]: L
+                          - generic [ref=f2e269]: "268.66"
+                        - generic [ref=f2e270]:
+                          - generic [ref=f2e271]: C
+                          - generic [ref=f2e272]: "271.41"
+                        - generic [ref=f2e274]: +3.80 (+1.42%)
+                  - generic:
+                    - button "Hide indicator legend" [ref=f2e275]:
+                      - img [ref=f2e277]
+                    - generic:
+                      - toolbar:
+                        - generic:
+                          - generic "Volume" [ref=f2e280]:
+                            - generic [ref=f2e281]: Vol
+                          - generic:
+                            - generic:
+                              - button "Hide":
+                                - generic:
+                                  - img
+                              - button "Settings":
+                                - generic:
+                                  - img
+                              - button "Remove":
+                                - generic:
+                                  - img
+                              - button "More":
+                                - generic:
+                                  - img
+                        - generic "Volume" [ref=f2e285]: 11.27 M
+                - generic "Chart for BATS_DLY:AAPL, 1 day" [ref=f2e287]
+      - region "AI research report" [ref=e16]:
+        - generic [ref=e17]:
+          - generic [ref=e18]:
+            - generic [ref=e19]:
+              - generic [ref=e20]:
+                - heading "Short term" [level=3] [ref=e21]
+                - generic [ref=e23]:
+                  - img [ref=e24]
+                  - text: Neutral
+              - paragraph [ref=e25]: 1-4 weeks
+            - generic [ref=e26]:
+              - generic [ref=e27]:
+                - paragraph [ref=e28]: Return range unavailable
+                - paragraph [ref=e29]: expected return range
+              - generic [ref=e30]:
+                - generic [ref=e31]:
+                  - generic [ref=e32]: Confidence
+                  - generic [ref=e33]: 50%
+                - progressbar "Confidence 50%" [ref=e34]
+              - generic [ref=e36]:
+                - paragraph [ref=e37]: Key drivers
+                - list [ref=e38]:
+                  - listitem [ref=e39]:
+                    - generic [ref=e40]: +
+                    - text: Upcoming earnings report on April 30
+                  - listitem [ref=e41]:
+                    - generic [ref=e42]: +
+                    - text: Market sentiment and reaction to peers' earnings
+              - generic [ref=e43]:
+                - paragraph [ref=e44]: Key risks
+                - list [ref=e45]:
+                  - listitem [ref=e46]:
+                    - generic [ref=e47]: −
+                    - text: Potential impact from Nvidia's record valuation
+                  - listitem [ref=e48]:
+                    - generic [ref=e49]: −
+                    - text: Uncertainty surrounding US-Iran peace talks
+          - generic [ref=e50]:
+            - generic [ref=e51]:
+              - generic [ref=e52]:
+                - heading "Medium term" [level=3] [ref=e53]
+                - generic [ref=e55]:
+                  - img [ref=e56]
+                  - text: Neutral
+              - paragraph [ref=e57]: 1-6 months
+            - generic [ref=e58]:
+              - generic [ref=e59]:
+                - paragraph [ref=e60]: Return range unavailable
+                - paragraph [ref=e61]: expected return range
+              - generic [ref=e62]:
+                - generic [ref=e63]:
+                  - generic [ref=e64]: Confidence
+                  - generic [ref=e65]: 50%
+                - progressbar "Confidence 50%" [ref=e66]
+              - generic [ref=e68]:
+                - paragraph [ref=e69]: Key drivers
+                - list [ref=e70]:
+                  - listitem [ref=e71]:
+                    - generic [ref=e72]: +
+                    - text: "Valuation multiples (e.g., forward PE: 31.696161567156857)"
+                  - listitem [ref=e73]:
+                    - generic [ref=e74]: +
+                    - text: Earnings growth (e.g., 25.65% TTMYoy)
+              - generic [ref=e75]:
+                - paragraph [ref=e76]: Key risks
+                - list [ref=e77]:
+                  - listitem [ref=e78]:
+                    - generic [ref=e79]: −
+                    - text: Competition in the tech sector
+                  - listitem [ref=e80]:
+                    - generic [ref=e81]: −
+                    - text: Global economic uncertainty
+          - generic [ref=e82]:
+            - generic [ref=e83]:
+              - generic [ref=e84]:
+                - heading "Long term" [level=3] [ref=e85]
+                - generic [ref=e87]:
+                  - img [ref=e88]
+                  - text: Neutral
+              - paragraph [ref=e89]: 1-3 years
+            - generic [ref=e90]:
+              - generic [ref=e91]:
+                - paragraph [ref=e92]: Return range unavailable
+                - paragraph [ref=e93]: expected return range
+              - generic [ref=e94]:
+                - generic [ref=e95]:
+                  - generic [ref=e96]: Confidence
+                  - generic [ref=e97]: 50%
+                - progressbar "Confidence 50%" [ref=e98]
+              - generic [ref=e100]:
+                - paragraph [ref=e101]: Key drivers
+                - list [ref=e102]:
+                  - listitem [ref=e103]:
+                    - generic [ref=e104]: +
+                    - text: Network effects and economic moat
+                  - listitem [ref=e105]:
+                    - generic [ref=e106]: +
+                    - text: Innovation and product development
+              - generic [ref=e107]:
+                - paragraph [ref=e108]: Key risks
+                - list [ref=e109]:
+                  - listitem [ref=e110]:
+                    - generic [ref=e111]: −
+                    - text: Disruption from new technologies or competitors
+                  - listitem [ref=e112]:
+                    - generic [ref=e113]: −
+                    - text: Regulatory changes or legal challenges
+        - generic [ref=e114]:
+          - paragraph [ref=e115]: Summary
+          - text: Apple's stock is neutral in the short term due to upcoming earnings and market sentiment. The medium term is also neutral, driven by valuation multiples and earnings growth. In the long term, the company's network effects and innovation are key drivers, but disruption and regulatory risks exist.
+        - generic [ref=e116]:
+          - paragraph [ref=e117]: Sources
+          - list [ref=e118]:
+            - listitem [ref=e119]:
+              - img [ref=e120]
+              - link "Finnhub" [ref=e124] [cursor=pointer]:
+                - /url: https://finnhub.io/
+              - generic [ref=e125]: · 28/4/2026
+        - note "Investment disclaimer" [ref=e126]:
+          - img [ref=e127]
+          - paragraph [ref=e129]: Not investment advice. Educational research only. Past performance is not indicative of future results. Consult a SEBI/SEC-registered advisor before investing.
+  - button "Open Next.js Dev Tools" [ref=e167] [cursor=pointer]:
+    - generic [ref=e170]:
+      - text: Rendering
+      - generic [ref=e171]:
+        - generic [ref=e172]: .
+        - generic [ref=e173]: .
+        - generic [ref=e174]: .
+  - alert [ref=e141]

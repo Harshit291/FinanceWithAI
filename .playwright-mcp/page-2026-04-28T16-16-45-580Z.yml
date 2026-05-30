@@ -1,0 +1,293 @@
+- generic [ref=e1]:
+  - main [ref=e2]:
+    - generic [ref=e3]:
+      - generic [ref=e4]:
+        - generic [ref=e5]:
+          - heading "AAPL" [level=1] [ref=e6]
+          - generic [ref=e7]: US
+        - generic [ref=e8]:
+          - searchbox "Search for a stock symbol" [active] [ref=e9]: tata motors
+          - listbox [ref=e108]:
+            - option "TMPV.NSTata Motors Passenger Vehicles Limited NSE" [ref=e109] [cursor=pointer]:
+              - generic [ref=e110]: TMPV.NSTata Motors Passenger Vehicles Limited
+              - generic [ref=e111]: NSE
+            - option "TMCV.NSTATA MOTORS LIMITED NSE" [ref=e112] [cursor=pointer]:
+              - generic [ref=e113]: TMCV.NSTATA MOTORS LIMITED
+              - generic [ref=e114]: NSE
+            - option "TMCV.BOTata Motors Limited Bombay" [ref=e115] [cursor=pointer]:
+              - generic [ref=e116]: TMCV.BOTata Motors Limited
+              - generic [ref=e117]: Bombay
+            - option "TMPV.BOTata Motors Passenger Vehicles Limited Bombay" [ref=e118] [cursor=pointer]:
+              - generic [ref=e119]: TMPV.BOTata Motors Passenger Vehicles Limited
+              - generic [ref=e120]: Bombay
+            - option "TMCV-BL.NSTATA MOTORS LIMITED NSE" [ref=e121] [cursor=pointer]:
+              - generic [ref=e122]: TMCV-BL.NSTATA MOTORS LIMITED
+              - generic [ref=e123]: NSE
+      - paragraph [ref=e10]: Technical analysis + AI fundamental research
+    - generic [ref=e11]:
+      - generic "TradingView chart for AAPL" [ref=e14]:
+        - iframe [ref=e107]:
+          - generic [ref=f1e2]:
+            - toolbar [ref=f1e6]:
+              - generic [ref=f1e10]:
+                - generic [ref=f1e11]:
+                  - button "Symbol search" [ref=f1e12]:
+                    - img [ref=f1e13]:
+                      - img [ref=f1e14]
+                    - generic [ref=f1e16]: AAPL
+                  - button "Compare symbols" [ref=f1e17]:
+                    - img [ref=f1e18]:
+                      - img [ref=f1e19]
+                - generic [ref=f1e25]:
+                  - radiogroup [ref=f1e26]:
+                    - radio "1 minute" [ref=f1e27]:
+                      - generic [ref=f1e29]: 1m
+                    - radio "30 minutes" [ref=f1e30]:
+                      - generic [ref=f1e32]: 30m
+                    - radio "1 hour" [ref=f1e33]:
+                      - generic [ref=f1e35]: 1h
+                    - radio "1 day" [checked] [ref=f1e36]:
+                      - generic [ref=f1e38]: D
+                  - button "Chart interval" [ref=f1e39]:
+                    - img [ref=f1e42]:
+                      - img [ref=f1e43]
+                - generic [ref=f1e48]:
+                  - radiogroup [ref=f1e49]:
+                    - radio "Bars" [ref=f1e50]:
+                      - img [ref=f1e51]:
+                        - img [ref=f1e52]
+                    - radio "Candles" [checked] [ref=f1e54]:
+                      - img [ref=f1e55]:
+                        - img [ref=f1e56]
+                    - radio "Area" [ref=f1e61]:
+                      - img [ref=f1e62]:
+                        - img [ref=f1e63]
+                  - button "Bar's style" [ref=f1e65]:
+                    - img [ref=f1e68]:
+                      - img [ref=f1e69]
+                - button "Indicators, metrics, and strategies" [ref=f1e75]:
+                  - img [ref=f1e76]:
+                    - img [ref=f1e77]
+                  - generic [ref=f1e80]: Indicators
+                - button "Take a snapshot" [ref=f1e83]:
+                  - img [ref=f1e85]:
+                    - img [ref=f1e86]
+            - toolbar [ref=f1e90]:
+              - generic [ref=f1e94]:
+                - generic [ref=f1e95]:
+                  - generic [ref=f1e98]:
+                    - button "Cross" [ref=f1e100]:
+                      - img [ref=f1e101]:
+                        - img [ref=f1e102]
+                    - button "Cursors" [pressed] [ref=f1e106]:
+                      - img [ref=f1e107]:
+                        - img [ref=f1e108]
+                  - generic [ref=f1e112]:
+                    - button "Trendline" [ref=f1e114]:
+                      - img [ref=f1e115]:
+                        - img [ref=f1e116]
+                    - button "Trend tools" [ref=f1e120]:
+                      - img [ref=f1e121]:
+                        - img [ref=f1e122]
+                  - generic [ref=f1e126]:
+                    - button "Fib retracement" [ref=f1e128]:
+                      - img [ref=f1e129]:
+                        - img [ref=f1e130]
+                    - button "Gann and Fibonacci tools" [ref=f1e137]:
+                      - img [ref=f1e138]:
+                        - img [ref=f1e139]
+                  - generic [ref=f1e143]:
+                    - button "XABCD pattern" [ref=f1e145]:
+                      - img [ref=f1e146]:
+                        - img [ref=f1e147]
+                    - button "Patterns" [ref=f1e151]:
+                      - img [ref=f1e152]:
+                        - img [ref=f1e153]
+                  - generic [ref=f1e157]:
+                    - button "Long position" [ref=f1e159]:
+                      - img [ref=f1e160]:
+                        - img [ref=f1e161]
+                    - button "Forecasting and measurement tools" [ref=f1e163]:
+                      - img [ref=f1e164]:
+                        - img [ref=f1e165]
+                  - generic [ref=f1e169]:
+                    - button "Brush" [ref=f1e171]:
+                      - img [ref=f1e172]:
+                        - img [ref=f1e173]
+                    - button "Geometric shapes" [ref=f1e177]:
+                      - img [ref=f1e178]:
+                        - img [ref=f1e179]
+                  - generic [ref=f1e183]:
+                    - button "Text" [ref=f1e185]:
+                      - img [ref=f1e186]:
+                        - img [ref=f1e187]
+                    - button "Annotation tools" [ref=f1e189]:
+                      - img [ref=f1e190]:
+                        - img [ref=f1e191]
+                  - generic [ref=f1e194]:
+                    - button "Icon" [ref=f1e196]:
+                      - img [ref=f1e197]:
+                        - img [ref=f1e198]
+                    - button "Icons" [ref=f1e200]:
+                      - img [ref=f1e201]:
+                        - img [ref=f1e202]
+                - generic [ref=f1e204]:
+                  - button "Measure" [ref=f1e205]:
+                    - img [ref=f1e206]:
+                      - img [ref=f1e207]
+                  - button "Zoom in" [ref=f1e209]:
+                    - img [ref=f1e210]:
+                      - img [ref=f1e211]
+                - generic [ref=f1e219]:
+                  - button "Magnet mode snaps drawings placed near price bars to the closest OHLC value" [ref=f1e221]:
+                    - img [ref=f1e222]:
+                      - img [ref=f1e223]
+                  - button "Magnets" [ref=f1e227]:
+                    - img [ref=f1e228]:
+                      - img [ref=f1e229]
+            - 'region "Chart #1" [ref=f1e235]':
+              - generic [ref=f1e239]:
+                - generic:
+                  - generic:
+                    - toolbar:
+                      - generic:
+                        - generic [ref=f1e240]:
+                          - generic "Change symbol" [ref=f1e241]:
+                            - generic [ref=f1e242]:
+                              - img [ref=f1e244]
+                              - generic [ref=f1e245]: A
+                            - button "Change symbol" [ref=f1e246]: Apple Inc
+                          - generic "Change interval" [ref=f1e247]:
+                            - text: ·
+                            - button "Change interval" [ref=f1e248]: 1D
+                          - generic [ref=f1e249]:
+                            - text: ·
+                            - generic [ref=f1e250]: Cboe One
+                        - generic:
+                          - generic:
+                            - button "More":
+                              - generic:
+                                - img
+                        - button "Market open · Data is delayed" [ref=f1e252]:
+                          - img [ref=f1e253]:
+                            - img [ref=f1e254]
+                          - img [ref=f1e256]:
+                            - img [ref=f1e257]
+                      - generic [ref=f1e260]:
+                        - generic [ref=f1e261]:
+                          - generic [ref=f1e262]: O
+                          - generic [ref=f1e263]: "272.33"
+                        - generic [ref=f1e264]:
+                          - generic [ref=f1e265]: H
+                          - generic [ref=f1e266]: "273.23"
+                        - generic [ref=f1e267]:
+                          - generic [ref=f1e268]: L
+                          - generic [ref=f1e269]: "268.66"
+                        - generic [ref=f1e270]:
+                          - generic [ref=f1e271]: C
+                          - generic [ref=f1e272]: "269.86"
+                        - generic [ref=f1e274]: +2.25 (+0.84%)
+                  - generic:
+                    - button "Hide indicator legend" [ref=f1e275]:
+                      - img [ref=f1e277]
+                    - generic:
+                      - toolbar:
+                        - generic:
+                          - generic "Volume" [ref=f1e280]:
+                            - generic [ref=f1e281]: Vol
+                          - generic:
+                            - generic:
+                              - button "Hide":
+                                - generic:
+                                  - img
+                              - button "Settings":
+                                - generic:
+                                  - img
+                              - button "Remove":
+                                - generic:
+                                  - img
+                              - button "More":
+                                - generic:
+                                  - img
+                        - generic "Volume" [ref=f1e285]: 15.85 M
+                - generic "Chart for BATS_DLY:AAPL, 1 day" [ref=f1e287]
+      - region "AI research report" [ref=e16]:
+        - generic [ref=e17]:
+          - generic [ref=e18]:
+            - generic [ref=e19]:
+              - generic [ref=e20]:
+                - heading "Short term" [level=3] [ref=e21]
+                - generic [ref=e23]:
+                  - img [ref=e24]
+                  - text: Insufficient data
+              - paragraph [ref=e27]: unavailable
+            - generic [ref=e28]:
+              - generic [ref=e29]:
+                - paragraph [ref=e30]: Return range unavailable
+                - paragraph [ref=e31]: expected return range
+              - generic [ref=e32]:
+                - generic [ref=e33]:
+                  - generic [ref=e34]: Confidence
+                  - generic [ref=e35]: 0%
+                - progressbar "Confidence 0%" [ref=e36]
+              - generic [ref=e37]:
+                - paragraph [ref=e38]: Key risks
+                - list [ref=e39]:
+                  - listitem [ref=e40]:
+                    - generic [ref=e41]: −
+                    - text: "LLM rate_limit: Error code: 429 - {'error': {'message': 'Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01k"
+          - generic [ref=e42]:
+            - generic [ref=e43]:
+              - generic [ref=e44]:
+                - heading "Medium term" [level=3] [ref=e45]
+                - generic [ref=e47]:
+                  - img [ref=e48]
+                  - text: Insufficient data
+              - paragraph [ref=e51]: unavailable
+            - generic [ref=e52]:
+              - generic [ref=e53]:
+                - paragraph [ref=e54]: Return range unavailable
+                - paragraph [ref=e55]: expected return range
+              - generic [ref=e56]:
+                - generic [ref=e57]:
+                  - generic [ref=e58]: Confidence
+                  - generic [ref=e59]: 0%
+                - progressbar "Confidence 0%" [ref=e60]
+              - generic [ref=e61]:
+                - paragraph [ref=e62]: Key risks
+                - list [ref=e63]:
+                  - listitem [ref=e64]:
+                    - generic [ref=e65]: −
+                    - text: "LLM rate_limit: Error code: 429 - {'error': {'message': 'Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01k"
+          - generic [ref=e66]:
+            - generic [ref=e67]:
+              - generic [ref=e68]:
+                - heading "Long term" [level=3] [ref=e69]
+                - generic [ref=e71]:
+                  - img [ref=e72]
+                  - text: Insufficient data
+              - paragraph [ref=e75]: unavailable
+            - generic [ref=e76]:
+              - generic [ref=e77]:
+                - paragraph [ref=e78]: Return range unavailable
+                - paragraph [ref=e79]: expected return range
+              - generic [ref=e80]:
+                - generic [ref=e81]:
+                  - generic [ref=e82]: Confidence
+                  - generic [ref=e83]: 0%
+                - progressbar "Confidence 0%" [ref=e84]
+              - generic [ref=e85]:
+                - paragraph [ref=e86]: Key risks
+                - list [ref=e87]:
+                  - listitem [ref=e88]:
+                    - generic [ref=e89]: −
+                    - text: "LLM rate_limit: Error code: 429 - {'error': {'message': 'Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01k"
+        - generic [ref=e90]:
+          - paragraph [ref=e91]: Summary
+          - text: AI analysis temporarily unavailable (rate_limit). Please try again later.
+        - note "Investment disclaimer" [ref=e92]:
+          - img [ref=e93]
+          - paragraph [ref=e95]: Not investment advice. Educational research only. Past performance is not indicative of future results. Consult a SEBI/SEC-registered advisor before investing.
+  - button "Open Next.js Dev Tools" [ref=e101] [cursor=pointer]:
+    - img [ref=e102]
+  - alert [ref=e105]

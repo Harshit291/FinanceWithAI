@@ -1,0 +1,12 @@
+- generic [active] [ref=e1]:
+  - main [ref=e2]:
+    - heading "FinAI" [level=1] [ref=e3]
+    - paragraph [ref=e4]: Professional charting + AI fundamental research for Indian and US equities.
+    - generic [ref=e5]:
+      - link "Try RELIANCE.NS (NSE)" [ref=e6] [cursor=pointer]:
+        - /url: /stocks/RELIANCE.NS
+      - link "Try AAPL (NASDAQ)" [ref=e7] [cursor=pointer]:
+        - /url: /stocks/AAPL
+    - paragraph [ref=e8]: Not investment advice. Educational research only. Consult a SEBI/SEC-registered advisor.
+  - button "Open Next.js Dev Tools" [ref=e14] [cursor=pointer]:
+    - img [ref=e15]

@@ -1,0 +1,112 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - navigation [ref=e3]:
+      - generic [ref=e4]:
+        - link "FinAI" [ref=e5] [cursor=pointer]:
+          - /url: /
+          - img [ref=e7]
+          - generic [ref=e17]: FinAI
+        - link "Watchlist" [ref=e19] [cursor=pointer]:
+          - /url: /watchlist
+    - main [ref=e21]:
+      - generic [ref=e23]:
+        - generic [ref=e24]:
+          - paragraph [ref=e25]: US · Equities
+          - heading "AAPL" [level=1] [ref=e26]
+        - generic [ref=e27]:
+          - paragraph [ref=e28]: Technical + AI Research
+          - button "Save" [ref=e30]:
+            - img [ref=e31]
+            - text: Save
+      - generic [ref=e33]:
+        - generic [ref=e34]:
+          - generic "TradingView chart for AAPL" [ref=e36]
+          - generic [ref=e37]:
+            - paragraph [ref=e40]: Technical Analysis · AI
+            - generic [ref=e42]:
+              - generic [ref=e43]:
+                - generic [ref=e45]:
+                  - generic [ref=e46]:
+                    - paragraph [ref=e47]: Short term
+                    - paragraph [ref=e48]: 1–4 weeks
+                  - generic [ref=e49]:
+                    - img [ref=e50]
+                    - text: N/A
+                - generic [ref=e54]:
+                  - generic [ref=e55]:
+                    - generic [ref=e56]: Confidence
+                    - generic [ref=e57]: 0%
+                  - progressbar "Confidence 0%" [ref=e58]
+                - paragraph [ref=e59]: Insufficient price data to compute technical indicators.
+              - generic [ref=e60]:
+                - generic [ref=e62]:
+                  - generic [ref=e63]:
+                    - paragraph [ref=e64]: Long term
+                    - paragraph [ref=e65]: 1+ year
+                  - generic [ref=e66]:
+                    - img [ref=e67]
+                    - text: N/A
+                - generic [ref=e71]:
+                  - generic [ref=e72]:
+                    - generic [ref=e73]: Confidence
+                    - generic [ref=e74]: 0%
+                  - progressbar "Confidence 0%" [ref=e75]
+                - paragraph [ref=e76]: Insufficient price data to compute technical indicators.
+            - generic [ref=e77]:
+              - img [ref=e78]
+              - paragraph [ref=e80]: Technical signals are based on price history only. Not investment advice.
+        - generic [ref=e81]:
+          - paragraph [ref=e84]: Fundamental Analysis
+          - region "AI research report" [ref=e86]:
+            - generic [ref=e87]:
+              - generic [ref=e89]:
+                - generic [ref=e90]:
+                  - paragraph [ref=e91]: Short term
+                  - paragraph [ref=e92]: unavailable
+                - generic [ref=e93]:
+                  - img [ref=e94]
+                  - text: N/A
+              - paragraph [ref=e98]: — unavailable —
+              - generic [ref=e99]:
+                - generic [ref=e100]:
+                  - generic [ref=e101]: Confidence
+                  - generic [ref=e102]: 0%
+                - progressbar "Confidence 0%" [ref=e103]
+            - generic [ref=e104]:
+              - generic [ref=e106]:
+                - generic [ref=e107]:
+                  - paragraph [ref=e108]: Medium term
+                  - paragraph [ref=e109]: unavailable
+                - generic [ref=e110]:
+                  - img [ref=e111]
+                  - text: N/A
+              - paragraph [ref=e115]: — unavailable —
+              - generic [ref=e116]:
+                - generic [ref=e117]:
+                  - generic [ref=e118]: Confidence
+                  - generic [ref=e119]: 0%
+                - progressbar "Confidence 0%" [ref=e120]
+            - generic [ref=e121]:
+              - generic [ref=e123]:
+                - generic [ref=e124]:
+                  - paragraph [ref=e125]: Long term
+                  - paragraph [ref=e126]: unavailable
+                - generic [ref=e127]:
+                  - img [ref=e128]
+                  - text: N/A
+              - paragraph [ref=e132]: — unavailable —
+              - generic [ref=e133]:
+                - generic [ref=e134]:
+                  - generic [ref=e135]: Confidence
+                  - generic [ref=e136]: 0%
+                - progressbar "Confidence 0%" [ref=e137]
+            - generic [ref=e138]:
+              - generic [ref=e139]:
+                - img [ref=e140]
+                - paragraph [ref=e143]: AI Insight
+              - paragraph [ref=e144]: AI analysis temporarily unavailable (rate_limit). Please try again later.
+            - note "Investment disclaimer" [ref=e145]:
+              - img [ref=e146]
+              - paragraph [ref=e148]: Not investment advice. Educational research only. Past performance is not indicative of future results. Consult a SEBI/SEC-registered advisor before investing.
+  - button "Open Next.js Dev Tools" [ref=e154] [cursor=pointer]:
+    - img [ref=e155]

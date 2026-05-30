@@ -1,0 +1,320 @@
+- generic [active] [ref=e1]:
+  - button "Open Next.js Dev Tools" [ref=e135] [cursor=pointer]:
+    - img [ref=e136]
+  - alert [ref=e141]: MSFT — FinAI
+  - main [ref=e175]:
+    - generic [ref=e176]:
+      - generic [ref=e177]:
+        - generic [ref=e178]:
+          - heading "MSFT" [level=1] [ref=e179]
+          - generic [ref=e180]: US
+        - searchbox "Search for a stock symbol" [ref=e182]
+      - paragraph [ref=e183]: Technical analysis + AI fundamental research
+    - generic [ref=e184]:
+      - generic "TradingView chart for MSFT" [ref=e187]:
+        - iframe [ref=e189]:
+          - generic [ref=f4e2]:
+            - toolbar [ref=f4e6]:
+              - generic [ref=f4e10]:
+                - generic [ref=f4e11]:
+                  - button "Symbol search" [ref=f4e12]:
+                    - img [ref=f4e13]:
+                      - img [ref=f4e14]
+                    - generic [ref=f4e16]: MSFT
+                  - button "Compare symbols" [ref=f4e17]:
+                    - img [ref=f4e18]:
+                      - img [ref=f4e19]
+                - generic [ref=f4e25]:
+                  - radiogroup [ref=f4e26]:
+                    - radio "1 minute" [ref=f4e27]:
+                      - generic [ref=f4e29]: 1m
+                    - radio "30 minutes" [ref=f4e30]:
+                      - generic [ref=f4e32]: 30m
+                    - radio "1 hour" [ref=f4e33]:
+                      - generic [ref=f4e35]: 1h
+                    - radio "1 day" [checked] [ref=f4e36]:
+                      - generic [ref=f4e38]: D
+                  - button "Chart interval" [ref=f4e39]:
+                    - img [ref=f4e42]:
+                      - img [ref=f4e43]
+                - generic [ref=f4e48]:
+                  - radiogroup [ref=f4e49]:
+                    - radio "Bars" [ref=f4e50]:
+                      - img [ref=f4e51]:
+                        - img [ref=f4e52]
+                    - radio "Candles" [checked] [ref=f4e54]:
+                      - img [ref=f4e55]:
+                        - img [ref=f4e56]
+                    - radio "Area" [ref=f4e61]:
+                      - img [ref=f4e62]:
+                        - img [ref=f4e63]
+                  - button "Bar's style" [ref=f4e65]:
+                    - img [ref=f4e68]:
+                      - img [ref=f4e69]
+                - button "Indicators, metrics, and strategies" [ref=f4e75]:
+                  - img [ref=f4e76]:
+                    - img [ref=f4e77]
+                  - generic [ref=f4e80]: Indicators
+                - button "Take a snapshot" [ref=f4e83]:
+                  - img [ref=f4e85]:
+                    - img [ref=f4e86]
+            - toolbar [ref=f4e90]:
+              - generic [ref=f4e94]:
+                - generic [ref=f4e95]:
+                  - generic [ref=f4e98]:
+                    - button "Cross" [ref=f4e100]:
+                      - img [ref=f4e101]:
+                        - img [ref=f4e102]
+                    - button "Cursors" [pressed] [ref=f4e106]:
+                      - img [ref=f4e107]:
+                        - img [ref=f4e108]
+                  - generic [ref=f4e112]:
+                    - button "Trendline" [ref=f4e114]:
+                      - img [ref=f4e115]:
+                        - img [ref=f4e116]
+                    - button "Trend tools" [ref=f4e120]:
+                      - img [ref=f4e121]:
+                        - img [ref=f4e122]
+                  - generic [ref=f4e126]:
+                    - button "Fib retracement" [ref=f4e128]:
+                      - img [ref=f4e129]:
+                        - img [ref=f4e130]
+                    - button "Gann and Fibonacci tools" [ref=f4e137]:
+                      - img [ref=f4e138]:
+                        - img [ref=f4e139]
+                  - generic [ref=f4e143]:
+                    - button "XABCD pattern" [ref=f4e145]:
+                      - img [ref=f4e146]:
+                        - img [ref=f4e147]
+                    - button "Patterns" [ref=f4e151]:
+                      - img [ref=f4e152]:
+                        - img [ref=f4e153]
+                  - generic [ref=f4e157]:
+                    - button "Long position" [ref=f4e159]:
+                      - img [ref=f4e160]:
+                        - img [ref=f4e161]
+                    - button "Forecasting and measurement tools" [ref=f4e163]:
+                      - img [ref=f4e164]:
+                        - img [ref=f4e165]
+                  - generic [ref=f4e169]:
+                    - button "Brush" [ref=f4e171]:
+                      - img [ref=f4e172]:
+                        - img [ref=f4e173]
+                    - button "Geometric shapes" [ref=f4e177]:
+                      - img [ref=f4e178]:
+                        - img [ref=f4e179]
+                  - generic [ref=f4e183]:
+                    - button "Text" [ref=f4e185]:
+                      - img [ref=f4e186]:
+                        - img [ref=f4e187]
+                    - button "Annotation tools" [ref=f4e189]:
+                      - img [ref=f4e190]:
+                        - img [ref=f4e191]
+                  - generic [ref=f4e194]:
+                    - button "Icon" [ref=f4e196]:
+                      - img [ref=f4e197]:
+                        - img [ref=f4e198]
+                    - button "Icons" [ref=f4e200]:
+                      - img [ref=f4e201]:
+                        - img [ref=f4e202]
+                - generic [ref=f4e204]:
+                  - button "Measure" [ref=f4e205]:
+                    - img [ref=f4e206]:
+                      - img [ref=f4e207]
+                  - button "Zoom in" [ref=f4e209]:
+                    - img [ref=f4e210]:
+                      - img [ref=f4e211]
+                - generic [ref=f4e219]:
+                  - button "Magnet mode snaps drawings placed near price bars to the closest OHLC value" [ref=f4e221]:
+                    - img [ref=f4e222]:
+                      - img [ref=f4e223]
+                  - button "Magnets" [ref=f4e227]:
+                    - img [ref=f4e228]:
+                      - img [ref=f4e229]
+            - 'region "Chart #1" [ref=f4e235]':
+              - generic [ref=f4e239]:
+                - generic:
+                  - generic:
+                    - toolbar:
+                      - generic:
+                        - generic [ref=f4e240]:
+                          - generic "Change symbol" [ref=f4e241]:
+                            - generic [ref=f4e242]:
+                              - img [ref=f4e244]
+                              - generic [ref=f4e245]: M
+                            - button "Change symbol" [ref=f4e246]: Microsoft Corp.
+                          - generic "Change interval" [ref=f4e247]:
+                            - text: ·
+                            - button "Change interval" [ref=f4e248]: 1D
+                          - generic [ref=f4e249]:
+                            - text: ·
+                            - generic [ref=f4e250]: Cboe One
+                        - generic:
+                          - generic:
+                            - button "More":
+                              - generic:
+                                - img
+                        - button "Market open · Data is delayed" [ref=f4e252]:
+                          - img [ref=f4e253]:
+                            - img [ref=f4e254]
+                          - img [ref=f4e256]:
+                            - img [ref=f4e257]
+                      - generic [ref=f4e260]:
+                        - generic [ref=f4e261]:
+                          - generic [ref=f4e262]: O
+                          - generic [ref=f4e263]: "424.57"
+                        - generic [ref=f4e264]:
+                          - generic [ref=f4e265]: H
+                          - generic [ref=f4e266]: "428.08"
+                        - generic [ref=f4e267]:
+                          - generic [ref=f4e268]: L
+                          - generic [ref=f4e269]: "421.90"
+                        - generic [ref=f4e270]:
+                          - generic [ref=f4e271]: C
+                          - generic [ref=f4e272]: "426.60"
+                        - generic [ref=f4e274]: +1.78 (+0.42%)
+                  - generic:
+                    - button "Hide indicator legend" [ref=f4e275]:
+                      - img [ref=f4e277]
+                    - generic:
+                      - toolbar:
+                        - generic:
+                          - generic "Volume" [ref=f4e280]:
+                            - generic [ref=f4e281]: Vol
+                          - generic:
+                            - generic:
+                              - button "Hide":
+                                - generic:
+                                  - img
+                              - button "Settings":
+                                - generic:
+                                  - img
+                              - button "Remove":
+                                - generic:
+                                  - img
+                              - button "More":
+                                - generic:
+                                  - img
+                        - generic "Volume" [ref=f4e285]: 8.03 M
+                - generic "Chart for BATS_DLY:MSFT, 1 day" [ref=f4e287]
+      - region "AI research report" [ref=e191]:
+        - generic [ref=e192]:
+          - generic [ref=e193]:
+            - generic [ref=e194]:
+              - generic [ref=e195]:
+                - heading "Short term" [level=3] [ref=e196]
+                - generic [ref=e198]:
+                  - img [ref=e199]
+                  - text: Bearish
+              - paragraph [ref=e202]: 1-4 weeks
+            - generic [ref=e203]:
+              - generic [ref=e204]:
+                - paragraph [ref=e205]: "-5% → -1%"
+                - paragraph [ref=e206]: expected return range
+              - generic [ref=e207]:
+                - generic [ref=e208]:
+                  - generic [ref=e209]: Confidence
+                  - generic [ref=e210]: 60%
+                - progressbar "Confidence 60%" [ref=e211]
+              - generic [ref=e213]:
+                - paragraph [ref=e214]: Key drivers
+                - list [ref=e215]:
+                  - listitem [ref=e216]:
+                    - generic [ref=e217]: +
+                    - text: OpenAI's missed targets for new users and revenue
+                  - listitem [ref=e218]:
+                    - generic [ref=e219]: +
+                    - text: US-Iran standoff and AI spending concerns
+              - generic [ref=e220]:
+                - paragraph [ref=e221]: Key risks
+                - list [ref=e222]:
+                  - listitem [ref=e223]:
+                    - generic [ref=e224]: −
+                    - text: Geopolitical tensions
+                  - listitem [ref=e225]:
+                    - generic [ref=e226]: −
+                    - text: AI investment returns
+          - generic [ref=e227]:
+            - generic [ref=e228]:
+              - generic [ref=e229]:
+                - heading "Medium term" [level=3] [ref=e230]
+                - generic [ref=e232]:
+                  - img [ref=e233]
+                  - text: Neutral
+              - paragraph [ref=e234]: 1-6 months
+            - generic [ref=e235]:
+              - generic [ref=e236]:
+                - paragraph [ref=e237]: "-2% → +3%"
+                - paragraph [ref=e238]: expected return range
+              - generic [ref=e239]:
+                - generic [ref=e240]:
+                  - generic [ref=e241]: Confidence
+                  - generic [ref=e242]: 50%
+                - progressbar "Confidence 50%" [ref=e243]
+              - generic [ref=e245]:
+                - paragraph [ref=e246]: Key drivers
+                - list [ref=e247]:
+                  - listitem [ref=e248]:
+                    - generic [ref=e249]: +
+                    - text: Microsoft's earnings report
+                  - listitem [ref=e250]:
+                    - generic [ref=e251]: +
+                    - text: AI infrastructure investments
+              - generic [ref=e252]:
+                - paragraph [ref=e253]: Key risks
+                - list [ref=e254]:
+                  - listitem [ref=e255]:
+                    - generic [ref=e256]: −
+                    - text: Valuation concerns
+                  - listitem [ref=e257]:
+                    - generic [ref=e258]: −
+                    - text: Competition in the AI market
+          - generic [ref=e259]:
+            - generic [ref=e260]:
+              - generic [ref=e261]:
+                - heading "Long term" [level=3] [ref=e262]
+                - generic [ref=e264]:
+                  - img [ref=e265]
+                  - text: Bullish
+              - paragraph [ref=e268]: 1-3 years
+            - generic [ref=e269]:
+              - generic [ref=e270]:
+                - paragraph [ref=e271]: +5% → +15%
+                - paragraph [ref=e272]: expected return range
+              - generic [ref=e273]:
+                - generic [ref=e274]:
+                  - generic [ref=e275]: Confidence
+                  - generic [ref=e276]: 70%
+                - progressbar "Confidence 70%" [ref=e277]
+              - generic [ref=e279]:
+                - paragraph [ref=e280]: Key drivers
+                - list [ref=e281]:
+                  - listitem [ref=e282]:
+                    - generic [ref=e283]: +
+                    - text: Microsoft's AI investments and partnerships
+                  - listitem [ref=e284]:
+                    - generic [ref=e285]: +
+                    - text: Growing demand for cloud computing and AI services
+              - generic [ref=e286]:
+                - paragraph [ref=e287]: Key risks
+                - list [ref=e288]:
+                  - listitem [ref=e289]:
+                    - generic [ref=e290]: −
+                    - text: Regulatory risks
+                  - listitem [ref=e291]:
+                    - generic [ref=e292]: −
+                    - text: Competition from other tech companies
+        - generic [ref=e293]:
+          - paragraph [ref=e294]: Summary
+          - text: Microsoft's stock is expected to be impacted by OpenAI's missed targets and geopolitical tensions in the short term. However, the company's long-term prospects remain bullish due to its AI investments and growing demand for cloud computing and AI services.
+        - generic [ref=e295]:
+          - paragraph [ref=e296]: Sources
+          - list [ref=e297]:
+            - listitem [ref=e298]:
+              - img [ref=e299]
+              - link "Finnhub" [ref=e303] [cursor=pointer]:
+                - /url: https://finnhub.io/
+              - generic [ref=e304]: · 28/4/2026
+        - note "Investment disclaimer" [ref=e305]:
+          - img [ref=e306]
+          - paragraph [ref=e308]: Not investment advice. Educational research only. Past performance is not indicative of future results. Consult a SEBI/SEC-registered advisor before investing.

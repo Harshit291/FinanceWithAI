@@ -9,7 +9,7 @@
       "command": "npx",
       "args": ["-y", "@github/mcp-server"],
       "env": {
-        "GITHUB_PERSONAL_ACCESS_TOKEN": "${GITHUB_PERSONAL_ACCESS_TOKEN}"
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "${env:GITHUB_PERSONAL_ACCESS_TOKEN}"
       }
     }
   }

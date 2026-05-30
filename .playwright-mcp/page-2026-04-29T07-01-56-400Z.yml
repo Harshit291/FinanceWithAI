@@ -1,0 +1,141 @@
+- generic [active] [ref=e1]:
+  - button "Open Next.js Dev Tools" [ref=e36] [cursor=pointer]:
+    - img [ref=e37]
+  - alert [ref=e40]
+  - generic [ref=e41]:
+    - navigation [ref=e42]:
+      - link "FinAI" [ref=e44] [cursor=pointer]:
+        - /url: /
+        - img [ref=e46]
+        - generic [ref=e56]: FinAI
+    - generic [ref=e58]:
+      - generic [ref=e59]:
+        - generic [ref=e60]: RELIANCE.NS
+        - generic [ref=e61]: +1.4%
+      - generic [ref=e62]:
+        - generic [ref=e63]: TCS.NS
+        - generic [ref=e64]: +0.8%
+      - generic [ref=e65]:
+        - generic [ref=e66]: HDFCBANK.NS
+        - generic [ref=e67]: "-0.3%"
+      - generic [ref=e68]:
+        - generic [ref=e69]: INFY.NS
+        - generic [ref=e70]: +2.1%
+      - generic [ref=e71]:
+        - generic [ref=e72]: AAPL
+        - generic [ref=e73]: +0.6%
+      - generic [ref=e74]:
+        - generic [ref=e75]: MSFT
+        - generic [ref=e76]: +1.2%
+      - generic [ref=e77]:
+        - generic [ref=e78]: GOOGL
+        - generic [ref=e79]: "-0.4%"
+      - generic [ref=e80]:
+        - generic [ref=e81]: TSLA
+        - generic [ref=e82]: +3.7%
+      - generic [ref=e83]:
+        - generic [ref=e84]: WIPRO.NS
+        - generic [ref=e85]: +0.9%
+      - generic [ref=e86]:
+        - generic [ref=e87]: TATAMOTORS.NS
+        - generic [ref=e88]: "-1.2%"
+      - generic [ref=e89]:
+        - generic [ref=e90]: NVDA
+        - generic [ref=e91]: +4.3%
+      - generic [ref=e92]:
+        - generic [ref=e93]: BAJFINANCE.NS
+        - generic [ref=e94]: +0.5%
+      - generic [ref=e95]:
+        - generic [ref=e96]: RELIANCE.NS
+        - generic [ref=e97]: +1.4%
+      - generic [ref=e98]:
+        - generic [ref=e99]: TCS.NS
+        - generic [ref=e100]: +0.8%
+      - generic [ref=e101]:
+        - generic [ref=e102]: HDFCBANK.NS
+        - generic [ref=e103]: "-0.3%"
+      - generic [ref=e104]:
+        - generic [ref=e105]: INFY.NS
+        - generic [ref=e106]: +2.1%
+      - generic [ref=e107]:
+        - generic [ref=e108]: AAPL
+        - generic [ref=e109]: +0.6%
+      - generic [ref=e110]:
+        - generic [ref=e111]: MSFT
+        - generic [ref=e112]: +1.2%
+      - generic [ref=e113]:
+        - generic [ref=e114]: GOOGL
+        - generic [ref=e115]: "-0.4%"
+      - generic [ref=e116]:
+        - generic [ref=e117]: TSLA
+        - generic [ref=e118]: +3.7%
+      - generic [ref=e119]:
+        - generic [ref=e120]: WIPRO.NS
+        - generic [ref=e121]: +0.9%
+      - generic [ref=e122]:
+        - generic [ref=e123]: TATAMOTORS.NS
+        - generic [ref=e124]: "-1.2%"
+      - generic [ref=e125]:
+        - generic [ref=e126]: NVDA
+        - generic [ref=e127]: +4.3%
+      - generic [ref=e128]:
+        - generic [ref=e129]: BAJFINANCE.NS
+        - generic [ref=e130]: +0.5%
+    - generic [ref=e132]:
+      - generic [ref=e133]:
+        - paragraph [ref=e134]: AI-Powered Stock Research
+        - heading "Research-grade analysis for serious investors." [level=1] [ref=e135]:
+          - generic [ref=e136]: Research-grade
+          - generic [ref=e137]: analysis for
+          - generic [ref=e138]: serious investors.
+        - paragraph [ref=e139]: Professional TradingView charts paired with Claude AI fundamental analysis — short, medium & long‑term outlooks delivered in seconds.
+        - generic [ref=e140]:
+          - link "Analyse RELIANCE.NS" [ref=e141] [cursor=pointer]:
+            - /url: /stocks/RELIANCE.NS
+            - text: Analyse RELIANCE.NS
+            - img [ref=e142]
+          - link "Analyse AAPL" [ref=e145] [cursor=pointer]:
+            - /url: /stocks/AAPL
+            - text: Analyse AAPL
+            - img [ref=e146]
+        - generic [ref=e149]:
+          - generic [ref=e150]: NSE
+          - generic [ref=e151]: BSE
+          - generic [ref=e152]: NYSE
+          - generic [ref=e153]: NASDAQ
+      - generic [ref=e155]:
+        - generic [ref=e156]:
+          - generic [ref=e157]:
+            - paragraph [ref=e158]: Time horizons
+            - paragraph [ref=e159]: Short · Medium · Long
+          - generic [ref=e160]: "3"
+        - generic [ref=e161]:
+          - generic [ref=e162]:
+            - paragraph [ref=e163]: Analysis time
+            - paragraph [ref=e164]: Per stock, real-time
+          - generic [ref=e165]: <5s
+        - generic [ref=e166]:
+          - generic [ref=e167]:
+            - paragraph [ref=e168]: Markets covered
+            - paragraph [ref=e169]: India + US equities
+          - generic [ref=e170]: "4"
+        - generic [ref=e171]:
+          - generic [ref=e172]:
+            - paragraph [ref=e173]: AI model
+            - paragraph [ref=e174]: Anthropic · Groq
+          - generic [ref=e175]: Claude
+    - generic [ref=e178]:
+      - generic [ref=e179]:
+        - text: "01"
+        - heading "Professional Charts" [level=3] [ref=e180]
+        - paragraph [ref=e181]: Full TradingView widget — drawing tools, Fibonacci, 100+ indicators, real-time OHLCV across all timeframes.
+      - generic [ref=e182]:
+        - text: "02"
+        - heading "AI Fundamental Analysis" [level=3] [ref=e183]
+        - paragraph [ref=e184]: Claude AI synthesises fundamentals, earnings & news into evidence-based verdicts with confidence scores.
+      - generic [ref=e185]:
+        - text: "03"
+        - heading "Indian & US Markets" [level=3] [ref=e186]
+        - paragraph [ref=e187]: NSE, BSE, NYSE and NASDAQ in one platform. Search any equity, get AI research instantly.
+    - contentinfo [ref=e188]:
+      - paragraph [ref=e189]: Not investment advice · Educational research only · Consult a SEBI/SEC-registered advisor

@@ -1,0 +1,72 @@
+- generic [active] [ref=e1]:
+  - main [ref=e2]:
+    - generic [ref=e3]:
+      - generic [ref=e4]:
+        - generic [ref=e5]:
+          - heading "AAPL" [level=1] [ref=e6]
+          - generic [ref=e7]: US
+        - searchbox "Search for a stock symbol" [ref=e9]
+      - paragraph [ref=e10]: Technical analysis + AI fundamental research
+    - generic [ref=e11]:
+      - generic "TradingView chart for AAPL" [ref=e14]
+      - region "AI research report" [ref=e16]:
+        - generic [ref=e17]:
+          - generic [ref=e18]:
+            - generic [ref=e19]:
+              - generic [ref=e20]:
+                - heading "Short term" [level=3] [ref=e21]
+                - generic [ref=e23]:
+                  - img [ref=e24]
+                  - text: Insufficient data
+              - paragraph [ref=e27]: unavailable
+            - generic [ref=e28]:
+              - generic [ref=e29]:
+                - paragraph [ref=e30]: Return range unavailable
+                - paragraph [ref=e31]: expected return range
+              - generic [ref=e32]:
+                - generic [ref=e33]:
+                  - generic [ref=e34]: Confidence
+                  - generic [ref=e35]: 0%
+                - progressbar "Confidence 0%" [ref=e36]
+          - generic [ref=e37]:
+            - generic [ref=e38]:
+              - generic [ref=e39]:
+                - heading "Medium term" [level=3] [ref=e40]
+                - generic [ref=e42]:
+                  - img [ref=e43]
+                  - text: Insufficient data
+              - paragraph [ref=e46]: unavailable
+            - generic [ref=e47]:
+              - generic [ref=e48]:
+                - paragraph [ref=e49]: Return range unavailable
+                - paragraph [ref=e50]: expected return range
+              - generic [ref=e51]:
+                - generic [ref=e52]:
+                  - generic [ref=e53]: Confidence
+                  - generic [ref=e54]: 0%
+                - progressbar "Confidence 0%" [ref=e55]
+          - generic [ref=e56]:
+            - generic [ref=e57]:
+              - generic [ref=e58]:
+                - heading "Long term" [level=3] [ref=e59]
+                - generic [ref=e61]:
+                  - img [ref=e62]
+                  - text: Insufficient data
+              - paragraph [ref=e65]: unavailable
+            - generic [ref=e66]:
+              - generic [ref=e67]:
+                - paragraph [ref=e68]: Return range unavailable
+                - paragraph [ref=e69]: expected return range
+              - generic [ref=e70]:
+                - generic [ref=e71]:
+                  - generic [ref=e72]: Confidence
+                  - generic [ref=e73]: 0%
+                - progressbar "Confidence 0%" [ref=e74]
+        - generic [ref=e75]:
+          - paragraph [ref=e76]: Summary
+          - text: AI analysis temporarily unavailable (rate_limit). Please try again later.
+        - note "Investment disclaimer" [ref=e77]:
+          - img [ref=e78]
+          - paragraph [ref=e80]: Not investment advice. Educational research only. Past performance is not indicative of future results. Consult a SEBI/SEC-registered advisor before investing.
+  - button "Open Next.js Dev Tools" [ref=e86] [cursor=pointer]:
+    - img [ref=e87]

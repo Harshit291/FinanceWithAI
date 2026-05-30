@@ -1,0 +1,95 @@
+[    6429ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2431
+[    6440ms] [LOG] [HMR] connected @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2431
+[   22400ms] [ERROR] 2026-04-29T05:30:14.911Z:Fetch:POST https://telemetry.tradingview.com/widget/report. TypeError: Failed to fetch @ https://www.tradingview-widget.com/static/bundles/embed/16966.e6fe272534eaeb6ca1be.js:12
+[  760312ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2431
+[  760409ms] [LOG] [Fast Refresh] done in 199ms @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2431
+[ 1097013ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2431
+[ 1097168ms] [LOG] [Fast Refresh] done in 43ms @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2431
+[ 1101703ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2431
+[ 1101848ms] [LOG] [Fast Refresh] done in 40ms @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2431
+[ 1472581ms] [ERROR] WebSocket connection to 'wss://pushstream.tradingview.com/message-pipe-ws/public' failed: Error in connection establishment: net::ERR_NAME_NOT_RESOLVED @ https://www.tradingview-widget.com/static/bundles/embed/embed_advanced_chart.fa03313eb14cf6d466eb.js:4
+[ 1472582ms] [ERROR] WebSocket connection to 'wss://widgetdata.tradingview.com/socket.io/websocket?from=widgetembed%2F&date=2026-04-28T09%3A00%3A19&page-uri=localhost%3A3000%2Fstocks%2FAAPL&ancestor-origin=localhost%3A3000' failed: Error in connection establishment: net::ERR_NAME_NOT_RESOLVED @ https://s.tradingview.com/widgetembed/?hideideas=1&overrides=%7B%7D&enabled_features=%5B%5D&disabled_features=%5B%5D&locale=en:145
+[ 1472888ms] [ERROR] WebSocket connection to 'wss://pushstream.tradingview.com/message-pipe-ws/public' failed: Error in connection establishment: net::ERR_NAME_NOT_RESOLVED @ https://www.tradingview-widget.com/static/bundles/embed/embed_advanced_chart.fa03313eb14cf6d466eb.js:4
+[ 1473205ms] [ERROR] WebSocket connection to 'wss://pushstream.tradingview.com/message-pipe-ws/public' failed: Error in connection establishment: net::ERR_NAME_NOT_RESOLVED @ https://www.tradingview-widget.com/static/bundles/embed/embed_advanced_chart.fa03313eb14cf6d466eb.js:4
+[ 1473518ms] [ERROR] WebSocket connection to 'wss://pushstream.tradingview.com/message-pipe-ws/public' failed: Error in connection establishment: net::ERR_NAME_NOT_RESOLVED @ https://www.tradingview-widget.com/static/bundles/embed/embed_advanced_chart.fa03313eb14cf6d466eb.js:4
+[ 1473827ms] [ERROR] WebSocket connection to 'wss://pushstream.tradingview.com/message-pipe-ws/public' failed: Error in connection establishment: net::ERR_NAME_NOT_RESOLVED @ https://www.tradingview-widget.com/static/bundles/embed/embed_advanced_chart.fa03313eb14cf6d466eb.js:4
+[ 1482235ms] [ERROR] WebSocket connection to 'wss://widgetdata.tradingview.com/socket.io/websocket?from=widgetembed%2F&date=2026-04-28T09%3A00%3A19&page-uri=localhost%3A3000%2Fstocks%2FAAPL&ancestor-origin=localhost%3A3000' failed: Error in connection establishment: net::ERR_NAME_NOT_RESOLVED @ https://s.tradingview.com/widgetembed/?hideideas=1&overrides=%7B%7D&enabled_features=%5B%5D&disabled_features=%5B%5D&locale=en:145
+[ 1482236ms] [ERROR] WebSocket connection to 'wss://pushstream.tradingview.com/message-pipe-ws/public' failed: Error in connection establishment: net::ERR_NAME_NOT_RESOLVED @ https://www.tradingview-widget.com/static/bundles/embed/embed_advanced_chart.fa03313eb14cf6d466eb.js:4
+[ 1487898ms] [ERROR] WebSocket connection to 'wss://pushstream.tradingview.com/message-pipe-ws/public' failed: Error in connection establishment: net::ERR_NAME_NOT_RESOLVED @ https://www.tradingview-widget.com/static/bundles/embed/embed_advanced_chart.fa03313eb14cf6d466eb.js:4
+[ 1487900ms] [ERROR] WebSocket connection to 'wss://widgetdata.tradingview.com/socket.io/websocket?from=widgetembed%2F&date=2026-04-28T09%3A00%3A19&page-uri=localhost%3A3000%2Fstocks%2FAAPL&ancestor-origin=localhost%3A3000' failed: Error in connection establishment: net::ERR_NAME_NOT_RESOLVED @ https://s.tradingview.com/widgetembed/?hideideas=1&overrides=%7B%7D&enabled_features=%5B%5D&disabled_features=%5B%5D&locale=en:145
+[ 1487930ms] [ERROR] Failed to load resource: net::ERR_NAME_NOT_RESOLVED @ https://telemetry.tradingview.com/widget/report:0
+[ 1487931ms] [ERROR] 2026-04-29T05:54:40.442Z:Fetch:POST https://telemetry.tradingview.com/widget/report. TypeError: Failed to fetch @ https://www.tradingview-widget.com/static/bundles/embed/16966.e6fe272534eaeb6ca1be.js:12
+[ 1493016ms] [ERROR] WebSocket connection to 'wss://widgetdata.tradingview.com/socket.io/websocket?from=widgetembed%2F&date=2026-04-28T09%3A00%3A19&page-uri=localhost%3A3000%2Fstocks%2FAAPL&ancestor-origin=localhost%3A3000' failed: Error in connection establishment: net::ERR_NAME_NOT_RESOLVED @ https://s.tradingview.com/widgetembed/?hideideas=1&overrides=%7B%7D&enabled_features=%5B%5D&disabled_features=%5B%5D&locale=en:145
+[ 1493090ms] [ERROR] WebSocket connection to 'wss://pushstream.tradingview.com/message-pipe-ws/public' failed: Error in connection establishment: net::ERR_NAME_NOT_RESOLVED @ https://www.tradingview-widget.com/static/bundles/embed/embed_advanced_chart.fa03313eb14cf6d466eb.js:4
+[ 1498704ms] [WARNING] WebSocket connection to 'wss://pushstream.tradingview.com/message-pipe-ws/public' failed: WebSocket is closed before the connection is established. @ https://www.tradingview-widget.com/static/bundles/embed/embed_advanced_chart.fa03313eb14cf6d466eb.js:5
+[ 1504645ms] [ERROR] WebSocket connection to 'wss://widgetdata-backup.tradingview.com/socket.io/websocket?from=widgetembed%2F&date=2026-04-28T09%3A00%3A19&page-uri=localhost%3A3000%2Fstocks%2FAAPL&ancestor-origin=localhost%3A3000' failed: Error in connection establishment: net::ERR_NAME_NOT_RESOLVED @ https://s.tradingview.com/widgetembed/?hideideas=1&overrides=%7B%7D&enabled_features=%5B%5D&disabled_features=%5B%5D&locale=en:145
+[ 1504666ms] [ERROR] Failed to load resource: net::ERR_NAME_NOT_RESOLVED @ https://telemetry.tradingview.com/widget/report:0
+[ 1504666ms] [ERROR] 2026-04-29T05:54:57.178Z:Fetch:POST https://telemetry.tradingview.com/widget/report. TypeError: Failed to fetch @ https://www.tradingview-widget.com/static/bundles/embed/16966.e6fe272534eaeb6ca1be.js:12
+[ 1504884ms] [ERROR] WebSocket connection to 'wss://pushstream.tradingview.com/message-pipe-ws/public' failed: Error in connection establishment: net::ERR_NAME_NOT_RESOLVED @ https://www.tradingview-widget.com/static/bundles/embed/embed_advanced_chart.fa03313eb14cf6d466eb.js:4
+[ 1510641ms] [ERROR] WebSocket connection to 'wss://widgetdata-backup.tradingview.com/socket.io/websocket?from=widgetembed%2F&date=2026-04-28T09%3A00%3A19&page-uri=localhost%3A3000%2Fstocks%2FAAPL&ancestor-origin=localhost%3A3000' failed: Error in connection establishment: net::ERR_NAME_NOT_RESOLVED @ https://s.tradingview.com/widgetembed/?hideideas=1&overrides=%7B%7D&enabled_features=%5B%5D&disabled_features=%5B%5D&locale=en:145
+[ 1517719ms] [ERROR] WebSocket is already in CLOSING or CLOSED state. @ https://s.tradingview.com/widgetembed/?hideideas=1&overrides=%7B%7D&enabled_features=%5B%5D&disabled_features=%5B%5D&locale=en:146
+[ 1522808ms] Error: Key is NaN
+    at Z (https://www.tradingview-widget.com/static/bundles/embed/9817.57f83f992f30dae9a46d.js:2:681)
+    at o.offset (https://www.tradingview-widget.com/static/bundles/embed/9817.57f83f992f30dae9a46d.js:1:1815)
+    at o.offset_utc (https://www.tradingview-widget.com/static/bundles/embed/9817.57f83f992f30dae9a46d.js:1:1484)
+    at z (https://www.tradingview-widget.com/static/bundles/embed/9817.57f83f992f30dae9a46d.js:2:403)
+    at G (https://www.tradingview-widget.com/static/bundles/embed/58602.95542343b92732837f94.js:11:196)
+    at $._updateTodayWithOffsets (https://www.tradingview-widget.com/static/bundles/embed/58602.95542343b92732837f94.js:11:1286)
+[ 1532542ms] [WARNING] WebSocket connection to 'wss://pushstream.tradingview.com/message-pipe-ws/public' failed: WebSocket is closed before the connection is established. @ https://www.tradingview-widget.com/static/bundles/embed/embed_advanced_chart.fa03313eb14cf6d466eb.js:5
+[ 1539189ms] [ERROR] Failed to load resource: net::ERR_NETWORK_CHANGED @ https://telemetry.tradingview.com/widget/report:0
+[ 1539189ms] [ERROR] 2026-04-29T05:55:31.700Z:Fetch:POST https://telemetry.tradingview.com/widget/report. TypeError: Failed to fetch @ https://www.tradingview-widget.com/static/bundles/embed/16966.e6fe272534eaeb6ca1be.js:12
+[ 2156773ms] [ERROR] WebSocket connection to 'wss://pushstream.tradingview.com/message-pipe-ws/public' failed: Error in connection establishment: net::ERR_NAME_NOT_RESOLVED @ https://www.tradingview-widget.com/static/bundles/embed/embed_advanced_chart.fa03313eb14cf6d466eb.js:4
+[ 2156774ms] [LOG] [HMR] connected @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2431
+[ 2156798ms] [ERROR] WebSocket connection to 'wss://widgetdata.tradingview.com/socket.io/websocket?from=widgetembed%2F&date=2026-04-28T09%3A00%3A19&page-uri=localhost%3A3000%2Fstocks%2FAAPL&ancestor-origin=localhost%3A3000' failed: Error in connection establishment: net::ERR_NAME_NOT_RESOLVED @ https://s.tradingview.com/widgetembed/?hideideas=1&overrides=%7B%7D&enabled_features=%5B%5D&disabled_features=%5B%5D&locale=en:145
+[ 2157829ms] [WARNING] WebSocket connection to 'wss://pushstream.tradingview.com/message-pipe-ws/public' failed: WebSocket is closed before the connection is established. @ https://www.tradingview-widget.com/static/bundles/embed/embed_advanced_chart.fa03313eb14cf6d466eb.js:5
+[ 3982868ms] [LOG] [HMR] connected @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2431
+[ 3983695ms] [ERROR] Failed to load resource: net::ERR_INTERNET_DISCONNECTED @ https://telemetry.tradingview.com/widget/report:0
+[ 3983695ms] [ERROR] 2026-04-29T06:36:16.207Z:Fetch:POST https://telemetry.tradingview.com/widget/report. User is offline. @ https://www.tradingview-widget.com/static/bundles/embed/16966.e6fe272534eaeb6ca1be.js:12
+[ 3983734ms] [ERROR] Failed to load resource: net::ERR_INTERNET_DISCONNECTED @ https://telemetry.tradingview.com/site-widget/report:0
+[ 3983734ms] [ERROR] 2026-04-29T06:36:16.246Z:Fetch:POST https://telemetry.tradingview.com/site-widget/report. User is offline. @ https://www.tradingview-widget.com/static/bundles/embed/16966.e6fe272534eaeb6ca1be.js:12
+[ 4318476ms] [LOG] [HMR] connected @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2431
+[ 4607860ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2431
+[ 4607861ms] [LOG] [Fast Refresh] done in 107ms @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2431
+[ 5301706ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2431
+[ 5301866ms] [LOG] [Fast Refresh] done in 71ms @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2431
+[ 5302041ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2431
+[ 5302066ms] [LOG] [Fast Refresh] done in 128ms @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2431
+[ 5302251ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2431
+[ 5302282ms] [LOG] [Fast Refresh] done in 140ms @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2431
+[ 5302499ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2431
+[ 5302523ms] [LOG] [Fast Refresh] done in 126ms @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2431
+[ 5302727ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2431
+[ 5302765ms] [LOG] [Fast Refresh] done in 142ms @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2431
+[ 5324900ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2431
+[ 5324963ms] [LOG] [Fast Refresh] done in 76ms @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2431
+[ 5342065ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2431
+[ 5342262ms] [LOG] [Fast Refresh] done in 68ms @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2431
+[ 5350062ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2431
+[ 5350330ms] [LOG] [Fast Refresh] done in 370ms @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2431
+[ 5350431ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2431
+[ 5350606ms] [LOG] [Fast Refresh] done in 275ms @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2431
+[ 5350744ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2431
+[ 5350762ms] [LOG] [Fast Refresh] done in 119ms @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2431
+[ 5356969ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2431
+[ 5357301ms] [LOG] [Fast Refresh] done in 429ms @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2431
+[ 5357407ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2431
+[ 5357419ms] [LOG] [Fast Refresh] done in 117ms @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2431
+[ 5377467ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2431
+[ 5377649ms] [LOG] [Fast Refresh] done in 77ms @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2431
+[ 5378540ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2431
+[ 5378574ms] [LOG] [Fast Refresh] done in 137ms @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2431
+[ 5388264ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2431
+[ 5388327ms] [LOG] [Fast Refresh] done in 63ms @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2431
+[ 5406080ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2431
+[ 5406204ms] [LOG] [Fast Refresh] done in 224ms @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2431
+[ 5406314ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2431
+[ 5406442ms] [LOG] [Fast Refresh] done in 230ms @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2431
+[ 5440707ms] [LOG] [HMR] connected @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2431
+[ 5441873ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2431
+[ 5441889ms] [LOG] [HMR] connected @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2431
+[ 5447144ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2431
+[ 5447175ms] [LOG] [Fast Refresh] done in 139ms @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2431
+[ 5447363ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2431
+[ 5447932ms] [LOG] [Fast Refresh] done in 676ms @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2431
+[ 5448105ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2431
+[ 5448448ms] [LOG] [Fast Refresh] done in 447ms @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2431

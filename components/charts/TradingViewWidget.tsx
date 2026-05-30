@@ -104,17 +104,19 @@ export function TradingViewWidget({ symbol, isMobile = false, onSymbolChange }: 
     };
   }, [tvSymbol, isMobile]);
 
-  if (!isLoaded) {
-    return <ChartSkeleton />;
-  }
-
   return (
-    <div
-      id="tv-widget-container"
-      ref={containerRef}
-      className="w-full"
-      style={{ height: isMobile ? "350px" : "500px" }}
-      aria-label={`TradingView chart for ${symbol}`}
-    />
+    <div className="relative w-full" style={{ height: isMobile ? "350px" : "500px" }}>
+      {!isLoaded && (
+        <div className="absolute inset-0 z-10">
+          <ChartSkeleton />
+        </div>
+      )}
+      <div
+        id="tv-widget-container"
+        ref={containerRef}
+        className="w-full h-full"
+        aria-label={`TradingView chart for ${symbol}`}
+      />
+    </div>
   );
 }

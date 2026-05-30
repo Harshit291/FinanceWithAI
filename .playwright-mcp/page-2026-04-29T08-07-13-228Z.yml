@@ -1,0 +1,72 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - navigation [ref=e3]:
+      - generic [ref=e4]:
+        - link "FinAI" [ref=e5] [cursor=pointer]:
+          - /url: /
+          - img [ref=e7]
+          - generic [ref=e17]: FinAI
+        - generic [ref=e18]:
+          - link "Watchlist" [ref=e19] [cursor=pointer]:
+            - /url: /watchlist
+          - link "Reports" [ref=e20] [cursor=pointer]:
+            - /url: /reports
+    - main [ref=e22]:
+      - generic [ref=e23]:
+        - paragraph [ref=e24]: Reports · 3 saved · cap 200
+        - heading "Saved Analyses" [level=1] [ref=e25]
+      - list [ref=e26]:
+        - listitem [ref=e27]:
+          - generic [ref=e28]:
+            - generic [ref=e29]:
+              - link "AAPL" [ref=e30] [cursor=pointer]:
+                - /url: /stocks/AAPL
+                - generic [ref=e31]: AAPL
+                - img [ref=e32]
+              - paragraph [ref=e35]: 2026-04-29 08:07 · groq:llama-3.3-70b-versatile
+              - paragraph [ref=e36]:
+                - img [ref=e37]
+                - generic [ref=e40]: Apple shows strong fundamental tailwinds across all three time horizons. Recent earnings beat expectations driven by services revenue growth.
+            - generic [ref=e42]:
+              - generic "Short term" [ref=e43]: S:BULL 70%
+              - generic "Medium term" [ref=e44]: M:BULL 78%
+              - generic "Long term" [ref=e45]: L:BULL 82%
+          - button "Delete report" [ref=e46]:
+            - img [ref=e47]
+        - listitem [ref=e50]:
+          - generic [ref=e51]:
+            - generic [ref=e52]:
+              - link "AAPL" [ref=e53] [cursor=pointer]:
+                - /url: /stocks/AAPL
+                - generic [ref=e54]: AAPL
+                - img [ref=e55]
+              - paragraph [ref=e58]: 2026-04-28 14:07 · groq:llama-3.3-70b-versatile
+              - paragraph [ref=e59]:
+                - img [ref=e60]
+                - generic [ref=e63]: Apple shows strong fundamental tailwinds across all three time horizons. Recent earnings beat expectations driven by services revenue growth.
+            - generic [ref=e65]:
+              - generic "Short term" [ref=e66]: S:NEUT 55%
+              - generic "Medium term" [ref=e67]: M:BULL 78%
+              - generic "Long term" [ref=e68]: L:BULL 82%
+          - button "Delete report" [ref=e69]:
+            - img [ref=e70]
+        - listitem [ref=e73]:
+          - generic [ref=e74]:
+            - generic [ref=e75]:
+              - link "AAPL" [ref=e76] [cursor=pointer]:
+                - /url: /stocks/AAPL
+                - generic [ref=e77]: AAPL
+                - img [ref=e78]
+              - paragraph [ref=e81]: 2026-04-27 08:07 · groq:llama-3.3-70b-versatile
+              - paragraph [ref=e82]:
+                - img [ref=e83]
+                - generic [ref=e86]: Apple shows strong fundamental tailwinds across all three time horizons. Recent earnings beat expectations driven by services revenue growth.
+            - generic [ref=e88]:
+              - generic "Short term" [ref=e89]: S:BEAR 60%
+              - generic "Medium term" [ref=e90]: M:BULL 78%
+              - generic "Long term" [ref=e91]: L:BULL 82%
+          - button "Delete report" [ref=e92]:
+            - img [ref=e93]
+  - button "Open Next.js Dev Tools" [ref=e101] [cursor=pointer]:
+    - img [ref=e102]
+  - alert [ref=e105]

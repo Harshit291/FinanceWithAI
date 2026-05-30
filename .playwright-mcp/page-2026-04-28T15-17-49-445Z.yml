@@ -1,0 +1,134 @@
+- generic [active] [ref=e1]:
+  - main [ref=e2]:
+    - generic [ref=e3]:
+      - generic [ref=e4]:
+        - generic [ref=e5]:
+          - heading "AAPL" [level=1] [ref=e6]
+          - generic [ref=e7]: US
+        - searchbox "Search for a stock symbol" [ref=e9]
+      - paragraph [ref=e10]: Technical analysis + AI fundamental research
+    - generic [ref=e11]:
+      - generic "TradingView chart for AAPL" [ref=e14]
+      - region "AI research report" [ref=e16]:
+        - generic [ref=e17]:
+          - generic [ref=e18]:
+            - generic [ref=e19]:
+              - generic [ref=e20]:
+                - heading "Short term" [level=3] [ref=e21]
+                - generic [ref=e23]:
+                  - img [ref=e24]
+                  - text: Neutral
+              - paragraph [ref=e25]: 1-4 weeks
+            - generic [ref=e26]:
+              - generic [ref=e27]:
+                - paragraph [ref=e28]: +2% → +5%
+                - paragraph [ref=e29]: expected return range
+              - generic [ref=e30]:
+                - generic [ref=e31]:
+                  - generic [ref=e32]: Confidence
+                  - generic [ref=e33]: 50%
+                - progressbar "Confidence 50%" [ref=e34]
+              - generic [ref=e36]:
+                - paragraph [ref=e37]: Key drivers
+                - list [ref=e38]:
+                  - listitem [ref=e39]:
+                    - generic [ref=e40]: +
+                    - text: Upcoming earnings report on April 30
+                  - listitem [ref=e41]:
+                    - generic [ref=e42]: +
+                    - text: Recent analyst ratings and price target adjustments
+              - generic [ref=e43]:
+                - paragraph [ref=e44]: Key risks
+                - list [ref=e45]:
+                  - listitem [ref=e46]:
+                    - generic [ref=e47]: −
+                    - text: Market volatility due to geopolitical tensions and Fed news
+                  - listitem [ref=e48]:
+                    - generic [ref=e49]: −
+                    - text: Competition in the tech sector
+          - generic [ref=e50]:
+            - generic [ref=e51]:
+              - generic [ref=e52]:
+                - heading "Medium term" [level=3] [ref=e53]
+                - generic [ref=e55]:
+                  - img [ref=e56]
+                  - text: Bullish
+              - paragraph [ref=e59]: 1-6 months
+            - generic [ref=e60]:
+              - generic [ref=e61]:
+                - paragraph [ref=e62]: +8% → +12%
+                - paragraph [ref=e63]: expected return range
+              - generic [ref=e64]:
+                - generic [ref=e65]:
+                  - generic [ref=e66]: Confidence
+                  - generic [ref=e67]: 70%
+                - progressbar "Confidence 70%" [ref=e68]
+              - generic [ref=e70]:
+                - paragraph [ref=e71]: Key drivers
+                - list [ref=e72]:
+                  - listitem [ref=e73]:
+                    - generic [ref=e74]: +
+                    - text: Strong earnings growth and revenue expansion
+                  - listitem [ref=e75]:
+                    - generic [ref=e76]: +
+                    - text: Increasing demand for Apple's products and services
+              - generic [ref=e77]:
+                - paragraph [ref=e78]: Key risks
+                - list [ref=e79]:
+                  - listitem [ref=e80]:
+                    - generic [ref=e81]: −
+                    - text: Intensifying competition in the tech industry
+                  - listitem [ref=e82]:
+                    - generic [ref=e83]: −
+                    - text: Potential disruptions to global supply chains
+          - generic [ref=e84]:
+            - generic [ref=e85]:
+              - generic [ref=e86]:
+                - heading "Long term" [level=3] [ref=e87]
+                - generic [ref=e89]:
+                  - img [ref=e90]
+                  - text: Bullish
+              - paragraph [ref=e93]: 1-3 years
+            - generic [ref=e94]:
+              - generic [ref=e95]:
+                - paragraph [ref=e96]: +15% → +20%
+                - paragraph [ref=e97]: expected return range
+              - generic [ref=e98]:
+                - generic [ref=e99]:
+                  - generic [ref=e100]: Confidence
+                  - generic [ref=e101]: 80%
+                - progressbar "Confidence 80%" [ref=e102]
+              - generic [ref=e104]:
+                - paragraph [ref=e105]: Key drivers
+                - list [ref=e106]:
+                  - listitem [ref=e107]:
+                    - generic [ref=e108]: +
+                    - text: Apple's strong brand and loyal customer base
+                  - listitem [ref=e109]:
+                    - generic [ref=e110]: +
+                    - text: Growing demand for emerging technologies like AI and AR
+              - generic [ref=e111]:
+                - paragraph [ref=e112]: Key risks
+                - list [ref=e113]:
+                  - listitem [ref=e114]:
+                    - generic [ref=e115]: −
+                    - text: Regulatory challenges and potential antitrust lawsuits
+                  - listitem [ref=e116]:
+                    - generic [ref=e117]: −
+                    - text: Economic downturns and recessions
+        - generic [ref=e118]:
+          - paragraph [ref=e119]: Summary
+          - text: Apple's stock is expected to perform neutrally in the short term due to market volatility and competition. However, strong earnings growth and increasing demand for Apple's products and services are likely to drive the stock higher in the medium and long term.
+        - generic [ref=e120]:
+          - paragraph [ref=e121]: Sources
+          - list [ref=e122]:
+            - listitem [ref=e123]:
+              - img [ref=e124]
+              - link "Finnhub" [ref=e128] [cursor=pointer]:
+                - /url: https://finnhub.io/
+              - generic [ref=e129]: · 28/4/2026
+        - note "Investment disclaimer" [ref=e130]:
+          - img [ref=e131]
+          - paragraph [ref=e133]: Not investment advice. Educational research only. Past performance is not indicative of future results. Consult a SEBI/SEC-registered advisor before investing.
+  - button "Open Next.js Dev Tools" [ref=e139] [cursor=pointer]:
+    - img [ref=e140]

@@ -1,0 +1,134 @@
+- generic [active] [ref=e1]:
+  - main [ref=e2]:
+    - generic [ref=e3]:
+      - generic [ref=e4]:
+        - generic [ref=e5]:
+          - heading "AAPL" [level=1] [ref=e6]
+          - generic [ref=e7]: US
+        - searchbox "Search for a stock symbol" [ref=e9]
+      - paragraph [ref=e10]: Technical analysis + AI fundamental research
+    - generic [ref=e11]:
+      - generic "TradingView chart for AAPL" [ref=e14]
+      - region "AI research report" [ref=e16]:
+        - generic [ref=e17]:
+          - generic [ref=e18]:
+            - generic [ref=e19]:
+              - generic [ref=e20]:
+                - heading "Short term" [level=3] [ref=e21]
+                - generic [ref=e23]:
+                  - img [ref=e24]
+                  - text: Neutral
+              - paragraph [ref=e25]: 1-4 weeks
+            - generic [ref=e26]:
+              - generic [ref=e27]:
+                - paragraph [ref=e28]: Return range unavailable
+                - paragraph [ref=e29]: expected return range
+              - generic [ref=e30]:
+                - generic [ref=e31]:
+                  - generic [ref=e32]: Confidence
+                  - generic [ref=e33]: 50%
+                - progressbar "Confidence 50%" [ref=e34]
+              - generic [ref=e36]:
+                - paragraph [ref=e37]: Key drivers
+                - list [ref=e38]:
+                  - listitem [ref=e39]:
+                    - generic [ref=e40]: +
+                    - text: Upcoming earnings report on April 30
+                  - listitem [ref=e41]:
+                    - generic [ref=e42]: +
+                    - text: Market sentiment and reaction to peers' earnings
+              - generic [ref=e43]:
+                - paragraph [ref=e44]: Key risks
+                - list [ref=e45]:
+                  - listitem [ref=e46]:
+                    - generic [ref=e47]: −
+                    - text: Potential impact from Nvidia's record valuation
+                  - listitem [ref=e48]:
+                    - generic [ref=e49]: −
+                    - text: Uncertainty surrounding US-Iran peace talks
+          - generic [ref=e50]:
+            - generic [ref=e51]:
+              - generic [ref=e52]:
+                - heading "Medium term" [level=3] [ref=e53]
+                - generic [ref=e55]:
+                  - img [ref=e56]
+                  - text: Neutral
+              - paragraph [ref=e57]: 1-6 months
+            - generic [ref=e58]:
+              - generic [ref=e59]:
+                - paragraph [ref=e60]: Return range unavailable
+                - paragraph [ref=e61]: expected return range
+              - generic [ref=e62]:
+                - generic [ref=e63]:
+                  - generic [ref=e64]: Confidence
+                  - generic [ref=e65]: 50%
+                - progressbar "Confidence 50%" [ref=e66]
+              - generic [ref=e68]:
+                - paragraph [ref=e69]: Key drivers
+                - list [ref=e70]:
+                  - listitem [ref=e71]:
+                    - generic [ref=e72]: +
+                    - text: "Valuation multiples (e.g., forward PE: 31.696161567156857)"
+                  - listitem [ref=e73]:
+                    - generic [ref=e74]: +
+                    - text: Earnings growth (e.g., 25.65% TTMYoy)
+              - generic [ref=e75]:
+                - paragraph [ref=e76]: Key risks
+                - list [ref=e77]:
+                  - listitem [ref=e78]:
+                    - generic [ref=e79]: −
+                    - text: Competition in the tech sector
+                  - listitem [ref=e80]:
+                    - generic [ref=e81]: −
+                    - text: Global economic uncertainty
+          - generic [ref=e82]:
+            - generic [ref=e83]:
+              - generic [ref=e84]:
+                - heading "Long term" [level=3] [ref=e85]
+                - generic [ref=e87]:
+                  - img [ref=e88]
+                  - text: Neutral
+              - paragraph [ref=e89]: 1-3 years
+            - generic [ref=e90]:
+              - generic [ref=e91]:
+                - paragraph [ref=e92]: Return range unavailable
+                - paragraph [ref=e93]: expected return range
+              - generic [ref=e94]:
+                - generic [ref=e95]:
+                  - generic [ref=e96]: Confidence
+                  - generic [ref=e97]: 50%
+                - progressbar "Confidence 50%" [ref=e98]
+              - generic [ref=e100]:
+                - paragraph [ref=e101]: Key drivers
+                - list [ref=e102]:
+                  - listitem [ref=e103]:
+                    - generic [ref=e104]: +
+                    - text: Network effects and economic moat
+                  - listitem [ref=e105]:
+                    - generic [ref=e106]: +
+                    - text: Innovation and product development
+              - generic [ref=e107]:
+                - paragraph [ref=e108]: Key risks
+                - list [ref=e109]:
+                  - listitem [ref=e110]:
+                    - generic [ref=e111]: −
+                    - text: Disruption from new technologies or competitors
+                  - listitem [ref=e112]:
+                    - generic [ref=e113]: −
+                    - text: Regulatory changes or legal challenges
+        - generic [ref=e114]:
+          - paragraph [ref=e115]: Summary
+          - text: Apple's stock is neutral in the short term due to upcoming earnings and market sentiment. The medium term is also neutral, driven by valuation multiples and earnings growth. In the long term, the company's network effects and innovation are key drivers, but disruption and regulatory risks exist.
+        - generic [ref=e116]:
+          - paragraph [ref=e117]: Sources
+          - list [ref=e118]:
+            - listitem [ref=e119]:
+              - img [ref=e120]
+              - link "Finnhub" [ref=e124] [cursor=pointer]:
+                - /url: https://finnhub.io/
+              - generic [ref=e125]: · 28/4/2026
+        - note "Investment disclaimer" [ref=e126]:
+          - img [ref=e127]
+          - paragraph [ref=e129]: Not investment advice. Educational research only. Past performance is not indicative of future results. Consult a SEBI/SEC-registered advisor before investing.
+  - button "Open Next.js Dev Tools" [ref=e135] [cursor=pointer]:
+    - img [ref=e136]

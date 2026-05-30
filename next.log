@@ -1,0 +1,84 @@
+▲ Next.js 16.2.4 (Turbopack)
+- Local:         http://localhost:3000
+- Network:       http://192.168.1.5:3000
+- Environments: .env.local, .env
+✓ Ready in 849ms
+⚠ The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
+
+ GET / 200 in 571ms (next.js: 262ms, application-code: 309ms)
+ GET /stocks/AAPL 200 in 9.3s (next.js: 913ms, application-code: 8.4s)
+ GET /stocks/AAPL 200 in 12.0s (next.js: 16ms, application-code: 12.0s)
+ GET /stocks/AAPL 200 in 207ms (next.js: 16ms, application-code: 191ms)
+ GET / 200 in 149ms (next.js: 9ms, application-code: 140ms)
+[browser] A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+https://react.dev/link/hydration-mismatch
+
+  ...
+    <HotReload globalError={[...]} webSocket={WebSocket} staticIndicatorState={{pathname:null, ...}}>
+      <AppDevOverlayErrorBoundary globalError={[...]}>
+        <ReplaySsrOnlyErrors>
+        <DevRootHTTPAccessFallbackBoundary>
+          <HTTPAccessFallbackBoundary notFound={<NotAllowedRootHTTPFallbackError>}>
+            <HTTPAccessFallbackErrorBoundary pathname="/" notFound={<NotAllowedRootHTTPFallbackError>} ...>
+              <RedirectBoundary>
+                <RedirectErrorBoundary router={{...}}>
+                  <Head>
+                  <__next_root_layout_boundary__>
+                    <SegmentViewNode type="layout" pagePath="layout.tsx">
+                      <SegmentTrieNode>
+                      <link>
+                      <script>
+                      <script>
+                      <RootLayout>
+                        <html lang="en" className="geist_a715...">
+                          <body
+                            className="min-h-full flex flex-col bg-slate-950 text-slate-100"
+-                           data-new-gr-c-s-check-loaded="14.1137.0"
+-                           data-gr-ext-installed=""
+                          >
+                  ...
+ 
+ GET /stocks/AAPL 200 in 250ms (next.js: 34ms, application-code: 216ms)
+[browser] Detected `scroll-behavior: smooth` on the `<html>` element. To disable smooth scrolling during route transitions, add `data-scroll-behavior="smooth"` to your <html> element. Learn more: https://nextjs.org/docs/messages/missing-data-scroll-behavior
+✓ Compiled in 137ms
+ GET /stocks/AAPL 200 in 868ms (next.js: 292ms, application-code: 576ms)
+ GET /stocks/AAPL 200 in 212ms (next.js: 17ms, application-code: 195ms)
+✓ Compiled in 98ms
+ GET /stocks/AAPL 200 in 829ms (next.js: 298ms, application-code: 532ms)
+ GET /stocks/AAPL 200 in 829ms (next.js: 454ms, application-code: 374ms)
+✓ Compiled in 118ms
+ GET /stocks/AAPL 200 in 993ms (next.js: 317ms, application-code: 676ms)
+ GET /stocks/AAPL 200 in 327ms (next.js: 73ms, application-code: 254ms)
+✓ Compiled in 113ms
+ GET /stocks/AAPL 200 in 975ms (next.js: 580ms, application-code: 395ms)
+ GET /stocks/AAPL 200 in 976ms (next.js: 349ms, application-code: 627ms)
+ GET /stocks/AAPL 200 in 389ms (next.js: 14ms, application-code: 375ms)
+ GET /stocks/AAPL 200 in 219ms (next.js: 18ms, application-code: 201ms)
+ GET /stocks/AAPL 200 in 247ms (next.js: 13ms, application-code: 234ms)
+✓ Compiled in 86ms
+ GET /stocks/AAPL 200 in 836ms (next.js: 267ms, application-code: 569ms)
+ GET /stocks/AAPL 200 in 232ms (next.js: 55ms, application-code: 177ms)
+ GET /stocks/AAPL 200 in 314ms (next.js: 13ms, application-code: 301ms)
+[browser] Detected `scroll-behavior: smooth` on the `<html>` element. To disable smooth scrolling during route transitions, add `data-scroll-behavior="smooth"` to your <html> element. Learn more: https://nextjs.org/docs/messages/missing-data-scroll-behavior
+ GET /stocks/RELIANCE.NS 200 in 119ms (next.js: 12ms, application-code: 107ms)
+ GET /stocks/NFLX 200 in 2.6s (next.js: 16ms, application-code: 2.6s)
+ GET /stocks/AAPL 200 in 175ms (next.js: 13ms, application-code: 162ms)
+ GET /stocks/NFLX 200 in 89ms (next.js: 13ms, application-code: 76ms)
+[browser] Detected `scroll-behavior: smooth` on the `<html>` element. To disable smooth scrolling during route transitions, add `data-scroll-behavior="smooth"` to your <html> element. Learn more: https://nextjs.org/docs/messages/missing-data-scroll-behavior
+  Reload env: .env.local
+ GET /stocks/NFLX 200 in 571ms (next.js: 220ms, application-code: 351ms)
+ GET /stocks/AAPL 200 in 129ms (next.js: 28ms, application-code: 101ms)
+ GET /stocks/AAPL 200 in 665ms (next.js: 15ms, application-code: 650ms)
+ GET / 200 in 457ms (next.js: 95ms, application-code: 361ms)
+ GET / 200 in 432ms (next.js: 48ms, application-code: 384ms)
+ GET / 200 in 156ms (next.js: 5ms, application-code: 150ms)
+ GET / 200 in 170ms (next.js: 6ms, application-code: 164ms)

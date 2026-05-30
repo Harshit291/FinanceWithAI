@@ -1,0 +1,12 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"name": "SQLSERVER",
+			"path": "../../SQLSERVER"
+		}
+	],
+	"settings": {}
+}

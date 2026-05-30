@@ -1,0 +1,231 @@
+- generic [active] [ref=e1]:
+  - button "Open Next.js Dev Tools" [ref=e14] [cursor=pointer]:
+    - img [ref=e15]
+  - alert [ref=e18]: RELIANCE.NS — FinAI
+  - generic [ref=e19]:
+    - navigation [ref=e20]:
+      - link "FinAI" [ref=e22] [cursor=pointer]:
+        - /url: /
+        - img [ref=e23]
+        - generic [ref=e33]: FinAI
+    - main [ref=e35]:
+      - generic [ref=e36]:
+        - generic [ref=e37]:
+          - heading "RELIANCE.NS" [level=1] [ref=e38]
+          - generic [ref=e39]: NSE
+        - paragraph [ref=e40]: Technical analysis
+      - generic [ref=e41]:
+        - generic "TradingView chart for RELIANCE.NS" [ref=e44]:
+          - iframe [ref=e46]:
+            - generic [ref=f7e2]:
+              - toolbar [ref=f7e6]:
+                - generic [ref=f7e10]:
+                  - generic [ref=f7e11]:
+                    - button "Symbol search" [ref=f7e12]:
+                      - img [ref=f7e13]:
+                        - img [ref=f7e14]
+                      - generic [ref=f7e16]: RELIANCE
+                    - button "Compare symbols" [ref=f7e17]:
+                      - img [ref=f7e18]:
+                        - img [ref=f7e19]
+                  - generic [ref=f7e25]:
+                    - radiogroup [ref=f7e26]:
+                      - radio "1 minute" [disabled] [ref=f7e27]:
+                        - generic [ref=f7e29]: 1m
+                      - radio "30 minutes" [disabled] [ref=f7e30]:
+                        - generic [ref=f7e32]: 30m
+                      - radio "1 hour" [disabled] [ref=f7e33]:
+                        - generic [ref=f7e35]: 1h
+                      - radio "1 day" [checked] [ref=f7e36]:
+                        - generic [ref=f7e38]: D
+                    - button "Chart interval" [ref=f7e39]:
+                      - img [ref=f7e42]:
+                        - img [ref=f7e43]
+                  - generic [ref=f7e48]:
+                    - radiogroup [ref=f7e49]:
+                      - radio "Bars" [disabled] [ref=f7e50]:
+                        - img [ref=f7e51]:
+                          - img [ref=f7e52]
+                      - radio "Candles" [checked] [disabled] [ref=f7e54]:
+                        - img [ref=f7e55]:
+                          - img [ref=f7e56]
+                      - radio "Area" [disabled] [ref=f7e61]:
+                        - img [ref=f7e62]:
+                          - img [ref=f7e63]
+                    - button "Bar's style" [ref=f7e65]:
+                      - img [ref=f7e68]:
+                        - img [ref=f7e69]
+                  - button "Indicators, metrics, and strategies" [ref=f7e75]:
+                    - img [ref=f7e76]:
+                      - img [ref=f7e77]
+                    - generic [ref=f7e80]: Indicators
+                  - button "Take a snapshot" [ref=f7e83]:
+                    - img [ref=f7e85]:
+                      - img [ref=f7e86]
+              - toolbar [ref=f7e90]:
+                - generic [ref=f7e94]:
+                  - generic [ref=f7e95]:
+                    - generic [ref=f7e98]:
+                      - button "Cross" [ref=f7e100]:
+                        - img [ref=f7e101]:
+                          - img [ref=f7e102]
+                      - button "Cursors" [pressed] [ref=f7e106]:
+                        - img [ref=f7e107]:
+                          - img [ref=f7e108]
+                    - generic [ref=f7e112]:
+                      - button "Trendline" [ref=f7e114]:
+                        - img [ref=f7e115]:
+                          - img [ref=f7e116]
+                      - button "Trend tools" [ref=f7e120]:
+                        - img [ref=f7e121]:
+                          - img [ref=f7e122]
+                    - generic [ref=f7e126]:
+                      - button "Fib retracement" [ref=f7e128]:
+                        - img [ref=f7e129]:
+                          - img [ref=f7e130]
+                      - button "Gann and Fibonacci tools" [ref=f7e137]:
+                        - img [ref=f7e138]:
+                          - img [ref=f7e139]
+                    - generic [ref=f7e143]:
+                      - button "XABCD pattern" [ref=f7e145]:
+                        - img [ref=f7e146]:
+                          - img [ref=f7e147]
+                      - button "Patterns" [ref=f7e151]:
+                        - img [ref=f7e152]:
+                          - img [ref=f7e153]
+                    - generic [ref=f7e157]:
+                      - button "Long position" [ref=f7e159]:
+                        - img [ref=f7e160]:
+                          - img [ref=f7e161]
+                      - button "Forecasting and measurement tools" [ref=f7e163]:
+                        - img [ref=f7e164]:
+                          - img [ref=f7e165]
+                    - generic [ref=f7e169]:
+                      - button "Brush" [ref=f7e171]:
+                        - img [ref=f7e172]:
+                          - img [ref=f7e173]
+                      - button "Geometric shapes" [ref=f7e177]:
+                        - img [ref=f7e178]:
+                          - img [ref=f7e179]
+                    - generic [ref=f7e183]:
+                      - button "Text" [ref=f7e185]:
+                        - img [ref=f7e186]:
+                          - img [ref=f7e187]
+                      - button "Annotation tools" [ref=f7e189]:
+                        - img [ref=f7e190]:
+                          - img [ref=f7e191]
+                    - generic [ref=f7e194]:
+                      - button "Icon" [ref=f7e196]:
+                        - img [ref=f7e197]:
+                          - img [ref=f7e198]
+                      - button "Icons" [ref=f7e200]:
+                        - img [ref=f7e201]:
+                          - img [ref=f7e202]
+                  - generic [ref=f7e204]:
+                    - button "Measure" [ref=f7e205]:
+                      - img [ref=f7e206]:
+                        - img [ref=f7e207]
+                    - button "Zoom in" [ref=f7e209]:
+                      - img [ref=f7e210]:
+                        - img [ref=f7e211]
+                  - generic [ref=f7e219]:
+                    - button "Magnet mode snaps drawings placed near price bars to the closest OHLC value" [ref=f7e221]:
+                      - img [ref=f7e222]:
+                        - img [ref=f7e223]
+                    - button "Magnets" [ref=f7e227]:
+                      - img [ref=f7e228]:
+                        - img [ref=f7e229]
+              - 'region "Chart #1" [ref=f7e235]':
+                - generic [ref=f7e239]:
+                  - generic:
+                    - generic:
+                      - toolbar:
+                        - generic:
+                          - generic [ref=f7e240]:
+                            - generic "Change symbol" [ref=f7e241]:
+                              - generic [ref=f7e244]: R
+                              - button "Change symbol" [ref=f7e245]: NSE:RELIANCE
+                            - generic "Change interval" [ref=f7e246]:
+                              - text: ·
+                              - button "Change interval" [ref=f7e247]: 1D
+                          - generic:
+                            - generic:
+                              - button "More":
+                                - generic:
+                                  - img
+                        - generic [ref=f7e249]:
+                          - generic [ref=f7e250]:
+                            - generic [ref=f7e251]: O
+                            - generic [ref=f7e252]: ∅
+                          - generic [ref=f7e253]:
+                            - generic [ref=f7e254]: H
+                            - generic [ref=f7e255]: ∅
+                          - generic [ref=f7e256]:
+                            - generic [ref=f7e257]: L
+                            - generic [ref=f7e258]: ∅
+                          - generic [ref=f7e259]:
+                            - generic [ref=f7e260]: C
+                            - generic [ref=f7e261]: ∅
+                          - generic [ref=f7e263]: ∅ (∅%)
+                  - generic "Chart for NSE:RELIANCE, 1 day" [ref=f7e270]
+        - generic [ref=e47]:
+          - heading "Fundamental Analysis" [level=2] [ref=e48]
+          - region "AI research report" [ref=e49]:
+            - generic [ref=e50]:
+              - generic [ref=e51]:
+                - generic [ref=e52]:
+                  - generic [ref=e53]:
+                    - heading "Short term" [level=3] [ref=e54]
+                    - generic [ref=e56]:
+                      - img [ref=e57]
+                      - text: Insufficient data
+                  - paragraph [ref=e60]: unavailable
+                - generic [ref=e61]:
+                  - generic [ref=e62]:
+                    - paragraph [ref=e63]: Return range unavailable
+                    - paragraph [ref=e64]: expected return range
+                  - generic [ref=e65]:
+                    - generic [ref=e66]:
+                      - generic [ref=e67]: Confidence
+                      - generic [ref=e68]: 0%
+                    - progressbar "Confidence 0%" [ref=e69]
+              - generic [ref=e70]:
+                - generic [ref=e71]:
+                  - generic [ref=e72]:
+                    - heading "Medium term" [level=3] [ref=e73]
+                    - generic [ref=e75]:
+                      - img [ref=e76]
+                      - text: Insufficient data
+                  - paragraph [ref=e79]: unavailable
+                - generic [ref=e80]:
+                  - generic [ref=e81]:
+                    - paragraph [ref=e82]: Return range unavailable
+                    - paragraph [ref=e83]: expected return range
+                  - generic [ref=e84]:
+                    - generic [ref=e85]:
+                      - generic [ref=e86]: Confidence
+                      - generic [ref=e87]: 0%
+                    - progressbar "Confidence 0%" [ref=e88]
+              - generic [ref=e89]:
+                - generic [ref=e90]:
+                  - generic [ref=e91]:
+                    - heading "Long term" [level=3] [ref=e92]
+                    - generic [ref=e94]:
+                      - img [ref=e95]
+                      - text: Insufficient data
+                  - paragraph [ref=e98]: unavailable
+                - generic [ref=e99]:
+                  - generic [ref=e100]:
+                    - paragraph [ref=e101]: Return range unavailable
+                    - paragraph [ref=e102]: expected return range
+                  - generic [ref=e103]:
+                    - generic [ref=e104]:
+                      - generic [ref=e105]: Confidence
+                      - generic [ref=e106]: 0%
+                    - progressbar "Confidence 0%" [ref=e107]
+            - generic [ref=e108]:
+              - paragraph [ref=e109]: Summary
+              - text: AI analysis temporarily unavailable (rate_limit). Please try again later.
+            - note "Investment disclaimer" [ref=e110]:
+              - img [ref=e111]
+              - paragraph [ref=e113]: Not investment advice. Educational research only. Past performance is not indicative of future results. Consult a SEBI/SEC-registered advisor before investing.
