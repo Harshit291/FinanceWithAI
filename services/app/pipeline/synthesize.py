@@ -105,7 +105,7 @@ async def synthesize(
         return await _call()
     except (ValidationError, ValueError, json.JSONDecodeError):
         return await _call()  # retry once on bad JSON / schema drift
-    except (RateLimitError, APIError) as exc:
+    except Exception as exc:
         reason = "rate_limit" if isinstance(exc, RateLimitError) else "api_error"
         insufficient = Horizon(
             window="unavailable",

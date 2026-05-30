@@ -208,7 +208,7 @@ async def run_technical_analysis(symbol: str) -> TechnicalVerdict:
         return await _call()
     except (ValidationError, ValueError, json.JSONDecodeError):
         return await _call()
-    except (RateLimitError, APIError):
+    except Exception:
         return TechnicalVerdict(
             symbol=symbol,
             as_of=now,
