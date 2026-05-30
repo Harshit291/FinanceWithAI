@@ -4,6 +4,7 @@ import { Suspense } from "react";
 import { auth } from "@/lib/auth/config";
 import { VerdictCardSkeleton } from "@/components/ai-report/VerdictCardSkeleton";
 import { TechnicalPanelSkeleton } from "@/components/charts/TechnicalPanelSkeleton";
+import { ChartSkeleton } from "@/components/charts/ChartSkeleton";
 import { Skeleton } from "@/components/ui/Skeleton";
 import { ChartPanel } from "./ChartPanel";
 import { HeaderActions } from "./HeaderActions";
@@ -31,19 +32,6 @@ function HeaderActionsSkeleton() {
       <Skeleton className="h-7 w-20 rounded-md" />
       <Skeleton className="h-7 w-20 rounded-md" />
       <Skeleton className="h-7 w-16 rounded-md" />
-    </div>
-  );
-}
-
-function ChartSkeleton() {
-  return (
-    <div className="flex h-[420px] items-center justify-center rounded-xl border border-slate-800 bg-slate-900/60 sm:h-[540px]">
-      <div className="flex flex-col items-center gap-3">
-        <div className="h-4 w-4 animate-spin rounded-full border-2 border-slate-700 border-t-cyan-500" />
-        <span className="text-xs font-mono text-slate-600 uppercase tracking-wider">
-          Loading chart…
-        </span>
-      </div>
     </div>
   );
 }

@@ -2,8 +2,9 @@
 // TODO(charting-library): swap widget for self-hosted Advanced Charts once license is approved.
 // Apply at https://www.tradingview.com/advanced-charts/ — see docs/DECISIONS.md ADR-0005.
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { toTvSymbol } from "@/lib/data/tv-symbol";
+import { ChartSkeleton } from "./ChartSkeleton";
 
 interface TradingViewWidgetProps {
   symbol: string; // internal format: RELIANCE.NS, AAPL, etc.
@@ -21,6 +22,7 @@ declare global {
 /** Embeds the TradingView Advanced Real-Time Chart Widget (free, attribution required). */
 export function TradingViewWidget({ symbol, isMobile = false, onSymbolChange }: TradingViewWidgetProps) {
   const containerRef = useRef<HTMLDivElement>(null);
+  const [isLoaded, setIsLoaded] = useState(false);
   const tvSymbol = toTvSymbol(symbol);
 
   // Stable refs so closures never capture stale values.
@@ -63,6 +65,7 @@ export function TradingViewWidget({ symbol, isMobile = false, onSymbolChange }: 
   }, []); // intentionally empty — uses refs for current values
 
   useEffect(() => {
+    setIsLoaded(false);
     // Dynamically load the TradingView widget script
     const scriptId = "tradingview-widget-script";
     const existing = document.getElementById(scriptId);
@@ -82,6 +85,7 @@ export function TradingViewWidget({ symbol, isMobile = false, onSymbolChange }: 
         allow_symbol_change: true,
         container_id: containerRef.current.id,
       });
+      setIsLoaded(true);
     }
 
     if (!existing) {
@@ -99,6 +103,10 @@ export function TradingViewWidget({ symbol, isMobile = false, onSymbolChange }: 
       if (containerRef.current) containerRef.current.innerHTML = "";
     };
   }, [tvSymbol, isMobile]);
+
+  if (!isLoaded) {
+    return <ChartSkeleton />;
+  }
 
   return (
     <div
