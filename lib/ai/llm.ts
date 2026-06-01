@@ -21,10 +21,14 @@ async function callFastapi(symbol: string, init: RequestInit): Promise<VerdictRe
   return VerdictReportSchema.parse(await res.json());
 }
 
-/** Cached synthesis (6h Next.js fetch cache). Use on stock page renders. */
-export async function synthesiseVerdict(symbol: string): Promise<VerdictReport> {
-  return callFastapi(symbol, { next: { revalidate: 21600 } });
-}
+import { unstable_cache } from "next/cache";
+
+/** Cached synthesis (24h Next.js cache). Use on stock page renders. */
+export const synthesiseVerdict = unstable_cache(
+  async (symbol: string) => callFastapi(symbol, { cache: "no-store" }),
+  ['ai-report-cache-v1'],
+  { revalidate: 86400, tags: ['ai-report'] }
+);
 
 /** Bypass cache for explicit user-triggered refresh. */
 export async function synthesiseVerdictFresh(symbol: string): Promise<VerdictReport> {
