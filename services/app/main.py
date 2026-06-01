@@ -96,9 +96,13 @@ async def get_fundamentals(symbol: str):
     symbol = symbol.strip().upper()
     if not symbol or len(symbol) > 20:
         raise HTTPException(status_code=422, detail="Invalid symbol")
-    # fundamentals.py uses yfinance which already handles Indian/US routing correctly
-    fund_data = await fetch_fundamentals(symbol)
-    return fund_data
+    
+    try:
+        fund_data = await fetch_fundamentals(symbol)
+        return fund_data
+    except Exception as e:
+        import traceback
+        return {"error": str(e), "traceback": traceback.format_exc()}
 
 
 @app.get("/debug/finnhub/{symbol}")

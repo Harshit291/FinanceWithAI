@@ -94,8 +94,8 @@ async def fetch_fundamentals(symbol: str) -> dict:
 
         return result
     except Exception as exc:
-        log.warning("fetch_fundamentals: exception for %s — %s", symbol, exc)
-        return {"metrics": {}, "earnings": []}
+        log.error(f"fetch_fundamentals failed: {exc}", exc_info=True)
+        raise
 
 
 def _fetch_sync(symbol: str) -> dict:
