@@ -7,8 +7,8 @@ export interface FundamentalsData {
 
 export async function fetchFundamentals(symbol: string): Promise<FundamentalsData | null> {
   try {
-    const res = await fetch(`${FASTAPI_URL}/fundamentals/${symbol}`, {
-      next: { revalidate: 21600 }, // Cache for 6 hours
+    const res = await fetch(`${FASTAPI_URL}/fundamentals/${symbol}?_cb=1`, {
+      next: { revalidate: 3600, tags: ['fundamentals', symbol] },
       signal: AbortSignal.timeout(15000), // Wait up to 15s for Render to wake up
     });
     if (!res.ok) {
