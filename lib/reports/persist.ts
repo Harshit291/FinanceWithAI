@@ -4,10 +4,9 @@ import type { VerdictReport } from "@/lib/ai/schema";
 const MAX_REPORTS_PER_USER = 200;
 
 /** Persist a synthesised verdict for an authenticated user.
- *  Idempotent on (userId, report.report_id) so repeated views within the
- *  Next.js fetch cache window don't create duplicate rows.
- *  Skips persistence for graceful-degradation reports (model marker
- *  "all_providers_exhausted" or all-insufficient_data horizons). */
+ *  De-duplicates: if a report for the same user+symbol already exists
+ *  within the last 24 hours, the new one is silently discarded.
+ *  Skips persistence for graceful-degradation reports. */
 export async function persistAiReport(
   userId: string,
   symbol: string,
@@ -18,6 +17,13 @@ export async function persistAiReport(
     report.horizons.medium_term.stance === "insufficient_data" &&
     report.horizons.long_term.stance === "insufficient_data";
   if (allInsufficient || report.model === "all_providers_exhausted") return;
+
+  // ── Deduplication: skip if this user already has a report for this symbol in the last 24h ──
+  const since = new Date(Date.now() - 24 * 60 * 60 * 1000);
+  const recentCount = await prisma.aiReport.count({
+    where: { userId, symbol, createdAt: { gt: since } },
+  });
+  if (recentCount > 0) return; // Already saved one today — don't save duplicates
 
   // Trim oldest if over cap
   const count = await prisma.aiReport.count({ where: { userId } });
