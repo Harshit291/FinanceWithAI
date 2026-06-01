@@ -3,6 +3,7 @@ import { Suspense } from "react";
 import { FinAILogo } from "@/components/ui/FinAILogo";
 import { MarketSearch } from "@/components/ui/MarketSearch";
 import { ArrowUpRight, BarChart2, Brain, Globe } from "lucide-react";
+import { Navbar } from "@/components/ui/Navbar";
 
 const TICKERS = [
   { s: "RELIANCE.NS", v: "+1.4%" }, { s: "TCS.NS", v: "+0.8%" },
@@ -45,11 +46,7 @@ export default function HomePage() {
       <div className="pointer-events-none fixed left-1/2 top-0 z-0 h-[600px] w-[800px] -translate-x-1/2 bg-[radial-gradient(ellipse_at_50%_0%,rgba(6,182,212,0.07),transparent_70%)]" />
 
       {/* Nav */}
-      <nav className="relative z-10 border-b border-slate-800/50">
-        <div className="mx-auto flex h-16 max-w-screen-xl items-center px-4 sm:px-6 lg:px-8">
-          <FinAILogo />
-        </div>
-      </nav>
+      <Navbar />
 
       {/* Ticker tape */}
       <div className="relative z-10 border-b border-slate-800/50 overflow-hidden bg-slate-950/80 py-3">
