@@ -9,8 +9,40 @@ from ._shared import FINNHUB_BASE
 
 
 async def fetch_news(symbol: str) -> list[dict]:
-    api_key = os.getenv("FINNHUB_API_KEY")
-    if not api_key:
+    api_key_fh = os.getenv("FINNHUB_API_KEY")
+    api_key_in = os.getenv("INDIANAPI_API_KEY")
+
+    # 1. Try IndianAPI for Indian stocks first (better coverage for NSE/BSE)
+    if symbol.endswith(".NS") or symbol.endswith(".BO"):
+        try:
+            async with httpx.AsyncClient(timeout=10) as client:
+                headers = {"X-Api-Key": api_key_in} if api_key_in else {}
+                r = await client.get(
+                    f"{INDIANAPI_BASE}/stock",
+                    params={"symbol": symbol},
+                    headers=headers,
+                )
+                if r.status_code == 200:
+                    d = r.json()
+                    # IndianAPI returns news in a 'recentNews' list within the 'data' object
+                    data = d.get("data") if d.get("status") == "success" else None
+                    if data and "recentNews" in data:
+                        news_list = data["recentNews"]
+                        return [
+                            {
+                                "headline": a.get("headline") or a.get("title", ""),
+                                "summary": a.get("summary") or a.get("description", "")[:2000],
+                                "source": a.get("source", "IndianAPI"),
+                                "published_at": a.get("published_at") or a.get("date", ""),
+                                "url": a.get("url", ""),
+                            }
+                            for a in news_list[:20]
+                        ]
+        except Exception:
+            pass
+
+    # 2. Fallback to Finnhub
+    if not api_key_fh:
         return []
 
     to_dt = datetime.now(timezone.utc)
@@ -24,7 +56,7 @@ async def fetch_news(symbol: str) -> list[dict]:
                     "symbol": symbol,
                     "from": from_dt.strftime("%Y-%m-%d"),
                     "to": to_dt.strftime("%Y-%m-%d"),
-                    "token": api_key,
+                    "token": api_key_fh,
                 },
             )
         if r.status_code == 200:
@@ -38,7 +70,7 @@ async def fetch_news(symbol: str) -> list[dict]:
                     ).isoformat(),
                     "url": a.get("url", ""),
                 }
-                for a in r.json()[:20]  # cap at 20 to stay within LLM context
+                for a in r.json()[:20]
             ]
     except Exception:
         pass

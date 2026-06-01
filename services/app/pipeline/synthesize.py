@@ -45,7 +45,8 @@ async def synthesize(
     report_id = str(uuid.uuid4())
     now = datetime.now(timezone.utc).isoformat()
 
-    fund_str = json.dumps(fundamentals, indent=2) if fundamentals else "unavailable"
+    fund_metrics = json.dumps(fundamentals.get("metrics", {}), indent=2) if fundamentals else "unavailable"
+    fund_earnings = json.dumps(fundamentals.get("earnings", []), indent=2) if fundamentals else "unavailable"
     peers_str = json.dumps(peers) if peers else "unavailable"
     news_str = json.dumps(classified_news, indent=2) if classified_news else "unavailable"
 
@@ -55,7 +56,8 @@ async def synthesize(
         f"AS_OF: {now}\n"
         f"EXCHANGE: {exchange}\n"
         f"CURRENCY: {currency}\n\n"
-        f"COMPANY SNAPSHOT:\n{fund_str}\n\n"
+        f"COMPANY SNAPSHOT:\n{fund_metrics}\n\n"
+        f"LAST 4 QUARTERS RESULTS:\n{fund_earnings}\n\n"
         f"PEERS (3-5):\n{peers_str}\n\n"
         f"NEWS (last 90 days, with per-article sentiment+relevance tags):\n{news_str}\n\n"
         f"SCHEMA:\n"

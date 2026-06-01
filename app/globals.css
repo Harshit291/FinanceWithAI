@@ -21,28 +21,29 @@ body {
   color: var(--foreground);
 }
 
-::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
-}
-::-webkit-scrollbar-track {
-  background: #0f172a;
-}
-::-webkit-scrollbar-thumb {
-  background: #334155;
-  border-radius: 3px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: #475569;
-}
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track  { background: #0f172a; }
+::-webkit-scrollbar-thumb  { background: #334155; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #475569; }
 
+/* ── Ticker animation ── */
 @keyframes ticker-scroll {
-  0% { transform: translateX(0); }
+  0%   { transform: translateX(0); }
   100% { transform: translateX(-50%); }
 }
-.animate-ticker {
-  animation: ticker-scroll 50s linear infinite;
+.animate-ticker { animation: ticker-scroll 50s linear infinite; }
+.animate-ticker:hover { animation-play-state: paused; }
+
+/* ── Card entrance ── */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
-.animate-ticker:hover {
-  animation-play-state: paused;
+.animate-fade-in-up { animation: fadeInUp 0.35s ease-out forwards; }
+
+/* ── Glow pulse (used on badges) ── */
+@keyframes glow-pulse {
+  0%, 100% { opacity: 0.5; }
+  50%       { opacity: 1; }
 }
+.animate-glow { animation: glow-pulse 2s ease-in-out infinite; }

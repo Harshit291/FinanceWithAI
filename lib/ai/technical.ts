@@ -3,11 +3,11 @@ import { TechnicalVerdictSchema } from "./schema";
 
 const FASTAPI_URL = process.env.FASTAPI_URL ?? "http://localhost:8000";
 
-export async function synthesiseTechnical(symbol: string): Promise<TechnicalVerdict> {
+export async function synthesiseTechnical(symbol: string, strategy: string = "trend_following"): Promise<TechnicalVerdict> {
   const res = await fetch(`${FASTAPI_URL}/technical-analysis`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ symbol }),
+    body: JSON.stringify({ symbol, strategy }),
     next: { revalidate: 3600 }, // 1h — technical signals update with price
   });
 

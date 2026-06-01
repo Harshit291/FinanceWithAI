@@ -118,7 +118,12 @@
 - [ ] Accessibility pass: `aria-*` audit, color contrast AA, tap targets ≥ 44px verification
 - [ ] Add `.gitattributes` to fix CRLF warnings on Windows
 
-### Session 8 — UX Polish + Provider Unlock
+### Session 8 — UX Polish + Provider Unlock (in progress)
+- [x] Unified Charting Experience: Migrated all charts to `LightweightChart`, removed `TradingViewWidget`.
+- [x] Strategy-Based Technical Analysis:
+  - Backend: Implemented "Trend Following", "Mean Reversion", and "Momentum" indicator logic in `technical_analysis.py`.
+  - API: Updated `POST /technical-analysis` to accept `strategy` param.
+  - Frontend: Integrated `StrategySelector` in `TechnicalSection.tsx` with URL state management.
 - [ ] Loading skeletons for chart panel + AI fundamental panel
 - [ ] Reconcile prompt drift (`synthesize.py` inline `_SYSTEM` vs `docs/PROMPTS.md` `SYNTH_SYSTEM_V1`)
 - [ ] Run provider benchmark once Cerebras/SambaNova/OpenRouter keys added

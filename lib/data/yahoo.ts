@@ -35,7 +35,7 @@ export interface YahooSearchResult {
   symbol: string;
   name: string;
   exchange: string;
-  currency: "INR" | "USD";
+  currency: string;
 }
 
 interface YfSearchResponse {
@@ -65,8 +65,8 @@ export async function searchYahooSymbols(query: string): Promise<YahooSearchResu
       return {
         symbol: q.symbol,
         name: q.longname ?? q.shortname ?? q.symbol,
-        exchange: q.exchDisp ?? (isNS ? "NSE" : isBO ? "BSE" : ""),
-        currency: (isNS || isBO ? "INR" : "USD") as "INR" | "USD",
+        exchange: q.exchDisp ?? (isNS ? "NSE" : isBO ? "BSE" : "US"),
+        currency: isNS || isBO ? "INR" : "USD", // legacy fallback, not strictly enforced elsewhere
       };
     })
     .slice(0, 8);

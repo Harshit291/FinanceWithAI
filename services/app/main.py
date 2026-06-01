@@ -54,6 +54,7 @@ async def health() -> JSONResponse:
 
 class ReportRequest(BaseModel):
     symbol: str
+    strategy: str = "trend_following"
 
 
 @app.post("/reports")
@@ -86,4 +87,4 @@ async def technical_analysis(req: ReportRequest):
     symbol = req.symbol.strip().upper()
     if not symbol or len(symbol) > 20:
         raise HTTPException(status_code=422, detail="Invalid symbol")
-    return await run_technical_analysis(symbol)
+    return await run_technical_analysis(symbol, strategy=req.strategy)

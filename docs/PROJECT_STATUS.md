@@ -2,7 +2,7 @@
 
 > Single source of truth for "where are we right now". Updated at the end of every working session.
 
-**Last updated:** 2026-05-17 (session 7 complete)
+**Last updated:** 2026-05-31 (session 8 in progress)
 
 ---
 
@@ -50,7 +50,13 @@ Next sprint goal: **Session 8 — UX polish + provider unlock.** Loading skeleto
 
 ## In progress
 
-Nothing. Session 7 complete and committed.
+**Session 8 — Unified Charting & Strategy-Based Technical Analysis**
+- Unified charting: Removed `TradingViewWidget`, migrated all symbols to `LightweightChart`.
+- Strategy-based TA:
+  - Implemented "Trend Following", "Mean Reversion", and "Momentum" logic in FastAPI backend.
+  - Added `StrategySelector` UI component.
+  - Integrated strategy parameter through `StockPage` $\to$ `TechnicalSection` $\to$ `synthesiseTechnical` $\to$ FastAPI.
+  - Added dynamic URL query params for strategy switching (`?strategy=...`).
 
 ## Blocked
 

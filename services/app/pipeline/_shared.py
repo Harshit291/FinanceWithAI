@@ -26,6 +26,7 @@ from openai.types.chat import ChatCompletion
 log = logging.getLogger(__name__)
 
 FINNHUB_BASE = "https://finnhub.io/api/v1"
+INDIANAPI_BASE = "https://indianapi.in/api"
 
 
 # ── Provider registry ────────────────────────────────────────────────────────

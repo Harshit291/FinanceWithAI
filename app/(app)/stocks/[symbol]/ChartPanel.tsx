@@ -2,16 +2,15 @@
 // TODO(charting-library): swap widget for self-hosted Advanced Charts once licence approved.
 // Apply at https://www.tradingview.com/advanced-charts/ — see docs/DECISIONS.md ADR-0005.
 
-import { useEffect, useState, useCallback } from "react";
-import { useRouter } from "next/navigation";
-import { TradingViewWidget } from "@/components/charts/TradingViewWidget";
+import { useEffect, useState } from "react";
+import { LightweightChart } from "@/components/charts/LightweightChart";
 
 interface ChartPanelProps {
   symbol: string;
+  strategy?: string;
 }
 
-export function ChartPanel({ symbol }: ChartPanelProps) {
-  const router = useRouter();
+export function ChartPanel({ symbol, strategy = "trend_following" }: ChartPanelProps) {
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
@@ -22,18 +21,16 @@ export function ChartPanel({ symbol }: ChartPanelProps) {
     return () => mq.removeEventListener("change", handler);
   }, []);
 
-  const handleSymbolChange = useCallback(
-    (newSymbol: string) => {
-      if (newSymbol.toUpperCase() !== symbol.toUpperCase()) {
-        router.push(`/stocks/${encodeURIComponent(newSymbol.toUpperCase())}`);
-      }
-    },
-    [symbol, router],
-  );
+  const isIndianStock = symbol.toUpperCase().endsWith(".NS") || symbol.toUpperCase().endsWith(".BO");
 
   return (
     <div className="overflow-hidden rounded-xl border border-slate-800 bg-slate-900">
-      <TradingViewWidget symbol={symbol} isMobile={isMobile} onSymbolChange={handleSymbolChange} />
+      <LightweightChart
+        symbol={symbol}
+        strategy={strategy}
+        isMobile={isMobile}
+        currency={isIndianStock ? "INR" : "USD"}
+      />
     </div>
   );
 }
