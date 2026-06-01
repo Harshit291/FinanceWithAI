@@ -32,3 +32,23 @@ export const checkQuota = cache(async function checkQuota(userId: string): Promi
     resetsAt: new Date(Date.now() + 24 * 60 * 60 * 1000),
   };
 });
+
+export const checkAnonymousQuota = cache(async function checkAnonymousQuota(ipAddress: string): Promise<QuotaState> {
+  const limit = 2; // Fixed limit for anonymous users
+  const since = new Date(Date.now() - 24 * 60 * 60 * 1000);
+  const used = await prisma.anonymousReport.count({
+    where: { ipAddress, createdAt: { gt: since } },
+  });
+  return {
+    used,
+    limit,
+    allowed: used < limit,
+    resetsAt: new Date(Date.now() + 24 * 60 * 60 * 1000),
+  };
+});
+
+export async function persistAnonymousReport(ipAddress: string): Promise<void> {
+  await prisma.anonymousReport.create({
+    data: { ipAddress },
+  });
+}

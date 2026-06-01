@@ -11,6 +11,7 @@ import { ChartPanel } from "./ChartPanel";
 import { HeaderActions } from "./HeaderActions";
 import { TechnicalSection } from "./TechnicalSection";
 import { AiAnalysisSection } from "./AiAnalysisSection";
+import { CompanyProfileSection } from "./CompanyProfileSection";
 
 interface Props {
   params: Promise<{ symbol: string }>;
@@ -97,10 +98,14 @@ export default async function StockPage({ params, searchParams }: Props) {
       {/* Two-column content grid */}
       <div className="grid grid-cols-1 lg:grid-cols-[1fr_420px] gap-5">
 
-        {/* Left: Technical Analysis */}
-        <div>
+        {/* Left: Technical Analysis + Company Profile */}
+        <div className="flex flex-col">
           <Suspense fallback={<TechnicalPanelSkeleton />}>
             <TechnicalSection symbol={decodedSymbol} strategy={strategy} />
+          </Suspense>
+          
+          <Suspense fallback={<div className="mt-8 h-64 rounded-2xl bg-slate-900/60 animate-pulse" />}>
+            <CompanyProfileSection symbol={decodedSymbol} />
           </Suspense>
         </div>
 

@@ -41,6 +41,15 @@ class Provider:
 
 
 PROVIDER_CATALOGUE: dict[str, Provider] = {
+    "nvidia": Provider(
+        name="nvidia",
+        api_key_env="NVIDIA_API_KEY",
+        base_url="https://integrate.api.nvidia.com/v1",
+        models={
+            "synthesis":  "meta/llama-3.3-70b-instruct",
+            "classifier": "meta/llama-3.1-8b-instruct",
+        },
+    ),
     "groq": Provider(
         name="groq",
         api_key_env="GROQ_API_KEY",
@@ -97,10 +106,11 @@ def load_provider_order() -> list[Provider]:
                 return ordered
         except Exception as e:  # noqa: BLE001 — corrupt ranking file, fall back
             log.warning("failed to load providers.ranked.json: %s — using default order", e)
-    # Default order until benchmark is run
+    # Default order: NVIDIA first (primary), then Groq, Cerebras, SambaNova, OpenRouter
     return [
-        PROVIDER_CATALOGUE["cerebras"],
+        PROVIDER_CATALOGUE["nvidia"],
         PROVIDER_CATALOGUE["groq"],
+        PROVIDER_CATALOGUE["cerebras"],
         PROVIDER_CATALOGUE["sambanova"],
         PROVIDER_CATALOGUE["openrouter"],
     ]

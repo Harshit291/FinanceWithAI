@@ -82,3 +82,11 @@ model AiReport {
   @@unique([userId, reportId])
   @@index([userId, symbol, createdAt])
 }
+
+model AnonymousReport {
+  id        String   @id @default(cuid())
+  ipAddress String
+  createdAt DateTime @default(now())
+
+  @@index([ipAddress, createdAt])
+}

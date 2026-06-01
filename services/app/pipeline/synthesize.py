@@ -26,6 +26,18 @@ Strict rules — these are non-negotiable:
 
 5. HORIZON DISCIPLINE. Short-term (1-4 weeks) leans on news + technicals + recent results. Medium-term (1-6 months) leans on earnings trajectory + valuation + sector flow. Long-term (1-3 years) leans on competitive moat + balance sheet + sustained margins. Do not collapse all three into one stance — they should differ when the data calls for it.
 
+5a. RECENCY & SENTIMENT WEIGHTING. Each news article has two scores:
+    - `recency_score` (0.0–1.0): how recent the article is (1.0=today, ~0.5=14d ago, ~0.08=60d ago).
+    - `signed_recency_score` = recency_score × sentiment direction:
+        * POSITIVE value (e.g. +0.91) = recent BULLISH news (earnings beat, big deal, upgrade)
+        * NEGATIVE value (e.g. -0.87) = recent BEARISH news (profit warning, penalty, guidance cut)
+        * NEAR ZERO = neutral news or old news with no clear direction
+    Use signed_recency_score as your primary signal for short-term confidence and stance:
+    - Sum of signed_recency_scores > +0.5 across recent articles → lean bullish short-term
+    - Sum < -0.5 → lean bearish short-term
+    - Mixed or near zero → neutral
+    For long-term stance, structural fundamentals (margins, ROE, debt) outweigh news recency.
+
 6. THE summary_paragraph IS PLAIN ENGLISH (max 120 words). No jargon explanation needed — assume a retail reader who knows the basics. End with the disclaimer string verbatim.
 
 7. THE disclaimer FIELD MUST BE EXACTLY: "Not investment advice. Educational research only. Past performance is not indicative of future results. Consult a SEBI/SEC-registered advisor before investing."
@@ -59,7 +71,8 @@ async def synthesize(
         f"COMPANY SNAPSHOT:\n{fund_metrics}\n\n"
         f"LAST 4 QUARTERS RESULTS:\n{fund_earnings}\n\n"
         f"PEERS (3-5):\n{peers_str}\n\n"
-        f"NEWS (last 90 days, with per-article sentiment+relevance tags):\n{news_str}\n\n"
+        f"NEWS (last 90 days, sorted by |signed_recency_score| desc;\n"
+        f"      signed_recency_score: +value=recent bullish, -value=recent bearish, ~0=neutral/old):\n{news_str}\n\n"
         f"SCHEMA:\n"
         f"{{\n"
         f"  \"report_id\": \"string\",\n"

@@ -1,11 +1,13 @@
 import { prisma } from "@/lib/prisma";
 import { synthesiseVerdict } from "@/lib/ai/llm";
 import { persistAiReport } from "@/lib/reports/persist";
-import { checkQuota } from "@/lib/reports/quota";
+import { checkQuota, checkAnonymousQuota, persistAnonymousReport } from "@/lib/reports/quota";
 import { VerdictCard } from "@/components/ai-report/VerdictCard";
 import { ReportHistory } from "@/components/ai-report/ReportHistory";
 import { QuotaExceededBanner } from "@/components/ai-report/QuotaExceededBanner";
+import { SignInRequiredBanner } from "@/components/ai-report/SignInRequiredBanner";
 import type { VerdictReport } from "@/lib/ai/schema";
+import { headers } from "next/headers";
 
 interface AiAnalysisSectionProps {
   symbol: string;
@@ -13,7 +15,18 @@ interface AiAnalysisSectionProps {
 }
 
 export async function AiAnalysisSection({ symbol, userId }: AiAnalysisSectionProps) {
-  const quota = userId ? await checkQuota(userId) : null;
+  let quota;
+  let ipAddress = "";
+
+  if (userId) {
+    quota = await checkQuota(userId);
+  } else {
+    // Get IP for unauthenticated users
+    const headersList = await headers();
+    ipAddress = headersList.get("x-forwarded-for") || "unknown";
+    quota = await checkAnonymousQuota(ipAddress);
+  }
+
   const allowSynthesis = !quota || quota.allowed;
 
   const report = allowSynthesis
@@ -34,6 +47,9 @@ export async function AiAnalysisSection({ symbol, userId }: AiAnalysisSectionPro
       createdAt: r.createdAt,
       report: JSON.parse(r.reportJson) as VerdictReport,
     }));
+  } else if (report && ipAddress !== "unknown") {
+    // Persist anonymous report usage
+    await persistAnonymousReport(ipAddress).catch(() => {});
   }
 
   if (report) {
@@ -48,12 +64,18 @@ export async function AiAnalysisSection({ symbol, userId }: AiAnalysisSectionPro
   }
 
   if (quota && !quota.allowed) {
-    return (
-      <>
-        <QuotaExceededBanner used={quota.used} limit={quota.limit} resetsAt={quota.resetsAt} />
-        {history.length > 0 && <ReportHistory items={history} />}
-      </>
-    );
+    if (userId) {
+      return (
+        <>
+          <QuotaExceededBanner used={quota.used} limit={quota.limit} resetsAt={quota.resetsAt} />
+          {history.length > 0 && <ReportHistory items={history} />}
+        </>
+      );
+    } else {
+      return (
+        <SignInRequiredBanner used={quota.used} limit={quota.limit} />
+      );
+    }
   }
 
   return (

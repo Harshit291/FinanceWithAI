@@ -44,9 +44,10 @@ async def health() -> JSONResponse:
             "status": "ok",
             "version": "0.2.0",
             "providers": {
-                "finnhub": "configured" if os.getenv("FINNHUB_API_KEY") else "missing_key",
+                "nvidia":    "configured" if os.getenv("NVIDIA_API_KEY")    else "missing_key",
+                "groq":      "configured" if os.getenv("GROQ_API_KEY")      else "missing_key",
+                "finnhub":   "configured" if os.getenv("FINNHUB_API_KEY")   else "missing_key",
                 "indianapi": "configured" if os.getenv("INDIANAPI_API_KEY") else "missing_key",
-                "groq": "configured" if os.getenv("GROQ_API_KEY") else "missing_key",
             },
         }
     )
@@ -66,10 +67,10 @@ async def create_report(req: ReportRequest):
     meta = await resolve(symbol)
     fundamentals, news, peers = await asyncio.gather(
         fetch_fundamentals(symbol),
-        fetch_news(symbol),
+        fetch_news(symbol, company_name=meta.company_name),
         fetch_peers(symbol),
     )
-    classified_news = await classify_articles(symbol, news)
+    classified_news = await classify_articles(symbol, news[:8])
     report = await synthesize(
         symbol=symbol,
         exchange=meta.exchange,
@@ -88,3 +89,13 @@ async def technical_analysis(req: ReportRequest):
     if not symbol or len(symbol) > 20:
         raise HTTPException(status_code=422, detail="Invalid symbol")
     return await run_technical_analysis(symbol, strategy=req.strategy)
+
+
+@app.get("/fundamentals/{symbol}")
+async def get_fundamentals(symbol: str):
+    symbol = symbol.strip().upper()
+    if not symbol or len(symbol) > 20:
+        raise HTTPException(status_code=422, detail="Invalid symbol")
+    # fundamentals.py uses yfinance which already handles Indian/US routing correctly
+    fund_data = await fetch_fundamentals(symbol)
+    return fund_data

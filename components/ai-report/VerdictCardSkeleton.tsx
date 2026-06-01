@@ -1,49 +1,39 @@
-import { Skeleton } from "@/components/ui/Skeleton";
-
-function HorizonCardSkeleton() {
-  return (
-    <div className="relative overflow-hidden rounded-xl border border-slate-800 bg-slate-900/60 p-4 space-y-3">
-      <div className="absolute inset-y-0 left-0 w-0.5 bg-slate-800" />
-      <div className="flex items-start justify-between pl-2">
-        <div className="space-y-1.5">
-          <Skeleton className="h-3 w-20" />
-          <Skeleton className="h-2 w-24" />
-        </div>
-        <Skeleton className="h-5 w-16 rounded" />
-      </div>
-      <div className="pl-2">
-        <Skeleton className="h-7 w-32" />
-      </div>
-      <Skeleton className="h-1.5 w-full rounded-full" />
-      <div className="pl-2 space-y-1.5">
-        <Skeleton className="h-2.5 w-full" />
-        <Skeleton className="h-2.5 w-4/5" />
-        <Skeleton className="h-2.5 w-3/5" />
-      </div>
-    </div>
-  );
-}
+import { Loader2, Info } from "lucide-react";
+import { SupportUsModal } from "./SupportUsModal";
 
 export function VerdictCardSkeleton() {
   return (
-    <section aria-label="Loading AI research report" className="space-y-3">
-      <HorizonCardSkeleton />
-      <HorizonCardSkeleton />
-      <HorizonCardSkeleton />
-
-      {/* AI Insight block */}
-      <div className="rounded-xl border border-slate-800 bg-slate-900/60 p-4 space-y-3">
-        <div className="flex items-center gap-2">
-          <Skeleton className="h-3.5 w-3.5 rounded" />
-          <Skeleton className="h-2.5 w-16" />
-        </div>
-        <div className="space-y-1.5">
-          <Skeleton className="h-3 w-full" />
-          <Skeleton className="h-3 w-full" />
-          <Skeleton className="h-3 w-5/6" />
-          <Skeleton className="h-3 w-4/6" />
+    <section aria-label="Loading AI research report" className="space-y-6 animate-fade-in-up">
+      {/* Transparency Message */}
+      <div className="rounded-2xl border border-indigo-500/20 bg-indigo-500/10 p-5">
+        <div className="flex items-start gap-4">
+          <div className="flex items-center justify-center h-10 w-10 rounded-full bg-indigo-500/20 shrink-0">
+            <Loader2 className="h-5 w-5 text-indigo-400 animate-spin" />
+          </div>
+          <div className="flex-1">
+            <h3 className="text-sm font-mono font-bold uppercase tracking-widest text-indigo-400 mb-2">
+              Generating AI Analysis...
+            </h3>
+            <p className="text-sm leading-relaxed text-slate-300 mb-4">
+              We are running these heavy AI pipelines entirely for free to provide you with better service, so it can be slow at times (especially if the servers are waking up). Thank you for your patience!
+            </p>
+            <div className="flex items-center gap-3">
+              <SupportUsModal />
+            </div>
+          </div>
         </div>
       </div>
+
+      {/* AdSense Placeholder */}
+      <div className="w-full h-64 rounded-2xl border border-slate-800 bg-slate-900/40 relative overflow-hidden flex flex-col items-center justify-center text-slate-600">
+        <div className="absolute top-2 right-2 flex items-center gap-1 opacity-50">
+          <Info className="h-3 w-3" />
+          <span className="text-[10px] font-mono uppercase tracking-widest">Sponsored</span>
+        </div>
+        <p className="text-sm font-mono">Google AdSense Placeholder</p>
+        <p className="text-xs text-slate-700 mt-2">Displaying while AI finishes thinking...</p>
+      </div>
+      
     </section>
   );
 }
