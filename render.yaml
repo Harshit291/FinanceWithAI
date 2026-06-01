@@ -21,4 +21,4 @@ services:
         sync: false
       - key: INDIANAPI_API_KEY
         sync: false
-    autoDeploy: false
+    autoDeploy: true
