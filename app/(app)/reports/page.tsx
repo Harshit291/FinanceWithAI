@@ -7,6 +7,7 @@ import type { VerdictReport, Stance } from "@/lib/ai/schema";
 import { ReportRowDeleteButton } from "@/components/ai-report/ReportRowDeleteButton";
 import { ArrowUpRight, Sparkles } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { LocalTime } from "@/components/LocalTime";
 
 export const metadata: Metadata = { title: "Reports" };
 
@@ -107,13 +108,13 @@ export default async function ReportsPage({ searchParams }: Props) {
                         </span>
                         <ArrowUpRight className="h-3 w-3 text-slate-700 group-hover/link:text-cyan-400" />
                       </Link>
-                      <p className="text-[10px] font-mono text-slate-700 mt-0.5">
-                        {new Date(item.createdAt).toISOString().slice(0, 16).replace("T", " ")}
+                      <p className="text-xs font-mono text-slate-400 mt-0.5">
+                        <LocalTime date={item.createdAt} />
                         {" · "}
                         {item.report.model}
                       </p>
-                      <p className="mt-2 flex items-start gap-2 text-[11px] leading-relaxed text-slate-500 max-w-3xl">
-                        <Sparkles className="h-3 w-3 text-cyan-500/70 mt-0.5 shrink-0" />
+                      <p className="mt-2 flex items-start gap-2 text-sm leading-relaxed text-slate-300 max-w-3xl">
+                        <Sparkles className="h-4 w-4 text-cyan-500/70 mt-0.5 shrink-0" />
                         <span>{item.report.summary_paragraph}</span>
                       </p>
                     </div>

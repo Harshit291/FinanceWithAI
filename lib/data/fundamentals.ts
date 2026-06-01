@@ -1,5 +1,7 @@
-import yahooFinance from 'yahoo-finance2';
+import YahooFinance from 'yahoo-finance2';
 import { unstable_cache } from 'next/cache';
+
+const yahooFinance = new YahooFinance({ suppressNotices: ['yahooSurvey'] });
 
 export interface FundamentalsData {
   metrics: Record<string, any>;
@@ -65,6 +67,6 @@ async function _fetchFundamentals(symbol: string): Promise<FundamentalsData | nu
 // Wrap with Next.js cache so we only hit Yahoo once every 6 hours per stock
 export const fetchFundamentals = unstable_cache(
   async (symbol: string) => _fetchFundamentals(symbol),
-  ['fundamentals-cache'],
+  ['fundamentals-cache-v3'],
   { revalidate: 21600, tags: ['fundamentals'] }
 );
