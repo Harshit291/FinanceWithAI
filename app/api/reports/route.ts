@@ -88,9 +88,26 @@ export async function POST(req: NextRequest) {
     }
   }
 
-  const report = body.force_refresh
-    ? await synthesiseVerdictFresh(symbol)
-    : await synthesiseVerdict(symbol);
+  let report;
+  if (body.force_refresh) {
+    report = await synthesiseVerdictFresh(symbol);
+  } else {
+    // Database-level global caching guarantee (24 hours)
+    const twentyFourHoursAgo = new Date(Date.now() - 24 * 60 * 60 * 1000);
+    const existingGlobalReport = await prisma.aiReport.findFirst({
+      where: {
+        symbol,
+        createdAt: { gte: twentyFourHoursAgo },
+      },
+      orderBy: { createdAt: "desc" },
+    });
+
+    if (existingGlobalReport) {
+      report = JSON.parse(existingGlobalReport.reportJson);
+    } else {
+      report = await synthesiseVerdict(symbol);
+    }
+  }
 
   if (session?.user?.id) {
     await persistAiReport(session.user.id, symbol, report).catch(() => {
