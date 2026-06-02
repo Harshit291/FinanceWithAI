@@ -2,6 +2,9 @@
 
 import { useRouter, useSearchParams } from "next/navigation";
 
+import { useTransition } from "react";
+import Image from "next/image";
+
 // ── Strategy registry ────────────────────────────────────────────────────────
 const STRATEGY_GROUPS = [
   {
@@ -77,13 +80,17 @@ interface Props {
 export function StrategySelector({ currentStrategy = "trend_following" }: Props) {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const [isPending, startTransition] = useTransition();
+
   // Prefer live client value; fall back to server-provided prop
   const active = searchParams.get("strategy") ?? currentStrategy;
 
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const params = new URLSearchParams(searchParams.toString());
     params.set("strategy", e.target.value);
-    router.push(`?${params.toString()}`, { scroll: false });
+    startTransition(() => {
+      router.push(`?${params.toString()}`, { scroll: false });
+    });
   };
 
   return (
@@ -153,6 +160,28 @@ export function StrategySelector({ currentStrategy = "trend_following" }: Props)
         Active:{" "}
         <span className="text-cyan-400">{getStrategyLabel(active)}</span>
       </p>
+
+      {/* Loading Overlay */}
+      {isPending && (
+        <div className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-slate-950/80 backdrop-blur-sm">
+          <div className="relative w-32 h-32 mb-6 animate-pulse">
+            <Image
+              src="/bull_loader.png"
+              alt="Loading..."
+              fill
+              className="object-contain drop-shadow-[0_0_15px_rgba(6,182,212,0.8)]"
+            />
+          </div>
+          <div className="flex flex-col items-center space-y-2">
+            <h3 className="text-xl font-bold font-mono text-slate-100 tracking-widest uppercase">
+              Analyzing
+            </h3>
+            <p className="text-sm font-mono text-cyan-400 animate-pulse tracking-widest">
+              Re-evaluating technical strategy...
+            </p>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
