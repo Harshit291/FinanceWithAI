@@ -57,6 +57,9 @@ model User {
   sessions      Session[]
   watchlist     WatchlistItem[]
   reports       AiReport[]
+  paperAccount  PaperAccount?
+  paperPositions PaperPosition[]
+  paperTrades   PaperTrade[]
 }
 
 model WatchlistItem {
@@ -89,4 +92,45 @@ model AnonymousReport {
   createdAt DateTime @default(now())
 
   @@index([ipAddress, createdAt])
+}
+
+// ── Paper Trading Models ─────────────────────────────────────────────────────
+
+model PaperAccount {
+  id               String   @id @default(cuid())
+  userId           String   @unique
+  cashBalance      Float    @default(100000.0)
+  totalRealizedPnl Float    @default(0.0)
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+  user             User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model PaperPosition {
+  id           String   @id @default(cuid())
+  userId       String
+  symbol       String
+  quantity     Float
+  averagePrice Float
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, symbol])
+  @@index([userId])
+}
+
+model PaperTrade {
+  id             String   @id @default(cuid())
+  userId         String
+  symbol         String
+  side           String   // "BUY" or "SELL"
+  quantity       Float
+  executionPrice Float
+  realizedPnl    Float?   // Only applicable for SELL
+  timestamp      DateTime @default(now())
+  user           User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, symbol])
+  @@index([userId, timestamp])
 }

@@ -12,6 +12,7 @@ import { HeaderActions } from "./HeaderActions";
 import { TechnicalSection } from "./TechnicalSection";
 import { AiAnalysisSection } from "./AiAnalysisSection";
 import { CompanyProfileSection } from "./CompanyProfileSection";
+import { TradeSection } from "./TradeSection";
 
 interface Props {
   params: Promise<{ symbol: string }>;
@@ -109,8 +110,14 @@ export default async function StockPage({ params, searchParams }: Props) {
           </Suspense>
         </div>
 
-        {/* Right: AI Fundamental Analysis */}
-        <div>
+        {/* Right: AI Fundamental Analysis & Trading */}
+        <div className="flex flex-col gap-5">
+          {isAuthenticated && (
+            <Suspense fallback={<Skeleton className="h-40 rounded-xl" />}>
+              <TradeSection symbol={decodedSymbol} />
+            </Suspense>
+          )}
+
           <Suspense fallback={<VerdictCardSkeleton />}>
             <AiAnalysisSection symbol={decodedSymbol} userId={userId} />
           </Suspense>

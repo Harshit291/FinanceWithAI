@@ -28,6 +28,12 @@ export async function Navbar() {
               >
                 Reports
               </Link>
+              <Link
+                href="/paper-trading"
+                className="text-sm font-mono text-emerald-400/80 hover:text-emerald-400 transition-colors duration-150"
+              >
+                Portfolio
+              </Link>
               {/* User avatar + name */}
               <div className="flex items-center gap-2.5 border-l border-slate-800 pl-5">
                 {user?.image ? (
