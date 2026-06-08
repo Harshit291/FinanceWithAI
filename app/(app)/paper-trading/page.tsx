@@ -148,7 +148,7 @@ export default async function PaperTradingPage() {
         <div className="flex items-center justify-between mb-2 opacity-50">
           <p className="text-slate-500 font-mono text-[10px] uppercase tracking-widest">Advertisement</p>
         </div>
-        <AdSenseUnit client="ca-pub-6476201805386001" slot="3751571572" />
+        <AdSenseUnit client="ca-pub-6476201805386001" slot="3630481177" />
       </div>
     </main>
   );
