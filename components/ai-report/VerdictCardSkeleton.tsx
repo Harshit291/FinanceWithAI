@@ -1,5 +1,6 @@
 import { Loader2, Info } from "lucide-react";
 import { SupportUsModal } from "./SupportUsModal";
+import { AdSenseUnit } from "@/components/ui/AdSenseUnit";
 
 export function VerdictCardSkeleton() {
   return (
@@ -24,14 +25,13 @@ export function VerdictCardSkeleton() {
         </div>
       </div>
 
-      {/* AdSense Placeholder */}
-      <div className="w-full h-64 rounded-2xl border border-slate-800 bg-slate-900/40 relative overflow-hidden flex flex-col items-center justify-center text-slate-600">
-        <div className="absolute top-2 right-2 flex items-center gap-1 opacity-50">
+      {/* AdSense Placement */}
+      <div className="w-full min-h-64 rounded-2xl border border-slate-800 bg-slate-900/40 relative overflow-hidden flex flex-col justify-center">
+        <div className="absolute top-2 right-2 flex items-center gap-1 opacity-50 z-10 bg-slate-900 px-2 py-0.5 rounded">
           <Info className="h-3 w-3" />
           <span className="text-[10px] font-mono uppercase tracking-widest">Sponsored</span>
         </div>
-        <p className="text-sm font-mono">Google AdSense Placeholder</p>
-        <p className="text-xs text-slate-700 mt-2">Displaying while AI finishes thinking...</p>
+        <AdSenseUnit client="ca-pub-6476201805386001" slot="3751571572" />
       </div>
       
     </section>

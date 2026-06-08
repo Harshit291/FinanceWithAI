@@ -4,6 +4,7 @@ import { notFound, redirect } from "next/navigation";
 import YahooFinance from "yahoo-finance2";
 import Link from "next/link";
 import { ArrowRight, Wallet, TrendingUp, DollarSign } from "lucide-react";
+import { AdSenseUnit } from "@/components/ui/AdSenseUnit";
 
 export const metadata = {
   title: "Paper Trading Portfolio | FinAI",
@@ -142,19 +143,12 @@ export default async function PaperTradingPage() {
         )}
       </div>
 
-      {/* Google AdSense Placeholder */}
-      <div className="w-full mt-auto mb-6 p-4 border border-dashed border-slate-700/50 bg-slate-900/30 rounded-xl flex items-center justify-center min-h-[120px]">
-        <div className="text-center">
-          <p className="text-slate-500 font-mono text-xs uppercase tracking-widest mb-1">Advertisement</p>
-          <p className="text-slate-600 font-mono text-sm border border-slate-700/30 px-4 py-2 rounded">
-            Google AdSense Placement
-          </p>
-          {/* 
-            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXX" crossOrigin="anonymous"></script>
-            <ins className="adsbygoogle" style={{ display: "block" }} data-ad-client="ca-pub-XXXXXXXXXXXXXX" data-ad-slot="XXXXXXXXXX" data-ad-format="auto" data-full-width-responsive="true"></ins>
-            <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-          */}
+      {/* Google AdSense Placement */}
+      <div className="w-full mt-auto mb-6 p-4 border border-slate-800 bg-slate-900/30 rounded-xl min-h-[120px]">
+        <div className="flex items-center justify-between mb-2 opacity-50">
+          <p className="text-slate-500 font-mono text-[10px] uppercase tracking-widest">Advertisement</p>
         </div>
+        <AdSenseUnit client="ca-pub-6476201805386001" slot="3751571572" />
       </div>
     </main>
   );
