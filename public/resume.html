@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Harshit Gupta — Azure Data Engineer & AI Developer</title>
+  <meta name="description"
+    content="Resume of Harshit Gupta — Azure Data Engineer with 5+ years of experience and creator of Finance with AI, an AI-powered stock research platform." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap"
+    rel="stylesheet" />
+  <style>
+    /* ── Reset & Base ── */
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --accent: #2563EB;
+      --accent2: #7C3AED;
+      --accent-lt: #DBEAFE;
+      --surface: #FFFFFF;
+      --bg: #F8FAFC;
+      --border: #E2E8F0;
+      --text: #0F172A;
+      --muted: #64748B;
+      --tag-bg: #F1F5F9;
+      --tag-text: #334155;
+      --green: #059669;
+      --page: 21cm;
+    }
+
+    html {
+      font-size: 14px;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    /* ── Page wrapper ── */
+    .page {
+      max-width: 860px;
+      margin: 32px auto;
+      background: var(--surface);
+      border-radius: 16px;
+      box-shadow: 0 4px 32px rgba(0, 0, 0, .08), 0 1px 4px rgba(0, 0, 0, .04);
+      overflow: hidden;
+    }
+
+    /* ── Header ── */
+    .header {
+      background: linear-gradient(135deg, #0F172A 0%, #1E3A5F 60%, #1D4ED8 100%);
+      padding: 40px 44px 36px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 24px;
+      align-items: start;
+    }
+
+    .name {
+      font-size: 2.4rem;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      color: #FFFFFF;
+      line-height: 1.1;
+    }
+
+    .title {
+      font-size: 1rem;
+      font-weight: 500;
+      color: #93C5FD;
+      margin-top: 6px;
+      letter-spacing: 0.4px;
+    }
+
+    .contact-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      align-items: flex-end;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.8rem;
+      color: #CBD5E1;
+      text-decoration: none;
+    }
+
+    .contact-item:hover {
+      color: #93C5FD;
+    }
+
+    .contact-item svg {
+      flex-shrink: 0;
+      opacity: 0.8;
+    }
+
+    /* ── Summary strip ── */
+    .summary-strip {
+      background: linear-gradient(90deg, #EFF6FF, #F5F3FF);
+      border-left: 4px solid var(--accent);
+      padding: 18px 44px;
+      font-size: 0.83rem;
+      color: #1E40AF;
+      line-height: 1.7;
+    }
+
+    /* ── Body layout ── */
+    .body {
+      display: grid;
+      grid-template-columns: 1fr 300px;
+      gap: 0;
+    }
+
+    .main {
+      padding: 28px 36px 28px 44px;
+      border-right: 1px solid var(--border);
+    }
+
+    .aside {
+      padding: 28px 24px 28px 28px;
+    }
+
+    /* ── Section ── */
+    .section {
+      margin-bottom: 28px;
+    }
+
+    .section-title {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 1.8px;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .section-title::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, var(--border), transparent);
+    }
+
+    /* ── Job entry ── */
+    .job {
+      margin-bottom: 22px;
+      padding-bottom: 22px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .job:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    .job-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 8px;
+      margin-bottom: 4px;
+    }
+
+    .job-title {
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .job-location {
+      font-size: 0.72rem;
+      color: var(--muted);
+      white-space: nowrap;
+    }
+
+    .job-company {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--accent);
+      margin-bottom: 2px;
+    }
+
+    .job-dates {
+      font-size: 0.72rem;
+      color: var(--muted);
+      font-family: 'JetBrains Mono', monospace;
+      margin-bottom: 10px;
+    }
+
+    .job ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .job ul li {
+      font-size: 0.79rem;
+      color: #334155;
+      padding-left: 16px;
+      position: relative;
+      line-height: 1.55;
+    }
+
+    .job ul li::before {
+      content: '▸';
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+      font-size: 0.7rem;
+      top: 2px;
+    }
+
+    .job ul li strong {
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    /* ── Project card (featured) ── */
+    .project-card {
+      background: linear-gradient(135deg, #EFF6FF 0%, #F5F3FF 100%);
+      border: 1px solid #BFDBFE;
+      border-radius: 12px;
+      padding: 18px 20px;
+      margin-bottom: 14px;
+    }
+
+    .project-card:last-child {
+      margin-bottom: 0;
+    }
+
+    .project-name {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: #1E3A8A;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 4px;
+    }
+
+    .project-badge {
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      background: var(--accent);
+      color: #fff;
+      padding: 2px 7px;
+      border-radius: 99px;
+    }
+
+    .project-tagline {
+      font-size: 0.77rem;
+      color: #3730A3;
+      font-style: italic;
+      margin-bottom: 10px;
+    }
+
+    .project-points {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .project-points li {
+      font-size: 0.76rem;
+      color: #1E293B;
+      padding-left: 14px;
+      position: relative;
+      line-height: 1.5;
+    }
+
+    .project-points li::before {
+      content: '✦';
+      position: absolute;
+      left: 0;
+      color: var(--accent2);
+      font-size: 0.55rem;
+      top: 3px;
+    }
+
+    .project-points li strong {
+      color: #1E3A8A;
+      font-weight: 600;
+    }
+
+    .tech-stack-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      margin-top: 10px;
+    }
+
+    /* ── Tag pill ── */
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      font-size: 0.68rem;
+      font-weight: 500;
+      background: var(--tag-bg);
+      color: var(--tag-text);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 3px 8px;
+      white-space: nowrap;
+    }
+
+    .tag.accent {
+      background: #DBEAFE;
+      color: #1D4ED8;
+      border-color: #BFDBFE;
+    }
+
+    .tag.purple {
+      background: #EDE9FE;
+      color: #6D28D9;
+      border-color: #C4B5FD;
+    }
+
+    .tag.green {
+      background: #DCFCE7;
+      color: #15803D;
+      border-color: #86EFAC;
+    }
+
+    /* ── Skills grid ── */
+    .skills-group {
+      margin-bottom: 14px;
+    }
+
+    .skills-label {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+
+    .skills-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+    }
+
+    /* ── Education ── */
+    .edu-entry {
+      margin-bottom: 12px;
+    }
+
+    .edu-degree {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .edu-school {
+      font-size: 0.78rem;
+      color: var(--accent);
+      font-weight: 500;
+    }
+
+    .edu-date {
+      font-size: 0.7rem;
+      color: var(--muted);
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    /* ── Cert list ── */
+    .cert-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+
+    .cert-list li {
+      font-size: 0.75rem;
+      color: #334155;
+      padding-left: 16px;
+      position: relative;
+      line-height: 1.4;
+    }
+
+    .cert-list li::before {
+      content: '🏅';
+      position: absolute;
+      left: 0;
+      font-size: 0.7rem;
+      top: 1px;
+    }
+
+    /* ── Interests ── */
+    .interests-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    /* ── Portfolio links ── */
+    .portfolio-link {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.76rem;
+      font-weight: 500;
+      color: var(--text);
+      text-decoration: none;
+      padding: 9px 12px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: var(--tag-bg);
+      transition: border-color .15s, background .15s;
+      margin-bottom: 8px;
+    }
+    .portfolio-link:last-child { margin-bottom: 0; }
+    .portfolio-link:hover { border-color: var(--accent); background: #EFF6FF; color: var(--accent); }
+    .portfolio-link svg { flex-shrink: 0; opacity: 0.7; }
+    .portfolio-link:hover svg { opacity: 1; }
+    .portfolio-link-label { font-size: 0.65rem; color: var(--muted); display: block; font-weight: 400; margin-top: 1px; }
+
+    /* ── Print ── */
+    @media print {
+      body {
+        background: white;
+      }
+
+      .page {
+        max-width: 100%;
+        margin: 0;
+        border-radius: 0;
+        box-shadow: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="page">
+
+    <!-- ──────────── HEADER ──────────── -->
+    <header class="header">
+      <div>
+        <div class="name">HARSHIT GUPTA</div>
+        <div class="title">Azure Data Engineer &nbsp;·&nbsp; AI Application Developer</div>
+      </div>
+      <div class="contact-grid">
+        <a class="contact-item" href="mailto:mrharshitgupta2026@gmail.com">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="2" y="4" width="20" height="16" rx="2" />
+            <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
+          </svg>
+          mrharshitgupta2026@gmail.com
+        </a>
+        <a class="contact-item" href="tel:+919977372796">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path
+              d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.15 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.06 1h3a2 2 0 0 1 2 1.72c.127.96.362 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.09 8.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21 16z" />
+          </svg>
+          +91 9977 372 796
+        </a>
+        <a class="contact-item" href="https://linkedin.com/in/harshitgupta01" target="_blank" rel="noopener">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+            <rect x="2" y="9" width="4" height="12" />
+            <circle cx="4" cy="4" r="2" />
+          </svg>
+          linkedin.com/in/harshitgupta01
+        </a>
+      </div>
+    </header>
+
+    <!-- ──────────── SUMMARY ──────────── -->
+    <div class="summary-strip">
+      Azure Data Engineer with 5+ years of experience designing and implementing scalable cloud data pipelines. Skilled
+      in Azure services, data factory orchestration, and performance optimization. Proven track record of reducing
+      manual effort by &gt;85% and improving data reliability through automation. Microsoft-certified across Fabric,
+      Data Engineering, Power BI, and Azure Fundamentals. Also building AI-driven SaaS products — combining LLM
+      pipelines, real-time APIs, and cloud databases to solve real financial research problems.
+    </div>
+
+    <!-- ──────────── BODY ──────────── -->
+    <div class="body">
+
+      <!-- ════ MAIN COLUMN ════ -->
+      <main class="main">
+
+        <!-- Work Experience -->
+        <section class="section">
+          <div class="section-title">Work Experience</div>
+
+          <!-- Job 1 -->
+          <div class="job">
+            <div class="job-header">
+              <div class="job-title">Data Engineer (Azure)</div>
+              <div class="job-location">Bangalore, India</div>
+            </div>
+            <div class="job-company">Happiest Minds Technologies</div>
+            <div class="job-dates">06/2023 – Present</div>
+            <ul>
+              <li>Partnered with <strong>Sandvik</strong> (Sweden-based mining tools manufacturer) as the primary Azure
+                Data Engineer.</li>
+              <li>Built an end-to-end <strong>Data Factory Pipeline</strong> to ingest Salesforce data into
+                <strong>Azure SQL Database</strong>, enabling reliable downstream reporting.</li>
+              <li>Authored <strong>Logic Apps</strong> for UAT and Pre-Prod to push reports from Data Lake to
+                Salesforce, automating a previously manual workflow.</li>
+              <li>Leveraged <strong>SQL + ADF</strong> to create Dynamic Stored Procedures that update display &amp;
+                sellable fields and push catalog data across <strong>40+ countries</strong> to Salesforce.</li>
+              <li>Implemented <strong>automated data quality checks</strong> and error handling within Databricks,
+                reducing manual intervention by <strong>85%</strong> and improving data reliability.</li>
+              <li>Applied <strong>SCD Type 2</strong> using PySpark / SQL in Databricks, reducing data discrepancy rates
+                by <strong>90%</strong>.</li>
+              <li>Built <strong>Power BI dashboards</strong> covering quarterly &amp; annual sales, region tool
+                performance, and KPIs for executive stakeholders.</li>
+              <li>Created <strong>Data Factory Pipelines</strong> fetching nested JSON from REST APIs, normalizing via
+                Dataflow (Flatten Activity), and loading into Azure SQL Database.</li>
+              <li>Optimized complex joins with Databricks, improving critical business reporting query performance by
+                <strong>40%</strong>.</li>
+            </ul>
+          </div>
+
+          <!-- Job 2 -->
+          <div class="job">
+            <div class="job-header">
+              <div class="job-title">Data Engineer (Azure)</div>
+              <div class="job-location">Bangalore, India</div>
+            </div>
+            <div class="job-company">Tata Consultancy Services</div>
+            <div class="job-dates">07/2021 – 05/2023</div>
+            <ul>
+              <li>Built an automated <strong>ADF pipeline</strong> that ingests weekly load from Walmart into the Data
+                Lake — first team member to earn client appreciation for on-time delivery.</li>
+              <li>Wrote <strong>PySpark code in Databricks</strong> for large-scale data transformation, improving
+                quality of over <strong>18 TB</strong> of raw data.</li>
+              <li>Created <strong>Power BI reports</strong> for near real-time data analysis, reducing manual analysis
+                time by <strong>90%</strong>.</li>
+              <li>Wrote an <strong>Azure PowerShell</strong> script to automate daily project tasks, eliminating around
+                <strong>10 hours/week</strong> of manual work.</li>
+              <li>Used <strong>ARM Templates</strong> to deploy ADF components; built an automated Data Factory pipeline
+                for source-data profiling.</li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- Featured Project -->
+        <section class="section">
+          <div class="section-title">Featured Project</div>
+
+          <div class="project-card">
+            <div class="project-name">
+              FinanceWithAI — FinAI
+              <span class="project-badge">AI · Full-Stack · SaaS</span>
+            </div>
+            <a class="project-url" href="https://finance-with-ai.vercel.app/" target="_blank" rel="noopener">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/><path d="M2 12h20"/></svg>
+              finance-with-ai.vercel.app
+            </a>
+            <div class="project-tagline">
+              AI-powered stock research platform combining professional charting with LLM-synthesized fundamental
+              analysis for NSE, BSE, NYSE &amp; NASDAQ.
+            </div>
+
+            <ul class="project-points">
+              <li><strong>AI Research Pipeline</strong> — Multi-stage LLM synthesis (Groq / Claude) producing short / medium / long-term verdicts with confidence scores and multi-provider failover.</li>
+              <li><strong>Live Professional Charts</strong> — Embedded TradingView widget with real-time price, RSI, SMA, MACD, drawing tools, and multi-timeframe view.</li>
+              <li><strong>Technical Signal Cards</strong> — BUY / HOLD / SELL signals computed from live OHLCV data and rendered below the chart.</li>
+              <li><strong>Multi-Exchange Support</strong> — Covers NSE, BSE, NYSE &amp; NASDAQ via Finnhub, Yahoo Finance, and IndianAPI.in with an exchange-aware query dispatcher.</li>
+              <li><strong>Watchlist &amp; Report History</strong> — Save stocks to a personal watchlist; every AI report is stored and accessible from the user dashboard.</li>
+              <li><strong>Secure Auth</strong> — Email + password sign-up with JWT sessions; all AI and watchlist endpoints are auth-gated with a per-user daily rate limit.</li>
+            </ul>
+
+            <div class="tech-stack-row">
+              <span class="tag accent">Next.js 16</span>
+              <span class="tag accent">React 19</span>
+              <span class="tag accent">TypeScript</span>
+              <span class="tag purple">FastAPI (Python)</span>
+              <span class="tag purple">Groq / Claude API</span>
+              <span class="tag green">Supabase Postgres</span>
+              <span class="tag green">Prisma ORM</span>
+              <span class="tag">Finnhub API</span>
+              <span class="tag">Yahoo Finance</span>
+              <span class="tag">IndianAPI.in</span>
+              <span class="tag">NextAuth.js v5</span>
+              <span class="tag">TradingView Widget</span>
+              <span class="tag">Tailwind CSS v4</span>
+              <span class="tag">Vitest · Playwright</span>
+            </div>
+          </div>
+        </section>
+
+      </main>
+
+      <!-- ════ ASIDE COLUMN ════ -->
+      <aside class="aside">
+
+        <!-- Technical Skills -->
+        <section class="section">
+          <div class="section-title">Technical Skills</div>
+
+          <div class="skills-group">
+            <div class="skills-label">Azure Services</div>
+            <div class="skills-pills">
+              <span class="tag accent">Azure Data Factory</span>
+              <span class="tag accent">Azure Databricks</span>
+              <span class="tag accent">Azure Fabric</span>
+              <span class="tag accent">Azure Logic Apps</span>
+              <span class="tag accent">Azure API Mgmt</span>
+              <span class="tag accent">Azure DevOps</span>
+              <span class="tag accent">Azure PowerShell</span>
+            </div>
+          </div>
+
+          <div class="skills-group">
+            <div class="skills-label">Data &amp; Storage</div>
+            <div class="skills-pills">
+              <span class="tag">One Lake</span>
+              <span class="tag">Data Lake</span>
+              <span class="tag">Delta Lake</span>
+              <span class="tag">Supabase</span>
+              <span class="tag">SQL Server</span>
+              <span class="tag">SQLite</span>
+            </div>
+          </div>
+
+          <div class="skills-group">
+            <div class="skills-label">Languages &amp; Frameworks</div>
+            <div class="skills-pills">
+              <span class="tag">PySpark</span>
+              <span class="tag">T-SQL</span>
+              <span class="tag">Python</span>
+              <span class="tag">TypeScript</span>
+              <span class="tag">Next.js</span>
+              <span class="tag">FastAPI</span>
+            </div>
+          </div>
+
+          <div class="skills-group">
+            <div class="skills-label">AI &amp; APIs</div>
+            <div class="skills-pills">
+              <span class="tag purple">Claude API</span>
+              <span class="tag purple">Groq LLM</span>
+              <span class="tag purple">OpenAI SDK</span>
+              <span class="tag">REST APIs</span>
+              <span class="tag">Prisma ORM</span>
+              <span class="tag">NextAuth.js</span>
+            </div>
+          </div>
+
+          <div class="skills-group">
+            <div class="skills-label">Visualization &amp; Tools</div>
+            <div class="skills-pills">
+              <span class="tag">Power BI</span>
+              <span class="tag">Git &amp; GitHub</span>
+              <span class="tag">TradingView</span>
+              <span class="tag">Vitest</span>
+              <span class="tag">Playwright</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- Education -->
+        <section class="section">
+          <div class="section-title">Education</div>
+          <div class="edu-entry">
+            <div class="edu-degree">B.Tech — Computer Science</div>
+            <div class="edu-school">Jabalpur Engineering College</div>
+            <div class="edu-date">06/2017 – 07/2021</div>
+          </div>
+        </section>
+
+        <!-- Certifications -->
+        <section class="section">
+          <div class="section-title">Certifications</div>
+          <ul class="cert-list">
+            <li>Microsoft Certified: Fabric Analytics Engineer Associate (DP-600)</li>
+            <li>Microsoft Certified: Data Engineer Associate (DP-203)</li>
+            <li>Microsoft Certified: Power BI Data Analyst Associate (PL-300)</li>
+            <li>Microsoft Certified: Azure Data Fundamentals (DP-900)</li>
+            <li>Anthropic: Claude 101</li>
+            <li>Anthropic: Claude Code in Action</li>
+          </ul>
+        </section>
+
+        <!-- Interests -->
+        <section class="section">
+          <div class="section-title">Interests</div>
+          <div class="interests-row">
+            <span class="tag">🏋️ Gym</span>
+            <span class="tag">♟️ Chess</span>
+            <span class="tag">🏸 Badminton</span>
+          </div>
+        </section>
+
+        <!-- GitHub & Portfolio -->
+        <section class="section">
+          <div class="section-title">GitHub &amp; Portfolio</div>
+
+          <a class="portfolio-link" href="https://github.com/Harshit291" target="_blank" rel="noopener">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844a9.59 9.59 0 0 1 2.504.337c1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.02 10.02 0 0 0 22 12.017C22 6.484 17.522 2 12 2z"/></svg>
+            <div>
+              github.com/Harshit291
+              <span class="portfolio-link-label">Personal GitHub profile</span>
+            </div>
+          </a>
+
+          <a class="portfolio-link" href="https://finance-with-ai.vercel.app/" target="_blank" rel="noopener">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <div>
+              FinAI — Live Demo
+              <span class="portfolio-link-label">finance-with-ai.vercel.app</span>
+            </div>
+          </a>
+
+          <a class="portfolio-link" href="https://linkedin.com/in/harshitgupta01" target="_blank" rel="noopener">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+            <div>
+              linkedin.com/in/harshitgupta01
+              <span class="portfolio-link-label">LinkedIn profile</span>
+            </div>
+          </a>
+        </section>
+
+      </aside>
+    </div><!-- /.body -->
+
+  </div><!-- /.page -->
+
+</body>
+
+</html>
