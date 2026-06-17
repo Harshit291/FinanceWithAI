@@ -4,7 +4,7 @@ import { useState, useEffect, useRef, useCallback, useTransition } from "react";
 import Link from "next/link";
 import {
   Search, Plus, X, Loader2, Trash2, Edit2, Check,
-  BookmarkPlus, MoreHorizontal, Star, ArrowUpRight,
+  BookmarkPlus, MoreHorizontal, Star, ArrowUpRight, TrendingUp, TrendingDown,
 } from "lucide-react";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
@@ -29,6 +29,15 @@ interface SymbolResult {
   exchange: string;
   currency: "INR" | "USD";
 }
+
+interface QuoteData {
+  price: number | null;
+  change: number | null;
+  changePercent: number | null;
+}
+
+type QuoteMap = Record<string, QuoteData>;
+
 
 // ─── Add Stock Modal ──────────────────────────────────────────────────────────
 
@@ -295,10 +304,12 @@ function CreateWatchlistModal({
 function StockCard({
   item,
   watchlistId,
+  quote,
   onRemoved,
 }: {
   item: WatchlistItem;
   watchlistId: string;
+  quote?: QuoteData;
   onRemoved: () => void;
 }) {
   const [removing, setRemoving] = useState(false);
@@ -318,16 +329,41 @@ function StockCard({
     }
   }
 
+  const isUp = quote?.change != null && quote.change >= 0;
+  const hasQuote = quote?.price != null;
+
   return (
     <li className="group relative rounded-xl border border-slate-800 bg-slate-900/60 p-4 hover:border-slate-700 transition-all">
       <Link href={`/stocks/${encodeURIComponent(item.symbol)}`} className="block">
-        <p className="text-[10px] font-mono uppercase tracking-[0.2em] text-slate-600 mb-1">
-          {item.exchange} · Equities
-        </p>
-        <p className="text-xl font-bold font-mono tracking-tight text-slate-100 mb-3 flex items-center gap-2">
-          {item.symbol}
-          <ArrowUpRight className="h-3.5 w-3.5 text-slate-700 group-hover:text-cyan-400 transition" />
-        </p>
+        <div className="flex items-start justify-between mb-2">
+          <div>
+            <p className="text-[10px] font-mono uppercase tracking-[0.2em] text-slate-600">
+              {item.exchange} · Equities
+            </p>
+            <p className="text-lg font-bold font-mono tracking-tight text-slate-100 flex items-center gap-1.5">
+              {item.symbol}
+              <ArrowUpRight className="h-3 w-3 text-slate-700 group-hover:text-cyan-400 transition" />
+            </p>
+          </div>
+          {/* Live price */}
+          <div className="text-right shrink-0">
+            {hasQuote ? (
+              <>
+                <p className="text-base font-mono font-bold text-white">
+                  {quote!.price!.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                </p>
+                <p className={`text-[11px] font-mono flex items-center justify-end gap-0.5 ${
+                  isUp ? "text-emerald-400" : "text-rose-400"
+                }`}>
+                  {isUp ? <TrendingUp className="h-3 w-3" /> : <TrendingDown className="h-3 w-3" />}
+                  {isUp ? "+" : ""}{quote!.changePercent!.toFixed(2)}%
+                </p>
+              </>
+            ) : (
+              <p className="text-xs font-mono text-slate-700">—</p>
+            )}
+          </div>
+        </div>
         <p className="text-[10px] font-mono text-slate-700">
           Added {new Date(item.addedAt).toISOString().slice(0, 10)}
         </p>
@@ -362,6 +398,31 @@ function WatchlistContent({
   const [renaming, setRenaming] = useState(false);
   const [newName, setNewName] = useState(watchlist.name);
   const [, startTransition] = useTransition();
+  const [quotes, setQuotes] = useState<QuoteMap>({});
+  const [quotesLoading, setQuotesLoading] = useState(false);
+
+  // Fetch live prices
+  const fetchQuotes = useCallback(async () => {
+    if (watchlist.items.length === 0) return;
+    setQuotesLoading(true);
+    try {
+      const symbols = watchlist.items.map((i) => i.symbol).join(",");
+      const res = await fetch(`/api/quotes?symbols=${encodeURIComponent(symbols)}`);
+      if (res.ok) {
+        const data = await res.json();
+        setQuotes(data.quotes ?? {});
+      }
+    } finally {
+      setQuotesLoading(false);
+    }
+  }, [watchlist.items]);
+
+  useEffect(() => {
+    fetchQuotes();
+    // Refresh every 60 seconds
+    const interval = setInterval(fetchQuotes, 60_000);
+    return () => clearInterval(interval);
+  }, [fetchQuotes]);
 
   // Close menu on outside click
   const menuRef = useRef<HTMLDivElement>(null);
@@ -436,6 +497,15 @@ function WatchlistContent({
             <BookmarkPlus className="h-3.5 w-3.5" />
             Add Stock
           </button>
+          {/* Live price refresh indicator */}
+          <button
+            onClick={fetchQuotes}
+            disabled={quotesLoading}
+            title="Refresh prices"
+            className="p-1.5 text-slate-500 hover:text-cyan-400 hover:bg-slate-800 rounded-lg transition disabled:opacity-40"
+          >
+            <Loader2 className={`h-3.5 w-3.5 ${quotesLoading ? "animate-spin text-cyan-400" : ""}`} />
+          </button>
 
           <div className="relative" ref={menuRef}>
             <button
@@ -494,6 +564,7 @@ function WatchlistContent({
               key={item.id}
               item={item}
               watchlistId={watchlist.id}
+              quote={quotes[item.symbol]}
               onRemoved={() => startTransition(() => onItemsChanged())}
             />
           ))}

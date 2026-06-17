@@ -24,7 +24,7 @@ export default async function PaperTradingPage() {
 
   const positions = await prisma.paperPosition.findMany({
     where: { userId },
-    orderBy: { symbol: 'asc' }
+    orderBy: { createdAt: 'asc' }
   });
 
   let totalUnrealizedPnl = 0;
@@ -115,11 +115,16 @@ export default async function PaperTradingPage() {
                   <th className="px-5 py-3 font-semibold uppercase tracking-wider text-xs text-right">Last Price</th>
                   <th className="px-5 py-3 font-semibold uppercase tracking-wider text-xs text-right">Market Value</th>
                   <th className="px-5 py-3 font-semibold uppercase tracking-wider text-xs text-right">Unrealized PNL</th>
+                  <th className="px-5 py-3 font-semibold uppercase tracking-wider text-xs text-right">Bought On</th>
+                  <th className="px-5 py-3 font-semibold uppercase tracking-wider text-xs text-right">Days Held</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-800/60">
                 {enrichedPositions.map(pos => {
                   const pnlPos = pos.unrealizedPnl >= 0;
+                  const boughtOn = new Date(pos.createdAt);
+                  const daysHeld = Math.floor((Date.now() - boughtOn.getTime()) / (1000 * 60 * 60 * 24));
+                  const boughtOnStr = boughtOn.toISOString().slice(0, 10);
                   return (
                     <tr key={pos.symbol} className="hover:bg-slate-800/30 transition-colors">
                       <td className="px-5 py-4">
@@ -133,6 +138,12 @@ export default async function PaperTradingPage() {
                       <td className="px-5 py-4 text-right text-slate-300">{pos.marketValue.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
                       <td className={`px-5 py-4 text-right font-bold ${pnlPos ? "text-emerald-400" : "text-rose-400"}`}>
                         {pnlPos ? "+" : ""}{pos.unrealizedPnl.toFixed(2)} ({pnlPos ? "+" : ""}{pos.pnlPercent.toFixed(2)}%)
+                      </td>
+                      <td className="px-5 py-4 text-right text-slate-500 text-xs">{boughtOnStr}</td>
+                      <td className="px-5 py-4 text-right">
+                        <span className="inline-block bg-slate-800 text-slate-400 text-xs font-mono px-2 py-0.5 rounded-md border border-slate-700">
+                          {daysHeld === 0 ? 'Today' : `${daysHeld}d`}
+                        </span>
                       </td>
                     </tr>
                   )
