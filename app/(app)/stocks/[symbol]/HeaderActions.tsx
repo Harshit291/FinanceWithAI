@@ -14,8 +14,8 @@ export async function HeaderActions({ symbol, userId, isAuthenticated }: HeaderA
   const [quota, savedItem] = await Promise.all([
     userId ? checkQuota(userId) : Promise.resolve(null),
     userId
-      ? prisma.watchlistItem.findUnique({
-          where: { userId_symbol: { userId, symbol } },
+      ? prisma.watchlistItem.findFirst({
+          where: { userId, symbol },
           select: { symbol: true },
         })
       : Promise.resolve(null),

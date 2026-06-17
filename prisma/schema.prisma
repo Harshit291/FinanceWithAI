@@ -53,24 +53,38 @@ model User {
   image         String?
   password      String?
   createdAt     DateTime        @default(now())
-  accounts      Account[]
-  sessions      Session[]
-  watchlist     WatchlistItem[]
-  reports       AiReport[]
-  paperAccount  PaperAccount?
+  accounts       Account[]
+  sessions       Session[]
+  watchlist      WatchlistItem[]
+  watchlists     Watchlist[]
+  reports        AiReport[]
+  paperAccount   PaperAccount?
   paperPositions PaperPosition[]
-  paperTrades   PaperTrade[]
+  paperTrades    PaperTrade[]
+}
+
+model Watchlist {
+  id        String          @id @default(cuid())
+  userId    String
+  name      String
+  createdAt DateTime        @default(now())
+  user      User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  items     WatchlistItem[]
+
+  @@unique([userId, name])
 }
 
 model WatchlistItem {
-  id       String   @id @default(cuid())
-  userId   String
-  symbol   String
-  exchange String
-  addedAt  DateTime @default(now())
-  user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id          String    @id @default(cuid())
+  userId      String
+  symbol      String
+  exchange    String
+  addedAt     DateTime  @default(now())
+  watchlistId String?
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  watchlistGroup Watchlist? @relation(fields: [watchlistId], references: [id], onDelete: Cascade)
 
-  @@unique([userId, symbol])
+  @@unique([userId, symbol, watchlistId])
 }
 
 model AiReport {
