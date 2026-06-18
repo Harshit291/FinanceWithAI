@@ -2,8 +2,9 @@
 
 Layer 1 — Yahoo Finance news (no API key, covers NSE/BSE + US perfectly).
 Layer 2 — Google News RSS (no API key, Google-indexed, great for Indian stocks).
+Layer 3 — DuckDuckGo News (no API key, comprehensive web coverage).
 
-Both layers are merged, deduplicated by URL, and sorted newest-first.
+All layers are merged, deduplicated by URL, and sorted newest-first.
 Each article gets a `recency_score` (0.0–1.0) using exponential decay with
 a 14-day half-life — so a 1-day-old article scores ~0.95 while a 60-day-old
 article scores ~0.08.  The synthesizer prompt already up-weights recent signals
@@ -214,6 +215,51 @@ async def _google_rss_news(symbol: str, company_name: str | None) -> list[dict]:
         return []
 
 
+# ── Layer 3: DuckDuckGo News ──────────────────────────────────────────────────
+
+async def _duckduckgo_news(symbol: str, company_name: str | None) -> list[dict]:
+    """Fetch news via DuckDuckGo Search — no API key, very lenient rate limits."""
+    base_name = (company_name or symbol.replace(".NS", "").replace(".BO", "").replace(".", " "))
+    query = f"{base_name} stock news"
+
+    import asyncio
+    from duckduckgo_search import DDGS
+
+    def _fetch():
+        results = []
+        try:
+            with DDGS() as ddgs:
+                # DDGS.news() yields dicts: {'date', 'title', 'body', 'url', 'source'}
+                for r in ddgs.news(query, max_results=10):
+                    results.append(r)
+        except Exception as exc:
+            log.warning("ddg_news: exception for %s — %s", symbol, exc)
+        return results
+
+    loop = asyncio.get_running_loop()
+    raw_results = await loop.run_in_executor(None, _fetch)
+
+    articles: list[dict] = []
+    for item in raw_results:
+        published_dt = _parse_dt(item.get("date"))
+        if not _within_window(published_dt):
+            continue
+
+        articles.append({
+            "headline": item.get("title", ""),
+            "summary": item.get("body", "")[:2000],
+            "source": item.get("source", "DuckDuckGo News"),
+            "published_at": published_dt.isoformat() if published_dt else "",
+            "url": item.get("url", ""),
+            "recency_score": round(_recency_score(published_dt), 3),
+            "_source_layer": "ddg",
+        })
+
+    articles.sort(key=lambda a: a["recency_score"], reverse=True)
+    log.info("ddg_news: %d articles for %s", len(articles), symbol)
+    return articles
+
+
 # ── Merge + dedup ─────────────────────────────────────────────────────────────
 
 def _merge_dedup(yahoo: list[dict], rss: list[dict]) -> list[dict]:
@@ -247,14 +293,15 @@ async def fetch_news(symbol: str, company_name: str | None = None) -> list[dict]
     field (1.0 = today, ~0.5 = 14 days ago, ~0.08 = 60 days ago).
     Articles older than 90 days are excluded.
     """
-    # Run both layers concurrently for speed
+    # Run all 3 layers concurrently for speed
     import asyncio
-    yahoo_articles, rss_articles = await asyncio.gather(
+    yahoo_articles, rss_articles, ddg_articles = await asyncio.gather(
         _yahoo_news(symbol),
         _google_rss_news(symbol, company_name),
+        _duckduckgo_news(symbol, company_name),
     )
 
-    combined = _merge_dedup(yahoo_articles, rss_articles)
+    combined = _merge_dedup(_merge_dedup(yahoo_articles, rss_articles), ddg_articles)
 
     if not combined:
         log.warning("fetch_news: no articles found for %s", symbol)
@@ -265,7 +312,7 @@ async def fetch_news(symbol: str, company_name: str | None = None) -> list[dict]
         a.pop("_source_layer", None)
 
     log.info(
-        "fetch_news: %d total articles for %s (yahoo=%d, rss=%d)",
-        len(combined), symbol, len(yahoo_articles), len(rss_articles),
+        "fetch_news: %d total articles for %s (yahoo=%d, rss=%d, ddg=%d)",
+        len(combined), symbol, len(yahoo_articles), len(rss_articles), len(ddg_articles)
     )
     return combined[:20]
