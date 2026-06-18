@@ -6,6 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "api:start": "services\\.venv\\Scripts\\uvicorn.exe services.app.main:app --host 127.0.0.1 --port 8080 --reload",
     "lint": "eslint",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
