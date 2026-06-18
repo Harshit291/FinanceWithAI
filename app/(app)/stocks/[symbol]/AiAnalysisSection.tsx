@@ -29,9 +29,24 @@ export async function AiAnalysisSection({ symbol, userId }: AiAnalysisSectionPro
 
   const allowSynthesis = !quota || quota.allowed;
 
-  const report = allowSynthesis
-    ? await synthesiseVerdict(symbol).catch(() => null)
-    : null;
+  let report: VerdictReport | null = null;
+
+  if (allowSynthesis) {
+    const twentyFourHoursAgo = new Date(Date.now() - 24 * 60 * 60 * 1000);
+    const existingGlobalReport = await prisma.aiReport.findFirst({
+      where: {
+        symbol,
+        createdAt: { gte: twentyFourHoursAgo },
+      },
+      orderBy: { createdAt: "desc" },
+    });
+
+    if (existingGlobalReport) {
+      report = JSON.parse(existingGlobalReport.reportJson) as VerdictReport;
+    } else {
+      report = await synthesiseVerdict(symbol).catch(() => null);
+    }
+  }
 
   let history: Array<{ id: string; createdAt: Date; report: VerdictReport }> = [];
   if (userId) {
