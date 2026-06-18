@@ -332,6 +332,15 @@ function StockCard({
   const isUp = quote?.change != null && quote.change >= 0;
   const hasQuote = quote?.price != null;
 
+  // Derive currency symbol from exchange
+  const currencySymbol = ["NSE", "BSE"].includes(item.exchange)
+    ? "₹"
+    : ["LSE"].includes(item.exchange)
+    ? "£"
+    : ["XETRA", "EPA", "AMS"].includes(item.exchange)
+    ? "€"
+    : "$"; // default US / NASDAQ / NYSE
+
   return (
     <li className="group relative rounded-xl border border-slate-800 bg-slate-900/60 p-4 hover:border-slate-700 transition-all">
       <Link href={`/stocks/${encodeURIComponent(item.symbol)}`} className="block">
@@ -350,7 +359,7 @@ function StockCard({
             {hasQuote ? (
               <>
                 <p className="text-base font-mono font-bold text-white">
-                  {quote!.price!.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                  <span className="text-slate-500 font-normal">{currencySymbol}</span>{quote!.price!.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                 </p>
                 <p className={`text-[11px] font-mono flex items-center justify-end gap-0.5 ${
                   isUp ? "text-emerald-400" : "text-rose-400"
