@@ -239,8 +239,3 @@ async def chat_with_failover(
     raise last_exc
 
 
-# ── Backwards-compatible single-provider client (deprecated) ─────────────────
-
-def groq_client() -> AsyncOpenAI:
-    """Deprecated: prefer ``chat_with_failover``. Kept for any straggler imports."""
-    return _get_client(PROVIDER_CATALOGUE["groq"])

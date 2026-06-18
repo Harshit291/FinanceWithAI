@@ -96,54 +96,10 @@ async def get_fundamentals(symbol: str):
     symbol = symbol.strip().upper()
     if not symbol or len(symbol) > 20:
         raise HTTPException(status_code=422, detail="Invalid symbol")
-    
+
     try:
         fund_data = await fetch_fundamentals(symbol)
         return fund_data
     except Exception as e:
         import traceback
         return {"error": str(e), "traceback": traceback.format_exc()}
-
-
-@app.get("/debug/finnhub/{symbol}")
-async def debug_finnhub(symbol: str):
-    import os
-    import httpx
-    api_key = os.getenv("FINNHUB_API_KEY")
-    if not api_key:
-        return {"error": "FINNHUB_API_KEY is missing"}
-    
-    base = symbol.split(".")[0]
-    async with httpx.AsyncClient(timeout=10) as client:
-        r1 = await client.get(
-            "https://finnhub.io/api/v1/stock/profile2",
-            params={"symbol": symbol, "token": api_key},
-        )
-        r2 = None
-        if r1.status_code != 200:
-            r2 = await client.get(
-                "https://finnhub.io/api/v1/stock/profile2",
-                params={"symbol": base, "token": api_key},
-            )
-        
-        return {
-            "key_length": len(api_key),
-            "key_repr": repr(api_key),
-            "r1_status": r1.status_code,
-            "r1_body": r1.text,
-            "r2_status": r2.status_code if r2 else None,
-            "r2_body": r2.text if r2 else None
-        }
-
-@app.get("/debug/yfinance/{symbol}")
-async def debug_yfinance(symbol: str):
-    import yfinance as yf
-    try:
-        ticker = yf.Ticker(symbol)
-        info = ticker.info
-        return {"success": True, "info_keys": list(info.keys()), "info": info}
-    except Exception as e:
-        import traceback
-        return {"success": False, "error": str(e), "traceback": traceback.format_exc()}
-
-

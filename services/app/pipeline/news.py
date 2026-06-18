@@ -1,4 +1,4 @@
-"""News fetcher: 2-layer cascade with recency weighting.
+"""News fetcher: 3-layer cascade with recency weighting.
 
 Layer 1 — Yahoo Finance news (no API key, covers NSE/BSE + US perfectly).
 Layer 2 — Google News RSS (no API key, Google-indexed, great for Indian stocks).
@@ -218,12 +218,20 @@ async def _google_rss_news(symbol: str, company_name: str | None) -> list[dict]:
 # ── Layer 3: DuckDuckGo News ──────────────────────────────────────────────────
 
 async def _duckduckgo_news(symbol: str, company_name: str | None) -> list[dict]:
-    """Fetch news via DuckDuckGo Search — no API key, very lenient rate limits."""
+    """Fetch news via DuckDuckGo Search — no API key, very lenient rate limits.
+
+    Degrades gracefully if the `duckduckgo-search` package is not installed.
+    """
+    try:
+        from duckduckgo_search import DDGS  # noqa: PLC0415 — lazy import for optional dep
+    except ImportError:
+        log.warning("ddg_news: duckduckgo-search not installed — skipping layer 3")
+        return []
+
     base_name = (company_name or symbol.replace(".NS", "").replace(".BO", "").replace(".", " "))
     query = f"{base_name} stock news"
 
     import asyncio
-    from duckduckgo_search import DDGS
 
     def _fetch():
         results = []

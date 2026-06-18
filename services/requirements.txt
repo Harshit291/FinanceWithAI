@@ -5,3 +5,4 @@ pydantic>=2.7.0
 python-dotenv>=1.0.0
 openai>=1.30.0
 yfinance>=0.2.40
+duckduckgo-search>=6.2.0

@@ -1,6 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
 import YahooFinance from "yahoo-finance2";
 
+// Module-level singleton — reused across all requests in the same worker process
+const yf = new YahooFinance({ suppressNotices: ["yahooSurvey"] });
+
 // GET /api/quotes?symbols=AAPL,RELIANCE.NS,TSLA
 export async function GET(req: NextRequest) {
   const raw = req.nextUrl.searchParams.get("symbols") ?? "";
@@ -18,7 +21,6 @@ export async function GET(req: NextRequest) {
   await Promise.all(
     symbols.map(async (symbol) => {
       try {
-        const yf: any = new YahooFinance();
         const q = await yf.quote(symbol);
         quotes[symbol] = {
           price: q?.regularMarketPrice ?? null,
@@ -38,3 +40,4 @@ export async function GET(req: NextRequest) {
     },
   });
 }
+
