@@ -77,8 +77,8 @@ export default async function StockPage({ params, searchParams }: Props) {
             <Suspense fallback={<HeaderActionsSkeleton />}>
               <HeaderActions symbol={decodedSymbol} userId={userId} isAuthenticated={isAuthenticated} />
             </Suspense>
-            <div className="w-64">
-              <Suspense fallback={<div className="h-24 rounded-xl bg-slate-900/60 animate-pulse" />}>
+            <div className="w-[340px]">
+              <Suspense fallback={<div className="h-[42px] rounded-xl bg-slate-900/60 animate-pulse" />}>
                 <MarketSearch
                   size="compact"
                   defaultMarket={exchange === "NSE" || exchange === "BSE" ? "IN" : "US"}

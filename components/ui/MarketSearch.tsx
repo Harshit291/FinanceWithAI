@@ -97,71 +97,103 @@ export function MarketSearch({ size = "hero", defaultMarket = "ALL" }: MarketSea
 
   return (
     <div ref={containerRef} className="relative w-full">
-      {/* ── World Market Dropdown ── */}
-      <div className={`relative w-max mb-3 ${isHero ? "" : "mb-2"}`}>
-        <select
-          value={market}
-          onChange={switchMarket}
-          className={`
-            appearance-none cursor-pointer
-            pl-3.5 pr-9 py-2
-            bg-slate-900 border border-slate-700
-            rounded-lg outline-none
-            text-sm font-mono font-semibold text-slate-300
-            hover:border-cyan-500/50 hover:bg-slate-800 focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500/20
-            transition-all duration-150
-          `}
-        >
-          {(Object.entries(MARKET_CONFIG) as [Market, typeof MARKET_CONFIG[Market]][]).map(([m, c]) => (
-            <option key={m} value={m} className="bg-slate-900 text-slate-200">
-              {c.flag} {c.label}
-            </option>
-          ))}
-        </select>
-        <div className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2">
-          <ChevronDown className="h-4 w-4 text-slate-500" />
-        </div>
-      </div>
+      {isHero ? (
+        <>
+          {/* ── Hero: Stacked Dropdown ── */}
+          <div className="relative w-max mb-3">
+            <select
+              value={market}
+              onChange={switchMarket}
+              className="appearance-none cursor-pointer pl-3.5 pr-9 py-2 bg-slate-900 border border-slate-700 rounded-lg outline-none text-sm font-mono font-semibold text-slate-300 hover:border-cyan-500/50 hover:bg-slate-800 focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500/20 transition-all duration-150"
+            >
+              {(Object.entries(MARKET_CONFIG) as [Market, typeof MARKET_CONFIG[Market]][]).map(([m, c]) => (
+                <option key={m} value={m} className="bg-slate-900 text-slate-200">
+                  {c.flag} {c.label}
+                </option>
+              ))}
+            </select>
+            <div className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2">
+              <ChevronDown className="h-4 w-4 text-slate-500" />
+            </div>
+          </div>
 
-      {/* ── Search input ── */}
-      <div className={`
-        flex items-center gap-3
-        bg-slate-900 border border-slate-700/80 rounded-xl
-        ${isHero ? "px-4 py-3.5" : "px-3 py-2.5"}
-        focus-within:border-cyan-500/60 focus-within:ring-2 focus-within:ring-cyan-500/10
-        transition-all duration-150
-      `}>
-        {loading
-          ? <div className={`shrink-0 rounded-full border-2 border-slate-700 border-t-cyan-500 animate-spin ${isHero ? "h-5 w-5" : "h-4 w-4"}`} />
-          : <Search className={`shrink-0 text-slate-500 ${isHero ? "h-5 w-5" : "h-4 w-4"}`} />
-        }
-        <input
-          ref={inputRef}
-          type="search"
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-          onKeyDown={onKeyDown}
-          onFocus={() => results.length > 0 && setOpen(true)}
-          placeholder={cfg.placeholder}
-          aria-label="Search for a stock symbol"
-          aria-autocomplete="list"
-          aria-expanded={open}
-          className={`
-            flex-1 bg-transparent font-mono text-slate-100
-            placeholder:text-slate-500 outline-none min-w-0
-            ${isHero ? "text-base" : "text-sm"}
-          `}
-        />
-        {query && (
-          <button
-            onClick={() => { setQuery(""); setResults([]); setOpen(false); inputRef.current?.focus(); }}
-            className="shrink-0 text-slate-500 hover:text-slate-300 transition-colors text-sm font-mono"
-            aria-label="Clear"
-          >
-            ✕
-          </button>
-        )}
-      </div>
+          {/* ── Hero: Search input ── */}
+          <div className="flex items-center gap-3 bg-slate-900 border border-slate-700/80 rounded-xl px-4 py-3.5 focus-within:border-cyan-500/60 focus-within:ring-2 focus-within:ring-cyan-500/10 transition-all duration-150">
+            {loading
+              ? <div className="shrink-0 rounded-full border-2 border-slate-700 border-t-cyan-500 animate-spin h-5 w-5" />
+              : <Search className="shrink-0 text-slate-500 h-5 w-5" />
+            }
+            <input
+              ref={inputRef}
+              type="search"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              onKeyDown={onKeyDown}
+              onFocus={() => results.length > 0 && setOpen(true)}
+              placeholder={cfg.placeholder}
+              aria-label="Search for a stock symbol"
+              aria-autocomplete="list"
+              aria-expanded={open}
+              className="flex-1 bg-transparent font-mono text-slate-100 placeholder:text-slate-500 outline-none min-w-0 text-base"
+            />
+            {query && (
+              <button
+                onClick={() => { setQuery(""); setResults([]); setOpen(false); inputRef.current?.focus(); }}
+                className="shrink-0 text-slate-500 hover:text-slate-300 transition-colors text-sm font-mono"
+              >
+                ✕
+              </button>
+            )}
+          </div>
+        </>
+      ) : (
+        /* ── Compact: Unified Inline Bar ── */
+        <div className="flex items-center bg-slate-900/80 border border-slate-700/80 rounded-xl focus-within:border-cyan-500/50 focus-within:ring-1 focus-within:ring-cyan-500/20 transition-all duration-150 overflow-hidden">
+          <div className="relative shrink-0 border-r border-slate-700/60 bg-slate-900/50 hover:bg-slate-800 transition-colors">
+            <select
+              value={market}
+              onChange={switchMarket}
+              className="appearance-none cursor-pointer bg-transparent pl-3 pr-7 py-2.5 text-[11px] uppercase tracking-wider font-mono font-bold text-slate-300 outline-none w-full"
+            >
+              {(Object.entries(MARKET_CONFIG) as [Market, typeof MARKET_CONFIG[Market]][]).map(([m, c]) => (
+                <option key={m} value={m} className="bg-slate-900 text-slate-200 normal-case tracking-normal">
+                  {c.flag} {m === "ALL" ? "GLOBAL" : m}
+                </option>
+              ))}
+            </select>
+            <div className="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2">
+              <ChevronDown className="h-3.5 w-3.5 text-slate-500" />
+            </div>
+          </div>
+          <div className="flex-1 flex items-center gap-2 px-3 py-2.5 bg-transparent">
+            {loading
+              ? <div className="shrink-0 rounded-full border-2 border-slate-700 border-t-cyan-500 animate-spin h-3.5 w-3.5" />
+              : <Search className="shrink-0 text-slate-500 h-3.5 w-3.5" />
+            }
+            <input
+              ref={inputRef}
+              type="search"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              onKeyDown={onKeyDown}
+              onFocus={() => results.length > 0 && setOpen(true)}
+              placeholder="Search stocks..."
+              aria-label="Search for a stock symbol"
+              aria-autocomplete="list"
+              aria-expanded={open}
+              className="flex-1 bg-transparent font-mono text-slate-100 placeholder:text-slate-500 outline-none min-w-0 text-xs"
+            />
+            {query && (
+              <button
+                onClick={() => { setQuery(""); setResults([]); setOpen(false); inputRef.current?.focus(); }}
+                className="shrink-0 text-slate-500 hover:text-slate-300 transition-colors text-xs font-mono"
+              >
+                ✕
+              </button>
+            )}
+          </div>
+        </div>
+      )}
 
       {/* ── Dropdown Results ── */}
       {open && results.length > 0 && (
