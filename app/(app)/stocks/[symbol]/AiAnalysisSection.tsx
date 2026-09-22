@@ -16,42 +16,46 @@ interface AiAnalysisSectionProps {
 
 export async function AiAnalysisSection({ symbol, userId }: AiAnalysisSectionProps) {
   try {
-    let quota;
+    let quota = null;
     let ipAddress = "";
 
-    if (userId) {
-      quota = await checkQuota(userId);
-    } else {
-      // Get IP for unauthenticated users
-      const headersList = await headers();
-      ipAddress = headersList.get("x-forwarded-for") || "unknown";
-      quota = await checkAnonymousQuota(ipAddress);
+    try {
+      if (userId) {
+        quota = await checkQuota(userId);
+      } else {
+        const headersList = await headers();
+        ipAddress = headersList.get("x-forwarded-for") || "unknown";
+        quota = await checkAnonymousQuota(ipAddress);
+      }
+    } catch {
+      quota = null;
     }
 
     const allowSynthesis = !quota || quota.allowed;
-
     let report: VerdictReport | null = null;
 
     if (allowSynthesis) {
       const twentyFourHoursAgo = new Date(Date.now() - 24 * 60 * 60 * 1000);
       const existingGlobalReport = await prisma.aiReport.findFirst({
-        where: {
-          symbol,
-          createdAt: { gte: twentyFourHoursAgo },
-        },
+        where: { symbol, createdAt: { gte: twentyFourHoursAgo } },
         orderBy: { createdAt: "desc" },
       }).catch(() => null);
 
       if (existingGlobalReport) {
-        report = JSON.parse(existingGlobalReport.reportJson) as VerdictReport;
-      } else {
+        try { report = JSON.parse(existingGlobalReport.reportJson) as VerdictReport; }
+        catch { report = null; }
+      }
+
+      if (!report) {
         report = await synthesiseVerdict(symbol).catch(() => null);
       }
     }
 
     let history: Array<{ id: string; createdAt: Date; report: VerdictReport }> = [];
+    if (userId && report) {
+      await persistAiReport(userId, symbol, report).catch(() => {});
+    }
     if (userId) {
-      if (report) await persistAiReport(userId, symbol, report).catch(() => {});
       const rows = await prisma.aiReport.findMany({
         where: { userId, symbol },
         orderBy: { createdAt: "desc" },
@@ -63,8 +67,7 @@ export async function AiAnalysisSection({ symbol, userId }: AiAnalysisSectionPro
         createdAt: r.createdAt,
         report: JSON.parse(r.reportJson) as VerdictReport,
       }));
-    } else if (report && ipAddress !== "unknown") {
-      // Persist anonymous report usage
+    } else if (report && ipAddress && ipAddress !== "unknown") {
       await persistAnonymousReport(ipAddress).catch(() => {});
     }
 
@@ -88,9 +91,7 @@ export async function AiAnalysisSection({ symbol, userId }: AiAnalysisSectionPro
           </>
         );
       } else {
-        return (
-          <SignInRequiredBanner used={quota.used} limit={quota.limit} />
-        );
+        return <SignInRequiredBanner used={quota.used} limit={quota.limit} />;
       }
     }
 
