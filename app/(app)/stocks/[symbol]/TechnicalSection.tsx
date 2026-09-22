@@ -10,7 +10,12 @@ function StrategySelectorFallback() {
 }
 
 export async function TechnicalSection({ symbol, strategy }: { symbol: string; strategy: string }) {
-  const technical = await synthesiseTechnical(symbol, strategy).catch(() => null);
+  let technical = null;
+  try {
+    technical = await synthesiseTechnical(symbol, strategy);
+  } catch (err) {
+    console.error("[TechnicalSection] FastAPI unreachable:", err);
+  }
   if (!technical) return null;
   return (
     <div className="flex flex-col">
