@@ -773,12 +773,48 @@ def _compute(data: list[dict], strategy: str) -> dict:  # noqa: C901  (complex b
 # ══════════════════════════════════════════════════════════════════════════════
 
 async def _fetch_ohlcv(symbol: str) -> list[dict] | None:
+    """Fetch 2 years of daily OHLCV data.
+
+    Uses yfinance (handles Yahoo cookie/crumb auth automatically) as primary,
+    with a raw httpx fallback. yfinance does NOT get blocked on server IPs
+    unlike direct Yahoo Finance v8 API calls.
+    """
+    import asyncio
+    import functools
+
+    def _yf_sync() -> list[dict] | None:
+        try:
+            import yfinance as yf
+            ticker = yf.Ticker(symbol)
+            hist = ticker.history(period="2y", interval="1d", auto_adjust=True)
+            if hist is None or hist.empty or len(hist) < 20:
+                return None
+            rows = []
+            for ts, row in hist.iterrows():
+                c = row.get("Close")
+                h = row.get("High")
+                l = row.get("Low")
+                v = row.get("Volume", 0)
+                if c is None or h is None or l is None:
+                    continue
+                rows.append({"close": float(c), "high": float(h), "low": float(l), "volume": float(v or 0)})
+            return rows if len(rows) >= 20 else None
+        except Exception:
+            return None
+
+    # Run synchronous yfinance in a thread pool
+    loop = asyncio.get_event_loop()
+    data = await loop.run_in_executor(None, functools.partial(_yf_sync))
+    if data:
+        return data
+
+    # Fallback: raw httpx (may be blocked on some server IPs)
     url = _YAHOO_URL.format(symbol=symbol)
     async with httpx.AsyncClient(timeout=12) as client:
         try:
             r = await client.get(
                 url,
-                params={"interval": "1d", "range": "2y"},   # 2y for 252-bar indicators
+                params={"interval": "1d", "range": "2y"},
                 headers=_YAHOO_HEADERS,
             )
             r.raise_for_status()
@@ -797,13 +833,14 @@ async def _fetch_ohlcv(symbol: str) -> list[dict] | None:
             return None
 
 
+
 # ══════════════════════════════════════════════════════════════════════════════
 # LLM synthesis
 # ══════════════════════════════════════════════════════════════════════════════
 
 _SYSTEM = """\
 You are a quantitative technical analyst. Given computed technical indicators and a chosen strategy, \
-produce structured BUY/HOLD/SELL verdicts for two time horizons.
+produce structured BUY/HOLD/SELL verdicts for three time horizons.
 
 STRATEGIES (25 total across 5 categories):
 
