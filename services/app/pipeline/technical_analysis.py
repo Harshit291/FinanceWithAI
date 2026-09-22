@@ -846,7 +846,8 @@ Rules:
 1. Analyse ONLY through the lens of the provided STRATEGY. Mention only its relevant indicators.
 2. Use ONLY provided indicator values. Never invent prices or data.
 3. short_term = 1-4 weeks — weight current momentum and immediate indicator signals.
-4. long_term  = 1+ year  — weight structural trends and 52-week positioning.
+4. medium_term = 1-6 months — weight trend direction and momentum over multiple weeks.
+5. long_term  = 1+ year  — weight structural trends and 52-week positioning.
 5. action must be exactly: "buy", "hold", "sell", or "insufficient_data".
 6. confidence_pct: 50 = weak/mixed, 80+ = multiple converging signals.
 7. rationale: 1-2 sentences citing specific computed values from the data.
@@ -859,6 +860,12 @@ Schema:
   "symbol": "string",
   "as_of": "ISO-8601",
   "short_term": {
+    "action": "buy|hold|sell|insufficient_data",
+    "confidence_pct": 0-100,
+    "rationale": "string",
+    "indicators": ["string", ...]
+  },
+  "medium_term": {
     "action": "buy|hold|sell|insufficient_data",
     "confidence_pct": 0-100,
     "rationale": "string",
@@ -884,6 +891,7 @@ async def run_technical_analysis(symbol: str, strategy: str = "trend_following")
             symbol=symbol,
             as_of=now,
             short_term=_INSUFFICIENT,
+            medium_term=_INSUFFICIENT,
             long_term=_INSUFFICIENT,
             key_levels=KeyLevels(),
         )
@@ -923,6 +931,7 @@ async def run_technical_analysis(symbol: str, strategy: str = "trend_following")
             symbol=symbol,
             as_of=now,
             short_term=_INSUFFICIENT,
+            medium_term=_INSUFFICIENT,
             long_term=_INSUFFICIENT,
             key_levels=KeyLevels(),
         )

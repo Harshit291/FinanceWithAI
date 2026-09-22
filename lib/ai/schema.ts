@@ -72,6 +72,7 @@ export interface TechnicalVerdict {
   symbol: string;
   as_of: string;
   short_term: TechnicalSignal;
+  medium_term: TechnicalSignal;
   long_term: TechnicalSignal;
   key_levels: { support: number | null; resistance: number | null };
 }
@@ -87,6 +88,7 @@ export const TechnicalVerdictSchema = z.object({
   symbol: z.string(),
   as_of: z.string(),
   short_term: TechnicalSignalSchema,
+  medium_term: TechnicalSignalSchema,
   long_term: TechnicalSignalSchema,
   key_levels: z.object({
     support: z.number().nullable(),

@@ -413,8 +413,9 @@ export function TechnicalPanel({ verdict, strategy = "trend_following" }: Techni
 
       {/* Signal cards */}
       <div className="flex flex-col sm:flex-row gap-3">
-        <SignalCard label="Short term" window="1–4 weeks" signal={verdict.short_term} />
-        <SignalCard label="Long term"  window="1+ year"   signal={verdict.long_term}  />
+        <SignalCard label="Short term"  window="1–4 weeks" signal={verdict.short_term}  />
+        <SignalCard label="Medium term" window="1–6 months" signal={verdict.medium_term} />
+        <SignalCard label="Long term"   window="1+ year"   signal={verdict.long_term}   />
       </div>
 
       {/* Key price levels */}

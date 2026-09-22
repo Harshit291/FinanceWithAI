@@ -63,5 +63,6 @@ class TechnicalVerdict(BaseModel):
     symbol: str
     as_of: str = Field(default_factory=lambda: datetime.now(timezone.utc).isoformat())
     short_term: TechnicalSignal
+    medium_term: TechnicalSignal
     long_term: TechnicalSignal
     key_levels: KeyLevels
