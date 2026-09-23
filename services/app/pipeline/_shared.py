@@ -41,15 +41,6 @@ class Provider:
 
 
 PROVIDER_CATALOGUE: dict[str, Provider] = {
-    "nvidia": Provider(
-        name="nvidia",
-        api_key_env="NVIDIA_API_KEY",
-        base_url="https://integrate.api.nvidia.com/v1",
-        models={
-            "synthesis":  "meta/llama-3.3-70b-instruct",
-            "classifier": "meta/llama-3.1-8b-instruct",
-        },
-    ),
     "groq": Provider(
         name="groq",
         api_key_env="GROQ_API_KEY",
@@ -87,6 +78,16 @@ PROVIDER_CATALOGUE: dict[str, Provider] = {
         },
         privacy_note="free tier may train on prompt data",
     ),
+    "nvidia": Provider(
+        name="nvidia",
+        api_key_env="NVIDIA_API_KEY",
+        base_url="https://integrate.api.nvidia.com/v1",
+        models={
+            # Updated 2026-09: meta/llama-3.x reached EOL 2026-08-26
+            "synthesis":  "nvidia/llama-3.3-nemotron-super-49b-v1",
+            "classifier": "nvidia/llama-3.1-nemotron-nano-8b-v1",
+        },
+    ),
 }
 
 
@@ -106,13 +107,14 @@ def load_provider_order() -> list[Provider]:
                 return ordered
         except Exception as e:  # noqa: BLE001 — corrupt ranking file, fall back
             log.warning("failed to load providers.ranked.json: %s — using default order", e)
-    # Default order: NVIDIA first (primary), then Groq, Cerebras, SambaNova, OpenRouter
+    # Default order: Groq first (fastest), then Cerebras, SambaNova, OpenRouter, NVIDIA last
+    # (NVIDIA catalog changes frequently; Groq/Cerebras are most stable for free tier)
     return [
-        PROVIDER_CATALOGUE["nvidia"],
         PROVIDER_CATALOGUE["groq"],
         PROVIDER_CATALOGUE["cerebras"],
         PROVIDER_CATALOGUE["sambanova"],
         PROVIDER_CATALOGUE["openrouter"],
+        PROVIDER_CATALOGUE["nvidia"],
     ]
 
 
