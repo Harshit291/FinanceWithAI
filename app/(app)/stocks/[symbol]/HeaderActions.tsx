@@ -16,7 +16,7 @@ export async function HeaderActions({ symbol, userId, isAuthenticated }: HeaderA
     userId
       ? prisma.watchlistItem.findFirst({
           where: { userId, symbol },
-          select: { symbol: true },
+          select: { watchlistId: true },
         })
       : Promise.resolve(null),
   ]);
@@ -28,6 +28,7 @@ export async function HeaderActions({ symbol, userId, isAuthenticated }: HeaderA
       <WatchlistToggle
         symbol={symbol}
         initialIsSaved={!!savedItem}
+        initialWatchlistId={savedItem?.watchlistId ?? null}
         isAuthenticated={isAuthenticated}
       />
     </div>

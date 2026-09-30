@@ -3,24 +3,24 @@ import { test, expect } from "@playwright/test";
 test.describe("smoke — /stocks/[symbol]", () => {
   test("US symbol renders on desktop", async ({ page }) => {
     await page.setViewportSize({ width: 1440, height: 900 });
-    await page.goto("/stocks/AAPL");
+    await page.goto("/stocks/AAPL", { waitUntil: "domcontentloaded" });
     await expect(page.getByRole("main")).toBeVisible();
-    await expect(page.getByText("AAPL")).toBeVisible();
+    await expect(page.getByRole("heading", { name: "AAPL" })).toBeVisible();
     // Disclaimer must be visible without any interaction
     await expect(page.getByRole("note", { name: /disclaimer/i })).toBeVisible();
   });
 
   test("India NSE symbol renders on desktop", async ({ page }) => {
     await page.setViewportSize({ width: 1440, height: 900 });
-    await page.goto("/stocks/RELIANCE.NS");
+    await page.goto("/stocks/RELIANCE.NS", { waitUntil: "domcontentloaded" });
     await expect(page.getByRole("main")).toBeVisible();
-    await expect(page.getByText("RELIANCE.NS")).toBeVisible();
+    await expect(page.getByRole("heading", { name: "RELIANCE.NS" })).toBeVisible();
     await expect(page.getByRole("note", { name: /disclaimer/i })).toBeVisible();
   });
 
   test("mobile 375x667 — chart stacks above AI panel, disclaimer visible", async ({ page }) => {
     await page.setViewportSize({ width: 375, height: 667 });
-    await page.goto("/stocks/RELIANCE.NS");
+    await page.goto("/stocks/RELIANCE.NS", { waitUntil: "domcontentloaded" });
     await expect(page.getByRole("main")).toBeVisible();
     // Disclaimer should be visible in the viewport without scrolling
     const disclaimer = page.getByRole("note", { name: /disclaimer/i });

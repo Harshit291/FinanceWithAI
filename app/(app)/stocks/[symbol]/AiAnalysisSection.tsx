@@ -1,11 +1,12 @@
 import { prisma } from "@/lib/prisma";
-import { synthesiseVerdict } from "@/lib/ai/llm";
+import { synthesiseVerdict, synthesiseVerdictFresh } from "@/lib/ai/llm";
 import { persistAiReport } from "@/lib/reports/persist";
 import { checkQuota, checkAnonymousQuota, persistAnonymousReport } from "@/lib/reports/quota";
 import { VerdictCard } from "@/components/ai-report/VerdictCard";
 import { ReportHistory } from "@/components/ai-report/ReportHistory";
 import { QuotaExceededBanner } from "@/components/ai-report/QuotaExceededBanner";
 import { SignInRequiredBanner } from "@/components/ai-report/SignInRequiredBanner";
+import { Disclaimer } from "@/components/ai-report/Disclaimer";
 import type { VerdictReport } from "@/lib/ai/schema";
 import { headers } from "next/headers";
 
@@ -48,6 +49,10 @@ export async function AiAnalysisSection({ symbol, userId }: AiAnalysisSectionPro
 
       if (!report) {
         report = await synthesiseVerdict(symbol).catch(() => null);
+      }
+
+      if (report?.model === "all_providers_exhausted") {
+        report = await synthesiseVerdictFresh(symbol).catch(() => report);
       }
     }
 
@@ -96,15 +101,21 @@ export async function AiAnalysisSection({ symbol, userId }: AiAnalysisSectionPro
     }
 
     return (
-      <div className="rounded-xl border border-slate-800 bg-slate-900/40 p-5 text-xs font-mono text-slate-500">
-        AI fundamental analysis temporarily unavailable. Please try again later.
+      <div className="space-y-4">
+        <div className="rounded-xl border border-slate-800 bg-slate-900/40 p-5 text-xs font-mono text-slate-500">
+          AI fundamental analysis temporarily unavailable. Please try again later.
+        </div>
+        <Disclaimer />
       </div>
     );
   } catch (err) {
     console.error("[AiAnalysisSection] Unexpected error:", err);
     return (
-      <div className="rounded-xl border border-slate-800 bg-slate-900/40 p-5 text-xs font-mono text-slate-500">
-        AI fundamental analysis temporarily unavailable. Please try again later.
+      <div className="space-y-4">
+        <div className="rounded-xl border border-slate-800 bg-slate-900/40 p-5 text-xs font-mono text-slate-500">
+          AI fundamental analysis temporarily unavailable. Please try again later.
+        </div>
+        <Disclaimer />
       </div>
     );
   }

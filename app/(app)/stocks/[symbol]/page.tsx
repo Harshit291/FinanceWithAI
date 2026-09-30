@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import { auth } from "@/lib/auth/config";
 import { VerdictCardSkeleton } from "@/components/ai-report/VerdictCardSkeleton";
+import { Disclaimer } from "@/components/ai-report/Disclaimer";
 import { TechnicalPanelSkeleton } from "@/components/charts/TechnicalPanelSkeleton";
 import { ChartSkeleton } from "@/components/charts/ChartSkeleton";
 import { Skeleton } from "@/components/ui/Skeleton";
@@ -88,6 +89,10 @@ export default async function StockPage({ params, searchParams }: Props) {
           </div>
         </div>
       </header>
+
+      <div className="mb-5">
+        <Disclaimer />
+      </div>
 
       {/* Full-width chart */}
       <div className="mb-5 rounded-2xl overflow-hidden border border-slate-800/60">

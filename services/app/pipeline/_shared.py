@@ -46,8 +46,8 @@ PROVIDER_CATALOGUE: dict[str, Provider] = {
         api_key_env="GROQ_API_KEY",
         base_url="https://api.groq.com/openai/v1",
         models={
-            "synthesis": "llama-3.3-70b-versatile",
-            "classifier": "llama-3.1-8b-instant",
+            "synthesis": "openai/gpt-oss-120b",
+            "classifier": "openai/gpt-oss-20b",
         },
     ),
     "cerebras": Provider(

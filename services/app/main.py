@@ -70,7 +70,7 @@ async def create_report(req: ReportRequest):
         fetch_news(symbol, company_name=meta.company_name),
         fetch_peers(symbol),
     )
-    classified_news = await classify_articles(symbol, news[:8])
+    classified_news = await classify_articles(symbol, news[:4])
     report = await synthesize(
         symbol=symbol,
         exchange=meta.exchange,

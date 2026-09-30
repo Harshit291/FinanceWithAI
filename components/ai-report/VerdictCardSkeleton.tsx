@@ -1,6 +1,7 @@
 import { Loader2, Info } from "lucide-react";
 import { SupportUsModal } from "./SupportUsModal";
 import { AdSenseUnit } from "@/components/ui/AdSenseUnit";
+import { Disclaimer } from "./Disclaimer";
 
 export function VerdictCardSkeleton() {
   return (
@@ -24,6 +25,8 @@ export function VerdictCardSkeleton() {
           </div>
         </div>
       </div>
+
+      <Disclaimer />
 
       {/* AdSense Placement */}
       <div className="w-full min-h-64 rounded-2xl border border-slate-800 bg-slate-900/40 relative overflow-hidden flex flex-col justify-center">

@@ -14,8 +14,8 @@ export function SourceList({ sources }: SourceListProps) {
         Sources
       </p>
       <ul className="flex flex-wrap gap-x-5 gap-y-2">
-        {sources.map((s) => (
-          <li key={s.url} className="flex items-center gap-1.5">
+        {sources.map((s, index) => (
+          <li key={`${s.url}-${index}`} className="flex items-center gap-1.5">
             <ExternalLink className="h-3 w-3 shrink-0 text-slate-600" aria-hidden />
             <a
               href={s.url}

@@ -8,7 +8,7 @@ export async function synthesiseTechnical(symbol: string, strategy: string = "tr
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ symbol, strategy }),
-    next: { revalidate: 3600 }, // 1h — technical signals update with price
+    cache: "no-store",
   });
 
   if (!res.ok) {
