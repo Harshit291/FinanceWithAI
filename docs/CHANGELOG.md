@@ -4,6 +4,20 @@
 
 ---
 
+## 2026-09-30 — Runtime verification and repairs
+
+### Fixed
+- Stock pages now render the mandatory investment disclaimer before asynchronous chart and AI content, including slow loading and provider-error states.
+- Stock-page saves now create or reuse a visible `Saved Stocks` grouped watchlist, so saved symbols appear on `/watchlist`.
+- Updated Groq provider IDs to the account's active `openai/gpt-oss-120b` and `openai/gpt-oss-20b` models; capped report classification input at four articles to fit the free-tier token budget.
+- Hardened Playwright stock smoke checks for streaming pages and installed the missing WebKit browser.
+
+### Verified
+- `tsc --noEmit`, Vitest (9 tests), production build, and Playwright desktop/mobile suites (12 tests) pass.
+- Browser-tested registration, watchlist save, paper buy/portfolio, strategy URL state, and mobile stock page rendering.
+
+---
+
 ## 2026-05-17 — Session 7: per-user daily AI report quota
 
 ### Added

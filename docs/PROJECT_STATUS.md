@@ -2,11 +2,17 @@
 
 > Single source of truth for "where are we right now". Updated at the end of every working session.
 
-**Last updated:** 2026-05-31 (session 8 in progress)
+**Last updated:** 2026-09-30
 
 ---
 
 ## Current sprint goal
+
+✅ **Runtime verification and regression repair complete.**
+- Stock-page disclaimer now renders before asynchronous chart and AI boundaries, including loading and provider-error states.
+- Stock-page saves create/use the visible grouped `Saved Stocks` watchlist.
+- Groq provider IDs updated to the live account catalogue; report input is capped at four classified news items to fit the free-tier request budget.
+- Verified browser flows: registration, stock search, grouped watchlist save, paper buy and portfolio, strategy URL state, and responsive stock pages.
 
 ✅ **Session 7 complete.** Per-user daily quota shipped:
 - `lib/reports/quota.ts` — `checkQuota(userId)` rolling 24h window count against `RATE_LIMIT_REPORTS_PER_DAY` (default 20).
